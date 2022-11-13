@@ -1,4 +1,4 @@
-name: hoc_flutter
+name: shop_order
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -36,6 +36,19 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  device_preview: ^1.1.0
+  nb_utils: ^4.6.23
+  flutter_rating_bar: ^4.0.1
+  image_picker: ^0.8.6
+  country_code_picker: ^2.0.2
+  cached_network_image: ^3.2.2
+  cloud_firestore: ^4.0.4
+  flutter_mobx: ^2.0.6+4
+  google_fonts: ^3.0.1
+  onesignal_flutter: ^3.4.2
+  flutter_slidable: ^2.0.0
+  timeline_tile: ^2.0.0
+  pin_code_fields: ^7.4.0
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +71,42 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - images/
+    - images/app/
+    - images/app/abstract_icons/
+    - images/eGarden/
+    - images/handyman/
+    - images/smartHome/
+    - images/VPNApp/
+    - images/widgets/materialWidgets/
+    - images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/
+    - images/widgets/materialWidgets/mwAppStructureWidgets/TabBar/
+    - images/widgets/materialWidgets/mwDialogAlertPanelWidgets/
+    - images/widgets/materialWidgets/mwInputSelectionWidgets/Checkbox/
+    - images/widgets/materialWidgets/mwInputSelectionWidgets/switch/
+    - images/widgets/materialWidgets/mwInformationDisplayWidgets/cards/
+    - images/widgets/materialWidgets/mwInformationDisplayWidgets/category/
+    - images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/
+    - images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/
+    - images/widgets/cupertinoWidgets/
+    - images/widgets/paintingandeffectWidget/
+    - images/LikeButton/image/
+    - images/snippet/
+    - images/Meela/
+    - images/rentHouse/
+    - images/groceryApp/
+    - images/foodDelivery/
+    - images/finance/
+    - images/storyView/
+    - images/yoga/
+    - images/newsblog/
+    - images/iiumiaCrypto/
+    - images/toDoList/
+    - images/eStudy/
+    - images/nft/
+    - images/meditationApp/
+    - images/Travel/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
