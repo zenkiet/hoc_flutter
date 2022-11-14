@@ -11,6 +11,9 @@ class AppStore = AppStoreBase with _$AppStore;
 
 abstract class AppStoreBase with Store {
   @observable
+  String userExist = '';
+
+  @observable
   bool isDarkModeOn = false;
 
   @observable
@@ -23,7 +26,8 @@ abstract class AppStoreBase with Store {
   List<HSDeviceModel?> favDeviceList = ObservableList<HSDeviceModel?>();
 
   @observable
-  List<HSUserProfileModel> hsUserProfileList = ObservableList<HSUserProfileModel>();
+  List<HSUserProfileModel> hsUserProfileList =
+      ObservableList<HSUserProfileModel>();
 
   @action
   void addToMyItems(HSDeviceModel? data) {

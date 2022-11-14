@@ -19,14 +19,17 @@ Widget gsAppButton(BuildContext context, String title, Function onTap) {
   );
 }
 
-InputDecoration inputDecoration({String? label}) {
+InputDecoration inputDecoration({String? label, String? error}) {
   return InputDecoration(
     enabledBorder:
-        UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-    focusedBorder:
-        UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+        const UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+    focusedBorder: const UnderlineInputBorder(
+        borderSide: BorderSide(color: gs_primary_color)),
     labelText: label,
     labelStyle: secondaryTextStyle(size: 14),
+    errorText: error,
+    errorBorder:
+        const UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
   );
 }
 

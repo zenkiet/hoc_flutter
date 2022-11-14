@@ -15,17 +15,20 @@ import 'package:nb_utils/nb_utils.dart';
 class GSDashboardScreen extends StatefulWidget {
   static String tag = '/GSDashboardScreen';
 
+  const GSDashboardScreen({super.key});
+
   @override
   GSDashboardScreenState createState() => GSDashboardScreenState();
 }
 
 class GSDashboardScreenState extends State<GSDashboardScreen> {
-  List<GSSliderModel> sliderList = getSliderList();
-  List<GSCategoryModel> categoryList = getCategoryList();
+  List<SliderModel> sliderList = getSliderList();
+  List<CategoryModel> categoryList = getCategoryList();
   List<GSRecommendedModel> recommendedList = getRecommendedList();
 
   int currentIndexPage = 0;
-  PageController pageController = PageController(viewportFraction: 0.92, initialPage: 0);
+  PageController pageController =
+      PageController(viewportFraction: 0.92, initialPage: 0);
 
   @override
   void initState() {
@@ -53,7 +56,8 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+          backgroundColor:
+              appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
           elevation: 1,
           centerTitle: false,
           automaticallyImplyLeading: false,
@@ -63,13 +67,17 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
             children: [
               Row(
                 children: [
-                  Image.asset(gs_app_logo, height: 40, width: 40, fit: BoxFit.cover),
+                  Image.asset(avatarLogo,
+                      height: 50, width: 50, fit: BoxFit.cover),
                   8.width,
                   Text(GSAppName, style: boldTextStyle()),
                 ],
               ).paddingLeft(16),
               IconButton(
-                icon: Icon(Icons.notifications_none_sharp, color: appStore.isDarkModeOn ? iconSecondaryColor : Colors.black),
+                icon: Icon(Icons.notifications_none_sharp,
+                    color: appStore.isDarkModeOn
+                        ? iconSecondaryColor
+                        : Colors.black),
                 onPressed: () {
                   hideKeyboard(context);
                   GSNotificationScreen().launch(context);
@@ -80,40 +88,47 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
         ),
         body: ListView(
           shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   height: 60,
-                  padding: EdgeInsets.only(left: 16, right: 8),
+                  padding: const EdgeInsets.only(left: 16, right: 8),
                   decoration: boxDecorationWithRoundedCorners(
                     borderRadius: radius(8),
-                    backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.grey[50]!,
+                    backgroundColor: appStore.isDarkModeOn
+                        ? scaffoldSecondaryDark
+                        : Colors.grey[50]!,
                   ),
                   child: Row(
                     children: [
                       TextField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Search for products",
-                          hintStyle: secondaryTextStyle(),
+                          hintText: "Tìm kiếm sản phẩm",
+                          hintStyle:
+                              secondaryTextStyle(size: 18, color: Colors.grey),
                         ),
                       ).expand(),
-                      IconButton(icon: Icon(Icons.search), onPressed: null),
+                      const IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: null, //! đang phát triển
+                      ),
                     ],
                   ),
                 ).paddingOnly(left: 16, right: 16, top: 16),
                 16.height,
-                Container(
+                SizedBox(
                   height: 240,
                   width: context.width(),
                   child: PageView.builder(
                     pageSnapping: false,
                     itemCount: sliderList.length,
                     controller: pageController,
-                    onPageChanged: (int index) => setState(() => currentIndexPage = index),
+                    onPageChanged: (int index) =>
+                        setState(() => currentIndexPage = index),
                     itemBuilder: (_, index) {
                       return Image.asset(
                         sliderList[index].image.validate(),
@@ -129,8 +144,8 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                   alignment: Alignment.bottomCenter,
                   width: context.width(),
                   child: DotIndicator(
-                    currentDotSize: 10,
-                    dotSize: 6,
+                    currentDotSize: 20,
+                    dotSize: 10,
                     pageController: pageController,
                     pages: sliderList,
                     indicatorColor: gs_primary_color,
@@ -138,12 +153,16 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                   ),
                 ),
                 16.height,
-                GSCategoryListComponent(categoryList).paddingOnly(left: 16, right: 16),
+                GSCategoryListComponent(categoryList)
+                    .paddingOnly(left: 16, right: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Recommend for you", style: boldTextStyle()),
-                    Text("See More", style: boldTextStyle(color: gs_primary_color, size: 14)).onTap(() {
+                    Text("Giảm Giá Nhiều", style: boldTextStyle(size: 18)),
+                    Text("Xem Thêm",
+                            style: boldTextStyle(
+                                color: gs_primary_color, size: 16))
+                        .onTap(() {
                       GSCategoryListDetailsScreen().launch(context);
                     })
                   ],
@@ -154,8 +173,11 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Pick's Today", style: boldTextStyle()),
-                    Text("See More", style: boldTextStyle(color: gs_primary_color, size: 14)).onTap(() {
+                    Text("Đánh Giá Cao", style: boldTextStyle(size: 18)),
+                    Text("Xêm Thêm",
+                            style: boldTextStyle(
+                                color: gs_primary_color, size: 16))
+                        .onTap(() {
                       GSCategoryListDetailsScreen().launch(context);
                     })
                   ],

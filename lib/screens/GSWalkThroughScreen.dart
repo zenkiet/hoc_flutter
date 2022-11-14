@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
-import 'package:shop_order/screens/GSDashboardScreen.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/GSImages.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -94,7 +93,7 @@ class GSWalkThroughScreenState extends State<GSWalkThroughScreen>
                 style: primaryTextStyle(size: 16, color: gs_primary_color),
                 textAlign: TextAlign.end,
               ).onTap(() {
-                GSDashboardScreen().launch(context);
+                GSWelcomeScreen().launch(context);
               }),
             ).paddingOnly(right: 30, top: 30),
             Positioned(

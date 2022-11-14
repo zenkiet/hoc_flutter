@@ -1,14 +1,32 @@
-class GSSliderModel {
-  String? image;
+class User {
+  // username, fullname, email, password, phone, address
+  String? username;
+  String? fullname;
+  String? email;
+  String? password;
+  late String phone;
+  late String address;
 
-  GSSliderModel({this.image});
+  User(
+      {this.username,
+      this.fullname,
+      this.email,
+      this.password,
+      this.phone = '',
+      this.address = ''});
 }
 
-class GSCategoryModel {
+class SliderModel {
+  String? image;
+
+  SliderModel({this.image});
+}
+
+class CategoryModel {
   String? image;
   String? catgoryName;
 
-  GSCategoryModel({this.image, this.catgoryName});
+  CategoryModel({this.image, this.catgoryName});
 }
 
 class GSRecommendedModel {
@@ -22,7 +40,16 @@ class GSRecommendedModel {
   int? qty;
   int? total;
 
-  GSRecommendedModel({this.offer, this.image, this.salePrice, this.price, this.title, this.quantity, this.description, this.qty, this.total});
+  GSRecommendedModel(
+      {this.offer,
+      this.image,
+      this.salePrice,
+      this.price,
+      this.title,
+      this.quantity,
+      this.description,
+      this.qty,
+      this.total});
 }
 
 /*class GSCategoryListDetailsModel {
@@ -46,7 +73,14 @@ class GSMyOrderModel {
   String? cost;
   String? orderId;
 
-  GSMyOrderModel({this.title, this.date, this.orderStatus, this.image, this.address, this.cost, this.orderId});
+  GSMyOrderModel(
+      {this.title,
+      this.date,
+      this.orderStatus,
+      this.image,
+      this.address,
+      this.cost,
+      this.orderId});
 }
 
 class GSAddressModel {

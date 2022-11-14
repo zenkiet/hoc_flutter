@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:shop_order/screens/GSForgotPasswordScreen.dart';
 import 'package:shop_order/screens/GSMainScreen.dart';
 import 'package:shop_order/screens/GSRegisterScreen.dart';
 import 'package:shop_order/utils/GSColors.dart';
@@ -7,15 +8,24 @@ import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:http/http.dart' as http;
+import '../model/GSModel.dart';
+import 'package:shop_order/main/store/AppStore.dart';
+
+// import 'package:shop_order/screens/GSForgotPasswordScreen.dart';
 
 class GSLoginScreen extends StatefulWidget {
   static String tag = '/GSLoginScreen';
+
+  const GSLoginScreen({super.key});
 
   @override
   GSLoginScreenState createState() => GSLoginScreenState();
 }
 
 class GSLoginScreenState extends State<GSLoginScreen> {
+  // appstore
+  AppStore appStore = AppStore();
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -27,6 +37,12 @@ class GSLoginScreenState extends State<GSLoginScreen> {
 
   bool showPassword = false;
 
+// add list error
+  final String _usernameErr = 'Tài khoản không hợp lệ';
+  final String _passwordErr = 'Mật khẩu không hợp lệ';
+  bool _userInvalid = false;
+  bool _passInvalid = false;
+
   @override
   void initState() {
     super.initState();
@@ -34,7 +50,8 @@ class GSLoginScreenState extends State<GSLoginScreen> {
   }
 
   init() async {
-    setStatusBarColor(appStore.isDarkModeOn ? scaffoldColorDark : Colors.white, statusBarIconBrightness: Brightness.dark);
+    setStatusBarColor(appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+        statusBarIconBrightness: Brightness.dark);
   }
 
   @override
@@ -53,12 +70,13 @@ class GSLoginScreenState extends State<GSLoginScreen> {
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
-        appBar: appBarWidget('', color: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white),
+        appBar: appBarWidget('',
+            color: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Login to continue", style: boldTextStyle(size: 20)),
+              Text("Đăng nhập", style: boldTextStyle(size: 20)),
               16.height,
               Form(
                 key: formKey,
@@ -67,7 +85,9 @@ class GSLoginScreenState extends State<GSLoginScreen> {
                     AppTextField(
                       controller: emailController,
                       textFieldType: TextFieldType.EMAIL,
-                      decoration: inputDecoration(label: "Email Address"),
+                      decoration: inputDecoration(
+                          label: "Username",
+                          error: _userInvalid ? _usernameErr : null),
                       focus: emailNode,
                       nextFocus: passwordNode,
                       keyboardType: TextInputType.text,
@@ -75,6 +95,7 @@ class GSLoginScreenState extends State<GSLoginScreen> {
                     16.height,
                     TextFormField(
                       focusNode: passwordNode,
+                      controller: passwordController,
                       autofocus: false,
                       obscureText: showPassword ? false : true,
                       onFieldSubmitted: (term) {
@@ -87,12 +108,19 @@ class GSLoginScreenState extends State<GSLoginScreen> {
                             showPassword = !showPassword;
                             setState(() {});
                           },
-                          child: Icon(showPassword ? Icons.visibility : Icons.visibility_off, color: gs_primary_color),
+                          child: Icon(
+                              showPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: gs_primary_color),
                         ),
-                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
-                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+                        enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: gs_primary_color)),
+                        focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: gs_primary_color)),
                         labelStyle: secondaryTextStyle(size: 14),
-                        labelText: "Password",
+                        labelText: "Mật Khẩu",
+                        errorText: _passInvalid ? _passwordErr : null,
                       ),
                     ),
                   ],
@@ -101,34 +129,82 @@ class GSLoginScreenState extends State<GSLoginScreen> {
               50.height,
               gsAppButton(
                 context,
-                'Login',
+                'Đăng Nhập',
                 () {
-                  if (formKey.currentState!.validate()) {}
-                  finish(context);
-                  GSMainScreen().launch(context);
+                  loginClicked();
+                  // if (formKey.currentState!.validate()) {}
+                  // finish(context);
+                  // GSMainScreen().launch(context);
                 },
               ),
-              16.height,
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text("Forgot Password?", style: boldTextStyle(color: gs_primary_color, size: 14)).onTap(() {
-                  GSForgotPasswordScreen().launch(context);
-                }),
-              ),
+              // 16.height,
+              // Align(
+              //   alignment: Alignment.centerRight,
+              //   child: Text("Quên Mật Khẩu?",
+              //           style: boldTextStyle(color: gs_primary_color, size: 14))
+              //       .onTap(() {
+              //     GSForgotPasswordScreen().launch(context);
+              //   }),
+              // ),
               30.height,
               createRichText(list: [
-                TextSpan(text: "Don't have an account? ", style: secondaryTextStyle(size: 16)),
                 TextSpan(
-                  text: "Register",
-                  style: boldTextStyle(color: gs_primary_color, size: 16),
+                    text: "Nếu bạn chưa có tài khoản? ",
+                    style: secondaryTextStyle(size: 16)),
+                TextSpan(
+                  text: "Đăng nhập",
+                  style: boldTextStyle(color: gs_primary_color, size: 18),
                 ),
               ]).center().onTap(() {
-                GSRegisterScreen().launch(context);
+                const GSRegisterScreen().launch(context);
               }),
             ],
           ).paddingAll(16),
         ),
       ),
     );
+  }
+
+  Future loginUser(String username, String password) async {
+    var uri = Uri.parse(
+        'https://cloneshoporder.local/api/login/${username}/${password}');
+    var response =
+        await http.get(uri, headers: {'Content-Type': 'application/json'});
+    var data = json.decode(utf8.decode(response.bodyBytes));
+
+    if (data['status'] == 'failed') {
+      return Future.value(false);
+    } else {
+      appStore.userExist = username;
+      appStore.isLoggedIn = true;
+      goMainScreen();
+    }
+  }
+
+  void goMainScreen() => {
+        finish(context),
+        GSMainScreen().launch(context),
+      };
+
+  void loginClicked() {
+    setState(() {
+      String username = emailController.text;
+      String password = passwordController.text;
+
+      if (username.isEmpty || username.length < 3) {
+        _userInvalid = true;
+      } else {
+        _userInvalid = false;
+      }
+      if (password.isEmpty || password.length < 6) {
+        _passInvalid = true;
+      } else {
+        _passInvalid = false;
+      }
+
+      if (!_userInvalid && !_passInvalid) {
+        loginUser(username, password);
+      }
+    });
   }
 }

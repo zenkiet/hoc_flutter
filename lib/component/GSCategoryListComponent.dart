@@ -8,9 +8,9 @@ import 'package:nb_utils/nb_utils.dart';
 // ignore: must_be_immutable
 class GSCategoryListComponent extends StatefulWidget {
   static String tag = '/GSCategoryListComponent';
-  List<GSCategoryModel> categoryList;
+  List<CategoryModel> categoryList;
 
-  GSCategoryListComponent(this.categoryList);
+  GSCategoryListComponent(this.categoryList, {super.key});
 
   @override
   GSCategoryListComponentState createState() => GSCategoryListComponentState();
@@ -40,23 +40,29 @@ class GSCategoryListComponentState extends State<GSCategoryListComponent> {
       children: widget.categoryList.map((e) {
         return Container(
           width: context.width() * 0.27,
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           decoration: boxDecorationWithRoundedCorners(
             borderRadius: radius(4),
             border: Border.all(color: Colors.grey[200]!),
-            backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+            backgroundColor:
+                appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(e.image!, fit: BoxFit.cover, height: 60, width: 60),
+              Image.asset(e.image!, fit: BoxFit.cover, height: 80, width: 80),
               8.height,
-              Text(e.catgoryName!, style: primaryTextStyle(size: 12), textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
+              Text(e.catgoryName!,
+                  style: primaryTextStyle(size: 12),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis),
             ],
           ),
         ).onTap(() {
-          GSCategoryListDetailsScreen(categoryName: e.catgoryName).launch(context);
+          GSCategoryListDetailsScreen(categoryName: e.catgoryName)
+              .launch(context);
         });
       }).toList(),
     );

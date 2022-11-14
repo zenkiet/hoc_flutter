@@ -50,6 +50,7 @@ dependencies:
   timeline_tile: ^2.0.0
   pin_code_fields: ^7.4.0
   dots_indicator: ^2.1.0
+  font_awesome_flutter: ^10.2.1
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,8 @@ flutter:
     - assets/
     - assets/products/
     - assets/walk_through/
+    - assets/category/
+    - assets/slider/
     - images/
     - images/app/
     - images/app/abstract_icons/

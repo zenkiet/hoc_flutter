@@ -2,12 +2,15 @@ import 'package:shop_order/main/utils/AppConstants.dart';
 
 const welcomeImage = 'assets/welcome.png';
 
-const gs_app_logo = 'images/groceryApp/app_logo.png';
+const gs_app_logo = 'images/groceryApp/logo.png';
 const gs_app_logo_white = 'assets/logo.png';
 const gs_apple_icon = '$BaseUrl/groceryApp/apple_icon.png';
 
+const avatarLogo = 'assets/avatar.png';
+const appLogo = 'assets/app_shop.png';
+
 // add list string store image
-List<String> imageWalkThough = [
+const List<String> imageWalkThough = [
   'assets/walk_through/1.png',
   'assets/walk_through/2.png',
   'assets/walk_through/3.png',
@@ -15,11 +18,22 @@ List<String> imageWalkThough = [
   'assets/walk_through/5.png',
 ];
 
-const gs_walk_through1 = 'images/groceryApp/walkthrough1.png';
-const gs_walk_through2 = 'images/groceryApp/walkthrough2.png';
-const gs_walk_through3 = 'images/groceryApp/walkthrough3.png';
-const gs_walk_through4 = 'images/groceryApp/walkthrough3.png';
-const gs_walk_through5 = 'images/groceryApp/walkthrough3.png';
+// add 2D array string store image
+const List<List<String>> imageCategory = [
+  ['Bánh', 'assets/category/cake.png'],
+  ['Kẹo', 'assets/category/candy.png'],
+  ['Đồ Chiên', 'assets/category/fastfood.png'],
+  ['Trái Cây', 'assets/category/fruit.png'],
+  ['Kem', 'assets/category/icecream.png'],
+];
+
+const List<String> imageSlider = [
+  'assets/slider/1.png',
+  'assets/slider/2.png',
+  'assets/slider/3.png',
+  // 'assets/slider/1.png',
+  // 'assets/slider/1.png',
+];
 
 const gs_google_icon = 'images/groceryApp/google_icon.png';
 const gs_slider_image1 = 'images/groceryApp/slider_image1.png';
@@ -29,6 +43,7 @@ const gs_bakery_product_img = 'images/groceryApp/bakery_product.png';
 const gs_dairy_product_img = 'images/groceryApp/dairy_product.png';
 const gs_fruits_img = 'images/groceryApp/fruits.png';
 const gs_meat_product_img = 'images/groceryApp/meat_product.png';
+
 const gs_organic_img = 'images/groceryApp/organic_image.png';
 const gs_sea_food_img = 'images/groceryApp/seafood.png';
 const gs_vegetable_img = 'images/groceryApp/vegetable.png';

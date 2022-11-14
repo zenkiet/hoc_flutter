@@ -1,3 +1,4 @@
+const baseUrl = "https://cloneshoporder.local/api";
 const GSAppName = "Zen Shop Order";
 const GSCompleted = 1;
 const GSOnProgress = 2;
