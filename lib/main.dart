@@ -11,7 +11,7 @@ import 'package:shop_order/main/utils/AppConstants.dart';
 import 'package:nb_utils/nb_utils.dart';
 // import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-import 'package:shop_order/screens/GSWelcomeScreen.dart';
+import 'package:shop_order/screens/GSWalkThroughScreen.dart';
 
 AppStore appStore = AppStore();
 
@@ -35,15 +35,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Zen Learn Flutter',
+      title: 'Zen Shop Order',
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false, //? xoá logo Debug
-      
-      home: GSWelcomeScreen(),
+
+      home: GSWalkThroughScreen(),
     );
   }
 }

@@ -1,11 +1,26 @@
 import 'package:shop_order/main/utils/AppConstants.dart';
 
+const welcomeImage = 'assets/welcome.png';
+
 const gs_app_logo = 'images/groceryApp/app_logo.png';
-const gs_app_logo_white = 'images/groceryApp/app_logo_white.png';
+const gs_app_logo_white = 'assets/logo.png';
 const gs_apple_icon = '$BaseUrl/groceryApp/apple_icon.png';
+
+// add list string store image
+List<String> imageWalkThough = [
+  'assets/walk_through/1.png',
+  'assets/walk_through/2.png',
+  'assets/walk_through/3.png',
+  'assets/walk_through/4.png',
+  'assets/walk_through/5.png',
+];
+
 const gs_walk_through1 = 'images/groceryApp/walkthrough1.png';
 const gs_walk_through2 = 'images/groceryApp/walkthrough2.png';
 const gs_walk_through3 = 'images/groceryApp/walkthrough3.png';
+const gs_walk_through4 = 'images/groceryApp/walkthrough3.png';
+const gs_walk_through5 = 'images/groceryApp/walkthrough3.png';
+
 const gs_google_icon = 'images/groceryApp/google_icon.png';
 const gs_slider_image1 = 'images/groceryApp/slider_image1.png';
 const gs_slider_image2 = 'images/groceryApp/slider_image2.png';

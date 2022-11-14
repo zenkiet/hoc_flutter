@@ -11,42 +11,29 @@ import 'package:nb_utils/nb_utils.dart';
 Widget gsAppButton(BuildContext context, String title, Function onTap) {
   return AppButton(
     width: context.width(),
-    child: Text(title, style: boldTextStyle(color: Colors.white)),
     color: gs_primary_color,
-    shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+    shapeBorder: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10))),
     onTap: onTap,
-  );
-}
-
-Widget gsWalkThroughWidget(String image, String title, String subTitle) {
-  return Container(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(image.validate(), height: 220, width: 180, fit: BoxFit.cover),
-        60.height,
-        Column(
-          children: [
-            Text(title.validate(), style: boldTextStyle(size: 20), textAlign: TextAlign.center),
-            16.height,
-            Text(subTitle.validate(), style: secondaryTextStyle(size: 16), textAlign: TextAlign.center),
-          ],
-        ),
-      ],
-    ),
+    child: Text(title, style: boldTextStyle(color: Colors.white, size: 20)),
   );
 }
 
 InputDecoration inputDecoration({String? label}) {
   return InputDecoration(
-    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+    enabledBorder:
+        UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+    focusedBorder:
+        UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
     labelText: label,
     labelStyle: secondaryTextStyle(size: 14),
   );
 }
 
-Widget myOrderWidget({Widget? ratingBar, required List<GSMyOrderModel> orderList, Function? onTap}) {
+Widget myOrderWidget(
+    {Widget? ratingBar,
+    required List<GSMyOrderModel> orderList,
+    Function? onTap}) {
   return ListView.builder(
     padding: EdgeInsets.only(top: 8),
     shrinkWrap: true,
@@ -60,7 +47,8 @@ Widget myOrderWidget({Widget? ratingBar, required List<GSMyOrderModel> orderList
         decoration: boxDecorationWithRoundedCorners(
           boxShadow: defaultBoxShadow(),
           borderRadius: radius(0),
-          backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+          backgroundColor:
+              appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +61,8 @@ Widget myOrderWidget({Widget? ratingBar, required List<GSMyOrderModel> orderList
                   children: [
                     Text(mData.title!, style: boldTextStyle()),
                     4.height,
-                    Text("Delivered on ${mData.date}", style: secondaryTextStyle()),
+                    Text("Delivered on ${mData.date}",
+                        style: secondaryTextStyle()),
                     4.height,
                     Container(
                       decoration: boxDecorationWithRoundedCorners(
@@ -85,7 +74,8 @@ Widget myOrderWidget({Widget? ratingBar, required List<GSMyOrderModel> orderList
                                   : (mData.orderStatus == GSCancel)
                                       ? Colors.red
                                       : Container() as Color),
-                      padding: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+                      padding:
+                          EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
                       child: Text(
                           (mData.orderStatus == GSCompleted)
                               ? "Completed"
@@ -99,7 +89,8 @@ Widget myOrderWidget({Widget? ratingBar, required List<GSMyOrderModel> orderList
                     8.height,
                   ],
                 ).expand(),
-                Image.asset(mData.image!, height: 80, width: 80, fit: BoxFit.cover)
+                Image.asset(mData.image!,
+                    height: 80, width: 80, fit: BoxFit.cover)
               ],
             ),
             8.height,
@@ -169,7 +160,8 @@ Widget profileWidget(String title, String description) {
           Text(description, style: secondaryTextStyle()),
         ],
       ),
-      Image.asset(gs_next_icon, height: 20, width: 20, fit: BoxFit.cover, color: gs_primary_color)
+      Image.asset(gs_next_icon,
+          height: 20, width: 20, fit: BoxFit.cover, color: gs_primary_color)
     ],
   ).paddingOnly(top: 8, bottom: 8, left: 16, right: 16);
 }
@@ -209,9 +201,12 @@ Widget gsStatusBarWithTitle(BuildContext context, String title) {
   );
 }
 
-bottomFilterDialog(BuildContext context, String title, List list, {int tappedIndex = 0}) {
+bottomFilterDialog(BuildContext context, String title, List list,
+    {int tappedIndex = 0}) {
   return showModalBottomSheet(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(16), topLeft: Radius.circular(16))),
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(16), topLeft: Radius.circular(16))),
     context: context,
     builder: (BuildContext context) {
       return BottomSheet(

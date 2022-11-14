@@ -19,10 +19,12 @@ class GSRecommendationDetailsScreen extends StatefulWidget {
   GSRecommendationDetailsScreen({this.recommendedDetails});
 
   @override
-  GSRecommendationDetailsScreenState createState() => GSRecommendationDetailsScreenState();
+  GSRecommendationDetailsScreenState createState() =>
+      GSRecommendationDetailsScreenState();
 }
 
-class GSRecommendationDetailsScreenState extends State<GSRecommendationDetailsScreen> {
+class GSRecommendationDetailsScreenState
+    extends State<GSRecommendationDetailsScreen> {
   int ratingNum = 0;
   int counter = 1;
 
@@ -42,8 +44,10 @@ class GSRecommendationDetailsScreenState extends State<GSRecommendationDetailsSc
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
-      appBar: appBarWidget('', color: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white),
+      backgroundColor:
+          appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
+      appBar: appBarWidget('',
+          color: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -52,23 +56,29 @@ class GSRecommendationDetailsScreenState extends State<GSRecommendationDetailsSc
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(widget.recommendedDetails!.image!, fit: BoxFit.cover, height: 180, width: 180).center(),
+                      Image.asset(widget.recommendedDetails!.image!,
+                              fit: BoxFit.cover, height: 180, width: 180)
+                          .center(),
                       16.height,
                       Row(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.recommendedDetails!.title.validate(), style: boldTextStyle(size: 20)),
+                              Text(widget.recommendedDetails!.title.validate(),
+                                  style: boldTextStyle(size: 20)),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
                                     "\u0024${widget.recommendedDetails!.price.validate()}${"/kg"}",
-                                    style: secondaryTextStyle(decoration: TextDecoration.lineThrough),
+                                    style: secondaryTextStyle(
+                                        decoration: TextDecoration.lineThrough),
                                   ),
                                   8.width,
-                                  Text("\u0024${widget.recommendedDetails!.price.validate()}${"/kg"}", style: primaryTextStyle())
+                                  Text(
+                                      "\u0024${widget.recommendedDetails!.price.validate()}${"/kg"}",
+                                      style: primaryTextStyle())
                                 ],
                               ),
                             ],
@@ -78,7 +88,8 @@ class GSRecommendationDetailsScreenState extends State<GSRecommendationDetailsSc
                       8.height,
                       Divider(),
                       8.height,
-                      Text(widget.recommendedDetails!.description.validate(), style: primaryTextStyle(size: 14)),
+                      Text(widget.recommendedDetails!.description.validate(),
+                          style: primaryTextStyle(size: 14)),
                       20.height,
                       Text("Review", style: boldTextStyle()),
                       16.height,
@@ -92,14 +103,18 @@ class GSRecommendationDetailsScreenState extends State<GSRecommendationDetailsSc
                               maxRating: 5,
                               itemSize: 20,
                               ignoreGestures: true,
-                              itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber),
+                              itemBuilder: (context, _) =>
+                                  Icon(Icons.star, color: Colors.amber),
                               onRatingUpdate: (rating) {
                                 ratingNum = rating.toInt();
                                 setState(() {});
                               }),
                           8.width,
-                          Text("5.0 from 1.942 users", style: secondaryTextStyle(size: 12)).expand(),
-                          Image.asset(gs_next_icon, width: 20, height: 20, color: Colors.grey),
+                          Text("5.0 from 1.942 users",
+                                  style: secondaryTextStyle(size: 12))
+                              .expand(),
+                          Image.asset(gs_next_icon,
+                              width: 20, height: 20, color: Colors.grey),
                         ],
                       ).onTap(() {}),
                     ],
@@ -112,7 +127,8 @@ class GSRecommendationDetailsScreenState extends State<GSRecommendationDetailsSc
             decoration: boxDecorationWithRoundedCorners(
               borderRadius: radiusOnly(topRight: 12, topLeft: 12),
               boxShadow: defaultBoxShadow(),
-              backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+              backgroundColor:
+                  appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,11 +137,15 @@ class GSRecommendationDetailsScreenState extends State<GSRecommendationDetailsSc
                   children: [
                     Text("Total", style: boldTextStyle(size: 20)),
                     8.width,
-                    Text("\u0024${widget.recommendedDetails!.salePrice.validate()}", style: boldTextStyle(size: 20)).expand(),
+                    Text("\u0024${widget.recommendedDetails!.salePrice.validate()}",
+                            style: boldTextStyle(size: 20))
+                        .expand(),
                     Row(
                       children: [
                         counter != 1
-                            ? commonCacheImageWidget(gs_minus_icon, 20, width: 20).onTap(() {
+                            ? commonCacheImageWidget(gs_minus_icon, 20,
+                                    width: 20)
+                                .onTap(() {
                                 setState(() {
                                   counter--;
                                 });
@@ -134,7 +154,8 @@ class GSRecommendationDetailsScreenState extends State<GSRecommendationDetailsSc
                         16.width,
                         Text('$counter', style: boldTextStyle()),
                         16.width,
-                        commonCacheImageWidget(gs_add_icon, 24, width: 24).onTap(() {
+                        commonCacheImageWidget(gs_add_icon, 24, width: 24)
+                            .onTap(() {
                           setState(() {
                             counter++;
                           });

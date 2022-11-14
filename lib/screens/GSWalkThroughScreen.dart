@@ -1,12 +1,15 @@
+// ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:shop_order/screens/GSDashboardScreen.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/GSImages.dart';
-import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import '../utils/widget/walk_through.dart';
 
 import 'GSWelcomeScreen.dart';
 
+// ignore: use_key_in_widget_constructors
 class GSWalkThroughScreen extends StatefulWidget {
   static String tag = '/GSWalkThroughScreen';
 
@@ -14,11 +17,15 @@ class GSWalkThroughScreen extends StatefulWidget {
   GSWalkThroughScreenState createState() => GSWalkThroughScreenState();
 }
 
-class GSWalkThroughScreenState extends State<GSWalkThroughScreen> with AfterLayoutMixin<GSWalkThroughScreen> {
+// ignore: duplicate_ignore
+class GSWalkThroughScreenState extends State<GSWalkThroughScreen>
+    // ignore: deprecated_member_use
+    with
+        AfterLayoutMixin<GSWalkThroughScreen> {
   PageController pageController = PageController();
   List<Widget> pages = [];
   double? currentPage = 0;
-  static const _kDuration = const Duration(milliseconds: 300);
+  static const _kDuration = Duration(milliseconds: 300);
   static const _kCurve = Curves.easeInCubic;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -39,9 +46,22 @@ class GSWalkThroughScreenState extends State<GSWalkThroughScreen> with AfterLayo
   @override
   void afterFirstLayout(BuildContext context) {
     pages = [
-      gsWalkThroughWidget(gs_walk_through1, "Fresh groceries at your doorste\n in the next hour", "FIND FOOD"),
-      gsWalkThroughWidget(gs_walk_through2, "Fresh groceries at your doorste\n in the next hour", "ADD ADDRESS"),
-      gsWalkThroughWidget(gs_walk_through3, "Fresh groceries at your doorste\n in the next hour", "DELIVERY"),
+      WalkThroughWidget(
+          imageWalkThough[0],
+          "Phiên bản mobile của ZenShop\n cho người mua hàng",
+          "PHIÊN BẢN DI ĐỘNG"),
+      WalkThroughWidget(
+          imageWalkThough[1],
+          "Mua hàng với thao tác đơn giản \n dành cho người mới",
+          "SỬ DỤNG ĐƠN GIẢN"),
+      WalkThroughWidget(
+          imageWalkThough[2],
+          "Thêm sản phẩm vào giỏ hàng\n với nhiều phân loại",
+          "GIỎ HÀNG THÔNG MINH"),
+      WalkThroughWidget(imageWalkThough[3],
+          "Tối ưu hoá đơn giản\n mượt mà từng chi tiết", "TỐC ĐỘ ƯU VIỆT"),
+      WalkThroughWidget(imageWalkThough[4],
+          "Sử dụng chung API bởi \n web chính thức ZenShop", "API CHÍNH CHỦ"),
     ];
     setState(() {});
   }
@@ -64,23 +84,32 @@ class GSWalkThroughScreenState extends State<GSWalkThroughScreen> with AfterLayo
         key: scaffoldKey,
         body: Stack(
           children: [
-            PageView(controller: pageController, children: pages.map((e) => e).toList()),
+            PageView(
+                controller: pageController,
+                children: pages.map((e) => e).toList()),
             Align(
               alignment: Alignment.topRight,
               child: Text(
-                "Skip".toUpperCase(),
+                "Bỏ Qua".toUpperCase(),
                 style: primaryTextStyle(size: 16, color: gs_primary_color),
                 textAlign: TextAlign.end,
               ).onTap(() {
                 GSDashboardScreen().launch(context);
               }),
-            ).paddingOnly(right: 16, top: 16),
+            ).paddingOnly(right: 30, top: 30),
             Positioned(
               //  top: context.height() * 0.73,
               bottom: 80,
               left: 0,
               right: 0,
-              child: DotIndicator(pageController: pageController, pages: pages, indicatorColor: gs_primary_color, unselectedIndicatorColor: grey),
+              child: DotIndicator(
+                pageController: pageController,
+                pages: pages,
+                indicatorColor: gs_primary_color,
+                unselectedIndicatorColor: grey,
+                currentDotSize: 25,
+                currentBoxShape: BoxShape.circle,
+              ),
             ),
             Positioned(
               bottom: 16,
@@ -88,13 +117,14 @@ class GSWalkThroughScreenState extends State<GSWalkThroughScreen> with AfterLayo
               right: 16,
               child: gsAppButton(
                 context,
-                'Next',
+                'Tiếp Theo',
                 () {
-                  if (currentPage == 2) {
+                  if (currentPage == pages.length - 1) {
                     finish(context);
                     GSWelcomeScreen().launch(context);
                   } else {
-                    pageController.nextPage(duration: _kDuration, curve: _kCurve);
+                    pageController.nextPage(
+                        duration: _kDuration, curve: _kCurve);
                   }
                 },
               ),

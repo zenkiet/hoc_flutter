@@ -1,16 +1,23 @@
+import 'dart:html';
+
+import 'package:http/http.dart' as http;
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+
+import 'package:shop_order/screens/GSLoginScreen.dart';
 import 'package:shop_order/screens/GSVerificationScreen.dart';
 import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/main/utils/AppWidget.dart';
-import 'package:nb_utils/nb_utils.dart';
+// import 'package:shop_order/utils/GSImages.dart';
 
 class GSRegisterScreen extends StatefulWidget {
   static String tag = '/GSRegisterScreen';
+
+  const GSRegisterScreen({super.key});
 
   @override
   GSRegisterScreenState createState() => GSRegisterScreenState();
@@ -41,12 +48,15 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
   }
 
   init() async {
-    setStatusBarColor(appStore.isDarkModeOn ? scaffoldColorDark : Colors.white, statusBarIconBrightness: Brightness.dark);
+    setStatusBarColor(appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+        statusBarIconBrightness: Brightness.dark);
   }
 
   @override
   void dispose() {
-    setStatusBarColor(appStore.isDarkModeOn ? scaffoldColorDark : gs_primary_color, statusBarIconBrightness: Brightness.dark);
+    setStatusBarColor(
+        appStore.isDarkModeOn ? scaffoldColorDark : gs_primary_color,
+        statusBarIconBrightness: Brightness.dark);
     super.dispose();
   }
 
@@ -59,36 +69,40 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: appBarWidget('', color: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white),
+      appBar: appBarWidget('',
+          color: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Register", style: boldTextStyle(size: 20)),
-            16.height,
-            Row(
-              children: [
-                Container(
-                  width: context.width(),
-                  height: 50,
-                  decoration: boxDecorationWithRoundedCorners(
-                    borderRadius: radius(4),
-                    backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.black,
-                  ),
-                  child: commonCacheImageWidget(gs_apple_icon, 24, width: 24),
-                ).expand(),
-                8.width,
-                Container(
-                  width: context.width(),
-                  height: 50,
-                  decoration: boxDecorationWithRoundedCorners(
-                    borderRadius: radius(4),
-                    border: Border.all(color: Colors.grey[300]!),
-                  ),
-                  child: Image.asset(gs_google_icon, height: 24, width: 24),
-                ).expand()
-              ],
+            Text(
+              "Đăng ký",
+              style: boldTextStyle(size: 25),
             ),
+            16.height,
+            // Row(
+            //   children: [
+            //     Container(
+            //       width: context.width(),
+            //       height: 50,
+            //       decoration: boxDecorationWithRoundedCorners(
+            //         borderRadius: radius(4),
+            //         backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.black,
+            //       ),
+            //       child: commonCacheImageWidget(gs_apple_icon, 24, width: 24),
+            //     ).expand(),
+            //     8.width,
+            //     Container(
+            //       width: context.width(),
+            //       height: 50,
+            //       decoration: boxDecorationWithRoundedCorners(
+            //         borderRadius: radius(4),
+            //         border: Border.all(color: Colors.grey[300]!),
+            //       ),
+            //       child: Image.asset(gs_google_icon, height: 24, width: 24),
+            //     ).expand()
+            //   ],
+            // ),
             16.height,
             Form(
               key: formKey,
@@ -99,9 +113,11 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                     controller: emailController,
                     textFieldType: TextFieldType.EMAIL,
                     decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
-                      labelText: 'Email Address',
+                      enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: gs_primary_color)),
+                      labelText: 'Địa chỉ Email',
                       labelStyle: secondaryTextStyle(size: 14),
                     ),
                     focus: emailNode,
@@ -114,9 +130,11 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                     controller: firstNameController,
                     textFieldType: TextFieldType.NAME,
                     decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
-                      labelText: 'First Name',
+                      enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: gs_primary_color)),
+                      labelText: 'Họ và Tên',
                       labelStyle: secondaryTextStyle(size: 14),
                     ),
                     focus: firstNameNode,
@@ -129,8 +147,10 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                     controller: lastNameController,
                     textFieldType: TextFieldType.NAME,
                     decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+                      enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: gs_primary_color)),
                       labelText: 'Last Name',
                       labelStyle: secondaryTextStyle(size: 14),
                     ),
@@ -143,9 +163,9 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                     children: [
                       CountryCodePicker(
                         onChanged: print,
-                        initialSelection: 'IT',
-                        favorite: ['+39', 'FR'],
-                        showCountryOnly: false,
+                        initialSelection: 'VN',
+                        favorite: const ['+84', 'Vietnam'],
+                        showCountryOnly: true,
                         showOnlyCountryWhenClosed: false,
                         alignLeft: false,
                       ),
@@ -158,9 +178,11 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                         textAlign: TextAlign.start,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: grey)),
-                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
-                          hintText: "000 0000 0000",
+                          enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: grey)),
+                          focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: gs_primary_color)),
+                          hintText: "Số điện thoại",
                           hintStyle: secondaryTextStyle(size: 14),
                         ),
                       ).expand()
@@ -182,16 +204,22 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                           showPassword = !showPassword;
                           setState(() {});
                         },
-                        child: Icon(showPassword ? Icons.visibility : Icons.visibility_off, color: gs_primary_color),
+                        child: Icon(
+                            showPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: gs_primary_color),
                       ),
-                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: grey)),
-                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+                      enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: grey)),
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: gs_primary_color)),
                       labelStyle: secondaryTextStyle(size: 14),
-                      labelText: "Password",
+                      labelText: "Mật Khẩu",
                     ),
                     validator: (val) {
                       if (val.isEmptyOrNull) {
-                        return "Please enter password";
+                        return "Vui Lòng Nhập Mật Khẩu";
                       }
                       return null;
                     },
@@ -212,10 +240,16 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                           showPassword = !showPassword;
                           setState(() {});
                         },
-                        child: Icon(showPassword ? Icons.visibility : Icons.visibility_off, color: gs_primary_color),
+                        child: Icon(
+                            showPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: gs_primary_color),
                       ),
-                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: grey)),
-                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+                      enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: grey)),
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: gs_primary_color)),
                       labelStyle: secondaryTextStyle(size: 14),
                       labelText: "Confirm Password",
                     ),
@@ -223,7 +257,8 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                       if (val.isEmptyOrNull) {
                         return "Please enter confirm password";
                       }
-                      if (passwordController.text != confirmPasswordController.text) {
+                      if (passwordController.text !=
+                          confirmPasswordController.text) {
                         return "Password do not match";
                       }
                       return null;
@@ -232,9 +267,11 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                   50.height,
                   gsAppButton(
                     context,
-                    'Create Account',
+                    'Tạo Tài Khoán',
                     () {
-                      GSVerificationScreen().launch(context);
+                      // validate
+
+                      GSLoginScreen().launch(context);
                     },
                   ),
                 ],

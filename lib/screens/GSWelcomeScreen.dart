@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+
 import 'package:shop_order/screens/GSLoginScreen.dart';
 import 'package:shop_order/screens/GSRegisterScreen.dart';
 import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/utils/GSConstants.dart';
 import 'package:shop_order/utils/GSImages.dart';
-import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
-import 'package:shop_order/main/utils/AppWidget.dart';
-import 'package:nb_utils/nb_utils.dart';
+// import 'package:shop_order/utils/GSWidgets.dart';
+// import 'package:shop_order/utils/GSConstants.dart';
+// import 'package:shop_order/main/utils/AppWidget.dart';
 
+import '../utils/widget/welcome.dart';
 import '../../../main.dart';
 
 class GSWelcomeScreen extends StatefulWidget {
   static String tag = '/GSWelcomeScreen';
+
+  const GSWelcomeScreen({super.key});
 
   @override
   GSWelcomeScreenState createState() => GSWelcomeScreenState();
@@ -28,12 +32,15 @@ class GSWelcomeScreenState extends State<GSWelcomeScreen> {
   }
 
   init() async {
-    setStatusBarColor(appStore.isDarkModeOn ? scaffoldColorDark : gs_primary_color, statusBarIconBrightness: Brightness.light);
+    setStatusBarColor(
+        appStore.isDarkModeOn ? scaffoldColorDark : gs_primary_color,
+        statusBarIconBrightness: Brightness.light);
   }
 
   @override
   void dispose() {
-    setStatusBarColor(appStore.isDarkModeOn ? Colors.transparent : Colors.white, statusBarIconBrightness: Brightness.dark);
+    setStatusBarColor(appStore.isDarkModeOn ? Colors.transparent : Colors.white,
+        statusBarIconBrightness: Brightness.dark);
     super.dispose();
   }
 
@@ -47,7 +54,9 @@ class GSWelcomeScreenState extends State<GSWelcomeScreen> {
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : gs_primary_color,
+        // image
+        backgroundColor:
+            appStore.isDarkModeOn ? scaffoldColorDark : backgroundColor,
         body: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -57,74 +66,86 @@ class GSWelcomeScreenState extends State<GSWelcomeScreen> {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Image.asset(gs_app_logo_white, height: 80, width: 80, fit: BoxFit.cover),
+                  child: Image.asset(welcomeImage,
+                      height: 300, width: 350, fit: BoxFit.cover),
                 ),
                 8.height,
-                Text(GSAppName, style: boldTextStyle(size: 24, color: Colors.white)),
               ],
-            ).paddingBottom(context.height() * 0.4),
+            ).paddingBottom(context.height() * 0.3),
             Positioned(
               bottom: 0,
               child: Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(40),
                 width: context.width(),
                 decoration: boxDecorationWithRoundedCorners(
                   borderRadius: radiusOnly(topLeft: 16, topRight: 16),
-                  backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+                  backgroundColor: appStore.isDarkModeOn
+                      ? scaffoldSecondaryDark
+                      : const Color(0xFFf7f7f7),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Welcome", style: boldTextStyle(size: 22)),
-                    8.height,
-                    Text("If you are already have  Grocery account, enter your email below", style: secondaryTextStyle()),
+                    Text("Chào mừng bạn đến với \n Zen Shop Order",
+                        style: boldTextStyle(size: 25),
+                        textAlign: TextAlign.center),
                     16.height,
-                    gsAppButton(context, "Continue with email", () {
+                    Text("Hãy đăng nhập để trãi nghiệm ứng dụng của tôi",
+                        style: secondaryTextStyle(size: 14)),
+                    16.height,
+                    gsAppButton(context, "Đăng Nhập", () {
                       finish(context);
                       GSLoginScreen().launch(context);
                     }),
                     16.height,
-                    AppButton(
-                      width: context.width(),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          commonCacheImageWidget(gs_apple_icon, 24, width: 24),
-                          8.width,
-                          Text("Sign in with Apple", style: boldTextStyle(color: Colors.white)),
-                        ],
-                      ),
-                      color: Colors.black,
-                      shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(0))),
-                      onTap: () {},
-                    ),
-                    16.height,
-                    AppButton(
-                      color: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
-                      elevation: 0,
-                      width: context.width(),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(gs_google_icon, height: 24, width: 24),
-                          8.width,
-                          Text("Sign in with Google", style: boldTextStyle()),
-                        ],
-                      ),
-                      shapeBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(0)),
-                        side: BorderSide(color: Colors.grey[300]!),
-                      ),
-                      onTap: () {},
-                    ),
-                    16.height,
+                    // AppButton(
+                    //   width: context.width(),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       commonCacheImageWidget(gs_apple_icon, 24, width: 24),
+                    //       8.width,
+                    //       Text("Sign in with Apple",
+                    //           style: boldTextStyle(color: Colors.white)),
+                    //     ],
+                    //   ),
+                    //   color: Colors.black,
+                    //   shapeBorder: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.all(Radius.circular(0))),
+                    //   onTap: () {},
+                    // ),
+                    // 16.height,
+                    // AppButton(
+                    //   color: appStore.isDarkModeOn
+                    //       ? scaffoldSecondaryDark
+                    //       : Colors.white,
+                    //   elevation: 0,
+                    //   width: context.width(),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Image.asset(gs_google_icon, height: 24, width: 24),
+                    //       8.width,
+                    //       Text("Sign in with Google", style: boldTextStyle()),
+                    //     ],
+                    //   ),
+                    //   shapeBorder: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.all(Radius.circular(0)),
+                    //     side: BorderSide(color: Colors.grey[300]!),
+                    //   ),
+                    //   onTap: () {},
+                    // ),
+                    // 16.height,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don't have an account?", style: secondaryTextStyle()),
+                        Text("Nếu bạn chưa có tài khoản,hãy",
+                            style: secondaryTextStyle(size: 15)),
                         3.width,
-                        Text("Register", style: secondaryTextStyle(color: gs_primary_color)),
+                        Text("Đăng Ký",
+                            style: secondaryTextStyle(
+                                color: gs_primary_color, size: 17)),
                       ],
                     ).onTap(() {
                       GSRegisterScreen().launch(context);
