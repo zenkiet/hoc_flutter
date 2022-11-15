@@ -38,15 +38,15 @@ Widget myOrderWidget(
     required List<GSMyOrderModel> orderList,
     Function? onTap}) {
   return ListView.builder(
-    padding: EdgeInsets.only(top: 8),
+    padding: const EdgeInsets.only(top: 8),
     shrinkWrap: true,
-    physics: NeverScrollableScrollPhysics(),
+    physics: const NeverScrollableScrollPhysics(),
     itemCount: orderList.length,
     itemBuilder: (context, index) {
       GSMyOrderModel mData = orderList[index];
 
       return Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: boxDecorationWithRoundedCorners(
           boxShadow: defaultBoxShadow(),
           borderRadius: radius(0),
@@ -77,8 +77,8 @@ Widget myOrderWidget(
                                   : (mData.orderStatus == GSCancel)
                                       ? Colors.red
                                       : Container() as Color),
-                      padding:
-                          EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+                      padding: const EdgeInsets.only(
+                          left: 8, right: 8, top: 4, bottom: 4),
                       child: Text(
                           (mData.orderStatus == GSCompleted)
                               ? "Completed"
@@ -97,7 +97,7 @@ Widget myOrderWidget(
               ],
             ),
             8.height,
-            Divider(),
+            const Divider(),
             ratingBar!
           ],
         ),

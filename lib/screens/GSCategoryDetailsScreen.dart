@@ -42,7 +42,8 @@ class GSCategoryDetailsScreenState extends State<GSCategoryDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget('', color: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white),
+      appBar: appBarWidget('',
+          color: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -51,23 +52,29 @@ class GSCategoryDetailsScreenState extends State<GSCategoryDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(widget.categoryDetails!.image!, fit: BoxFit.cover, height: 180, width: 180).center(),
+                Image.asset(widget.categoryDetails!.image!,
+                        fit: BoxFit.cover, height: 180, width: 180)
+                    .center(),
                 16.height,
                 Row(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.categoryDetails!.title.validate(), style: boldTextStyle(size: 20)),
+                        Text(widget.categoryDetails!.title.validate(),
+                            style: boldTextStyle(size: 20)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               "\u0024${widget.categoryDetails!.price.validate()}${"/kg"}",
-                              style: secondaryTextStyle(decoration: TextDecoration.lineThrough),
+                              style: secondaryTextStyle(
+                                  decoration: TextDecoration.lineThrough),
                             ),
                             8.width,
-                            Text("\u0024${widget.categoryDetails!.price.validate()}${"/kg"}", style: primaryTextStyle())
+                            Text(
+                                "\u0024${widget.categoryDetails!.price.validate()}${"/kg"}",
+                                style: primaryTextStyle())
                           ],
                         ),
                       ],
@@ -77,7 +84,8 @@ class GSCategoryDetailsScreenState extends State<GSCategoryDetailsScreen> {
                 8.height,
                 Divider(),
                 8.height,
-                Text(widget.categoryDetails!.description.validate(), style: primaryTextStyle(size: 14)),
+                Text(widget.categoryDetails!.description.validate(),
+                    style: primaryTextStyle(size: 14)),
                 20.height,
                 Text("Review", style: boldTextStyle()),
                 16.height,
@@ -91,14 +99,17 @@ class GSCategoryDetailsScreenState extends State<GSCategoryDetailsScreen> {
                       maxRating: 5,
                       itemSize: 20,
                       ignoreGestures: true,
-                      itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber),
+                      itemBuilder: (context, _) =>
+                          Icon(Icons.star, color: Colors.amber),
                       onRatingUpdate: (rating) {
                         ratingNum = rating.toInt();
                         setState(() {});
                       },
                     ),
                     8.width,
-                    Text("5.0 from 1.942 users", style: secondaryTextStyle(size: 12)).expand(),
+                    Text("5.0 from 1.942 users",
+                            style: secondaryTextStyle(size: 12))
+                        .expand(),
                     Image.asset(
                       gs_next_icon,
                       width: 20,
@@ -117,7 +128,8 @@ class GSCategoryDetailsScreenState extends State<GSCategoryDetailsScreen> {
             decoration: boxDecorationWithRoundedCorners(
               borderRadius: radiusOnly(topRight: 12, topLeft: 12),
               boxShadow: defaultBoxShadow(),
-              backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+              backgroundColor:
+                  appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,11 +138,14 @@ class GSCategoryDetailsScreenState extends State<GSCategoryDetailsScreen> {
                   children: [
                     Text("Total", style: boldTextStyle(size: 20)),
                     8.width,
-                    Text("\u0024${widget.categoryDetails!.salePrice.validate()}", style: boldTextStyle(size: 20)).expand(),
+                    Text("\u0024${widget.categoryDetails!.salePrice.validate()}",
+                            style: boldTextStyle(size: 20))
+                        .expand(),
                     Row(
                       children: [
                         counter != 1
-                            ? commonCacheImageWidget(gs_minus_icon, 20, width: 20).onTap(() {
+                            ? commonCacheImageWidget(minusImage, 20, width: 20)
+                                .onTap(() {
                                 setState(() {
                                   counter--;
                                 });
@@ -139,7 +154,8 @@ class GSCategoryDetailsScreenState extends State<GSCategoryDetailsScreen> {
                         16.width,
                         Text('$counter', style: boldTextStyle()),
                         16.width,
-                        commonCacheImageWidget(gs_add_icon, 24, width: 24).onTap(() {
+                        commonCacheImageWidget(addImage, 24, width: 24)
+                            .onTap(() {
                           setState(() {
                             counter++;
                           });

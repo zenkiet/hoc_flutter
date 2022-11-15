@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_order/model/HSModel.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
-import 'package:shop_order/main/utils/AppConstants.dart';
+import 'package:shop_order/utils/AppConstants.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -11,7 +11,7 @@ class AppStore = AppStoreBase with _$AppStore;
 
 abstract class AppStoreBase with Store {
   @observable
-  String userExist = '';
+  late String userExist;
 
   @observable
   bool isDarkModeOn = false;

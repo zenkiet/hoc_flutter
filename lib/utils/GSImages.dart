@@ -1,4 +1,4 @@
-import 'package:shop_order/main/utils/AppConstants.dart';
+import 'package:shop_order/utils/AppConstants.dart';
 
 const welcomeImage = 'assets/welcome.png';
 
@@ -31,39 +31,28 @@ const List<String> imageSlider = [
   'assets/slider/1.png',
   'assets/slider/2.png',
   'assets/slider/3.png',
-  // 'assets/slider/1.png',
-  // 'assets/slider/1.png',
 ];
-
+const addImage = 'assets/add_icon.png';
+const minusImage = 'assets/minus_icon.png';
 const imageSource = 'assets/products/';
 
 const gs_google_icon = 'images/groceryApp/google_icon.png';
 const gs_slider_image1 = 'images/groceryApp/slider_image1.png';
 const gs_slider_image2 = 'images/groceryApp/slider_image2.png';
 const gs_slider_image3 = 'images/groceryApp/slider_image3.png';
-const gs_bakery_product_img = 'images/groceryApp/bakery_product.png';
-const gs_dairy_product_img = 'images/groceryApp/dairy_product.png';
-const gs_fruits_img = 'images/groceryApp/fruits.png';
-const gs_meat_product_img = 'images/groceryApp/meat_product.png';
 
-const gs_organic_img = 'images/groceryApp/organic_image.png';
-const gs_sea_food_img = 'images/groceryApp/seafood.png';
-const gs_vegetable_img = 'images/groceryApp/vegetable.png';
 const gs_carrot_img = 'images/groceryApp/carrot.png';
-const gs_banana_img = 'images/groceryApp/banana.png';
 const gs_cauliflower_img = 'images/groceryApp/cauliflower.png';
 const gs_pineappple_img = 'images/groceryApp/pineapple.png';
 const gs_assian_pear = 'images/groceryApp/assian_pear.png';
 const gs_next_icon = 'images/groceryApp/next_icon.png';
-const gs_add_icon = '$BaseUrl/groceryApp/add_icon.png';
-const gs_minus_icon = '$BaseUrl/groceryApp/minus_icon.png';
 const gs_map_img = 'images/groceryApp/map_img.png';
 const gs_coupon = 'images/groceryApp/coupon.png';
 const gs_successful_img = 'images/groceryApp/successfully.png';
 const gs_cash_icon = 'images/groceryApp/cash_icon.png';
 const gs_paypal_icon = 'images/groceryApp/paypal_icon.png';
 const gs_visa_icon = 'images/groceryApp/visa_icon.png';
-const gs_next = '$BaseUrl/groceryApp/navigate_next.png';
+const gs_next = 'assets/navigate_next.png';
 const gs_empty_cart = 'images/groceryApp/empty_cart.png';
 const gs_user = 'images/groceryApp/user.jpeg';
 const gs_headphone = 'images/groceryApp/headphones.png';

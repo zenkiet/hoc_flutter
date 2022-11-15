@@ -170,8 +170,7 @@ class GSRecommendationDetailsScreenState
                     Row(
                       children: [
                         counter != 1
-                            ? commonCacheImageWidget(gs_minus_icon, 20,
-                                    width: 20)
+                            ? commonCacheImageWidget(minusImage, 20, width: 20)
                                 .onTap(() {
                                 setState(() {
                                   counter--;
@@ -182,7 +181,7 @@ class GSRecommendationDetailsScreenState
                         16.width,
                         Text('$counter', style: boldTextStyle()),
                         16.width,
-                        commonCacheImageWidget(gs_add_icon, 24, width: 24)
+                        commonCacheImageWidget(addImage, 24, width: 24)
                             .onTap(() {
                           setState(() {
                             counter++;

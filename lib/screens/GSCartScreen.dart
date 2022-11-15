@@ -8,8 +8,9 @@ import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/main/utils/AppWidget.dart';
 import 'package:nb_utils/nb_utils.dart';
-
+import 'package:shop_order/main/store/AppStore.dart';
 import 'GSCheckOutScreen.dart';
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 
 class GSCartScreen extends StatefulWidget {
   static String tag = '/GSCartScreen';
@@ -20,17 +21,17 @@ class GSCartScreen extends StatefulWidget {
   GSCartScreenState createState() => GSCartScreenState();
 }
 
-Future getUserCart() async {
-  var result = await getTopDiscount(10);
+Future getCartProduct(String user) async {
+  var result = await getUserCart(user);
   return result;
 }
 
 class GSCartScreenState extends State<GSCartScreen> {
-  String url = 'not';
-  String result = '';
-  List<GSRecommendedModel> recommendedList = getRecommendedList();
+  List<GSRecommendedModel> recommendedList = [];
   int totalCount = 0;
   int totalAmount = 0;
+
+  AppStore appStore = AppStore();
 
   @override
   void initState() {
@@ -39,7 +40,9 @@ class GSCartScreenState extends State<GSCartScreen> {
   }
 
   init() async {
-    result = await getUserCart();
+    final prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString('username') ?? '';
+    recommendedList = await getCartProduct(username);
     calculate();
   }
 
@@ -67,7 +70,7 @@ class GSCartScreenState extends State<GSCartScreen> {
         elevation: 1,
         centerTitle: false,
         automaticallyImplyLeading: false,
-        title: Text("$result", style: boldTextStyle()),
+        title: Text("Giỏ Hàng", style: boldTextStyle()),
       ),
       body: Column(
         children: [
@@ -89,31 +92,46 @@ class GSCartScreenState extends State<GSCartScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(mData.image.validate(),
-                            fit: BoxFit.cover, height: 80, width: 80),
+                        InkWell(
+                          onTap: () {
+                            GSRecommendationDetailsScreen(
+                                    recommendedDetails: mData)
+                                .launch(context);
+                          },
+                          child: Ink.image(
+                            image: AssetImage(mData.image.validate()),
+                            // fit: BoxFit.cover,
+                            width: 80,
+                            height: 80,
+                          ),
+                        ),
+                        // Image.asset(mData.image.validate(),
+                        //     fit: BoxFit.cover, height: 80, width: 80),
                         30.width,
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(mData.title.validate(),
-                                style: boldTextStyle(), maxLines: 1),
+                                style: boldTextStyle(size: 17), maxLines: 1),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  "${mData.price.validate()} đ",
+                                  mData.price.validate().round().toVND(),
                                   style: secondaryTextStyle(
-                                      decoration: TextDecoration.lineThrough),
+                                      decoration: TextDecoration.lineThrough,
+                                      size: 14),
                                 ),
                                 8.width,
-                                Text("${mData.salePrice.validate()} đ",
-                                    style: boldTextStyle(color: redColor)),
+                                Text(mData.salePrice.validate().round().toVND(),
+                                    style: boldTextStyle(
+                                        color: redColor, size: 16)),
                               ],
                             ),
                             10.height,
                             Row(
                               children: [
-                                commonCacheImageWidget(gs_minus_icon, 20,
+                                commonCacheImageWidget(minusImage, 20,
                                         width: 20)
                                     .onTap(() {
                                   setState(() {
@@ -132,8 +150,7 @@ class GSCartScreenState extends State<GSCartScreen> {
                                   ],
                                 ),
                                 16.width,
-                                commonCacheImageWidget(gs_add_icon, 20,
-                                        width: 20)
+                                commonCacheImageWidget(addImage, 20, width: 20)
                                     .onTap(() {
                                   setState(() {
                                     totalCount = mData.qty! + 1;
@@ -148,10 +165,7 @@ class GSCartScreenState extends State<GSCartScreen> {
                       ],
                     )
                   ],
-                ).onTap(() {
-                  GSRecommendationDetailsScreen(recommendedDetails: mData)
-                      .launch(context);
-                });
+                ).onTap(() {});
               },
             ),
           ).expand(),
@@ -172,10 +186,10 @@ class GSCartScreenState extends State<GSCartScreen> {
                   children: [
                     Row(
                       children: [
-                        Text("Tổng Tiền:",
+                        Text("Tổng:",
                             style: boldTextStyle(color: Colors.white)),
                         8.width,
-                        Text("$totalAmount đ",
+                        Text(totalAmount.round().toVND(),
                             style: boldTextStyle(color: Colors.white)),
                       ],
                     ),

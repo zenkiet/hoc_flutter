@@ -5,6 +5,8 @@ import 'package:shop_order/model/GSModel.dart';
 import 'package:shop_order/utils/GSConstants.dart';
 import 'package:shop_order/utils/GSImages.dart';
 
+import 'package:shop_order/utils/AppConstants.dart';
+
 import 'package:http/http.dart' as http;
 
 List<SliderModel> getSliderList() {
@@ -29,7 +31,7 @@ List<CategoryModel> getCategoryList() {
 
 Future getTopDiscount(int amount) async {
   List<GSRecommendedModel> list = [];
-  var uri = Uri.parse('$baseUrl/top_discount/$amount');
+  var uri = Uri.parse('$BaseUrl/top_discount/$amount');
   var response = await http.get(uri);
   var data = json.decode(utf8.decode(response.bodyBytes));
   if (data['status'] == 'success') {
@@ -68,7 +70,7 @@ Future getTopDiscount(int amount) async {
 
 Future getTopRanking(int amount) async {
   List<GSRecommendedModel> list = [];
-  var uri = Uri.parse('$baseUrl/top_ranking/$amount');
+  var uri = Uri.parse('$BaseUrl/top_ranking/$amount');
   var response = await http.get(uri);
   var data = json.decode(utf8.decode(response.bodyBytes));
   if (data['status'] == 'success') {
@@ -118,7 +120,7 @@ Future getCategoryProduct(String category) async {
     category = 'icecream';
   }
 
-  var uri = Uri.parse('$baseUrl/category_product/$category');
+  var uri = Uri.parse('$BaseUrl/category_product/$category');
   var response = await http.get(uri);
   var data = json.decode(utf8.decode(response.bodyBytes));
   if (data['status'] == 'success') {
@@ -155,79 +157,44 @@ Future getCategoryProduct(String category) async {
   } else {}
 }
 
-List<GSRecommendedModel> getRecommendedList() {
-  List<GSRecommendedModel> list = [];
-  list.add(GSRecommendedModel(
-      image: gs_cauliflower_img,
-      price: 30,
-      salePrice: 10,
-      title: "Cauliflower",
-      quantity: "100gr",
-      qty: 1,
-      total: 0,
-      description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"));
-  list.add(GSRecommendedModel(
-      offer: "15%",
-      image: gs_carrot_img,
-      price: 20,
-      salePrice: 10,
-      title: "Carrot",
-      quantity: "50gr",
-      qty: 1,
-      total: 0,
-      description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"));
-  list.add(GSRecommendedModel(
-      offer: "30%",
-      image: gs_pineappple_img,
-      price: 20,
-      salePrice: 10,
-      title: "Pineapple",
-      quantity: "100gr",
-      qty: 1,
-      description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"));
-  list.add(GSRecommendedModel(
-      offer: "30%",
-      image: gs_assian_pear,
-      price: 30,
-      salePrice: 20,
-      title: "Asian pear",
-      quantity: "100gr",
-      qty: 1,
-      description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"));
-  return list;
-}
+Future getUserCart(String username) async {
+  var uri = Uri.parse('$BaseUrl/get_cart_product/$username');
+  var response = await http.get(uri);
+  var data = json.decode(utf8.decode(response.bodyBytes));
+  if (data['status'] == 'success') {
+    var listData = data['data'];
+    int countListData = listData.length;
+    List<GSRecommendedModel> list = [];
+    for (int i = 0; i < countListData; i++) {
+      var value = listData[i];
+      // int id = value['id_product'];
+      String name = value['name'];
+      String description = value['description'];
+      double price = double.parse(value['price']);
+      int ranking = value['ranking'];
+      String image = imageSource + value['image'];
+      double discount = double.parse(value['discount']);
+      int quantity = value['quantity'];
+      int amount = value['amount'];
+      // int id_category = value['id_category'];
 
-List<GSRecommendedModel> getCategoryListDetailsList() {
-  List<GSRecommendedModel> list = [];
+      double salePrice = price - (price * discount / 100);
 
-  list.add(
-    GSRecommendedModel(
-      image: gs_cauliflower_img,
-      price: 0.22,
-      salePrice: 0.12,
-      description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-      title: "Cauliflower",
-      quantity: "100gr",
-    ),
-  );
-  list.add(
-    GSRecommendedModel(
-      offer: "15%",
-      image: gs_carrot_img,
-      price: 0.30,
-      salePrice: 0.15,
-      description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-      title: "Carrot",
-      quantity: "50gr",
-    ),
-  );
-  return list;
+      list.add(
+        GSRecommendedModel(
+          image: image,
+          price: price,
+          salePrice: salePrice,
+          description: description,
+          title: name,
+          qty: amount,
+          quantity: 'Còn $quantity sản phẩm',
+          ranking: ranking,
+        ),
+      );
+    }
+    return list;
+  } else {}
 }
 
 List<GSMyOrderModel> getOnCompletedList() {

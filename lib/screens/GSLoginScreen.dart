@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Source
 import 'package:shop_order/main/store/AppStore.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
-import 'package:shop_order/utils/GSConstants.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/utils/GSColors.dart';
+import 'package:shop_order/utils/AppConstants.dart';
 // import 'package:shop_order/main.dart';
 
 // Redirection
@@ -167,7 +168,7 @@ class GSLoginScreenState extends State<GSLoginScreen> {
 
   Future loginUser(String username, String password) async {
     // ignore: unnecessary_brace_in_string_interps
-    var uri = Uri.parse('$baseUrl/login/${username}/${password}');
+    var uri = Uri.parse('$BaseUrl/login/${username}/${password}');
     var response =
         await http.get(uri, headers: {'Content-Type': 'application/json'});
     var data = json.decode(utf8.decode(response.bodyBytes));
@@ -175,7 +176,8 @@ class GSLoginScreenState extends State<GSLoginScreen> {
     if (data['status'] == 'failed') {
       return Future.value(false);
     } else {
-      appStore.userExist = username;
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('username', username);
       appStore.isLoggedIn = true;
       goMainScreen();
     }

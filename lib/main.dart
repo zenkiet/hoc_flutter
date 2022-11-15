@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shop_order/main/store/AppStore.dart';
 // import 'package:shop_order/main/utils/AppColors.dart';
-import 'package:shop_order/main/utils/AppConstants.dart';
+import 'package:shop_order/utils/AppConstants.dart';
 import 'package:nb_utils/nb_utils.dart';
 // import 'package:onesignal_flutter/onesignal_flutter.dart';
 
