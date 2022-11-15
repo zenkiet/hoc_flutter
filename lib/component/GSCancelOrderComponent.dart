@@ -8,6 +8,8 @@ import 'package:nb_utils/nb_utils.dart';
 class GSCancelOrderComponent extends StatefulWidget {
   static String tag = '/GSCancelOrderComponent';
 
+  const GSCancelOrderComponent({super.key});
+
   @override
   GSCancelOrderComponentState createState() => GSCancelOrderComponentState();
 }
@@ -44,7 +46,8 @@ class GSCancelOrderComponentState extends State<GSCancelOrderComponent> {
               glow: false,
               maxRating: 5,
               itemSize: 30,
-              itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber),
+              itemBuilder: (context, _) =>
+                  Icon(Icons.star, color: Colors.amber),
               onRatingUpdate: (rating) {
                 ratingNum = rating.toInt();
                 setState(() {});
@@ -52,7 +55,9 @@ class GSCancelOrderComponentState extends State<GSCancelOrderComponent> {
             ),
             orderList: getCancelOrderList(),
           ),
-          cartNotFound().visible(cancelOrderList.isEmpty).paddingTop(context.height() * 0.3)
+          cartNotFound()
+              .visible(cancelOrderList.isEmpty)
+              .paddingTop(context.height() * 0.3)
         ],
       ),
     );

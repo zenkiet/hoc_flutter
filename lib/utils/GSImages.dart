@@ -35,6 +35,8 @@ const List<String> imageSlider = [
   // 'assets/slider/1.png',
 ];
 
+const imageSource = 'assets/products/';
+
 const gs_google_icon = 'images/groceryApp/google_icon.png';
 const gs_slider_image1 = 'images/groceryApp/slider_image1.png';
 const gs_slider_image2 = 'images/groceryApp/slider_image2.png';

@@ -8,8 +8,11 @@ import 'package:nb_utils/nb_utils.dart';
 class GSOrderCompletedComponent extends StatefulWidget {
   static String tag = '/GSOrderCompletedComponent';
 
+  const GSOrderCompletedComponent({super.key});
+
   @override
-  GSOrderCompletedComponentState createState() => GSOrderCompletedComponentState();
+  GSOrderCompletedComponentState createState() =>
+      GSOrderCompletedComponentState();
 }
 
 class GSOrderCompletedComponentState extends State<GSOrderCompletedComponent> {
@@ -44,7 +47,8 @@ class GSOrderCompletedComponentState extends State<GSOrderCompletedComponent> {
               glow: false,
               maxRating: 5,
               itemSize: 30,
-              itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber),
+              itemBuilder: (context, _) =>
+                  const Icon(Icons.star, color: Colors.amber),
               onRatingUpdate: (rating) {
                 ratingNum = rating.toInt();
                 setState(() {});
@@ -53,7 +57,9 @@ class GSOrderCompletedComponentState extends State<GSOrderCompletedComponent> {
             orderList: completedOrderList,
             onTap: () {},
           ),
-          cartNotFound().visible(completedOrderList.isEmpty).paddingTop(context.height() * 0.3)
+          cartNotFound()
+              .visible(completedOrderList.isEmpty)
+              .paddingTop(context.height() * 0.3)
         ],
       ),
     );

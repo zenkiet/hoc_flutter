@@ -7,6 +7,8 @@ import 'package:nb_utils/nb_utils.dart';
 class GSOnProgressComponent extends StatefulWidget {
   static String tag = '/GSOnProgressComponent';
 
+  const GSOnProgressComponent({super.key});
+
   @override
   GSOnProgressComponentState createState() => GSOnProgressComponentState();
 }
@@ -36,7 +38,9 @@ class GSOnProgressComponentState extends State<GSOnProgressComponent> {
       child: Column(
         children: [
           myOrderWidget(ratingBar: Container(), orderList: onProgressOrderList),
-          cartNotFound().visible(onProgressOrderList.isEmpty).paddingTop(context.height() * 0.3),
+          cartNotFound()
+              .visible(onProgressOrderList.isEmpty)
+              .paddingTop(context.height() * 0.3),
         ],
       ),
     );

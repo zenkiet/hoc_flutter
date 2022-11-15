@@ -1,16 +1,19 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:shop_order/screens/GSMainScreen.dart';
-import 'package:shop_order/screens/GSRegisterScreen.dart';
-import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/utils/GSWidgets.dart';
-import 'package:shop_order/main.dart';
-import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
-import '../model/GSModel.dart';
+
+// Source
 import 'package:shop_order/main/store/AppStore.dart';
+import 'package:shop_order/main/utils/AppColors.dart';
+import 'package:shop_order/utils/GSConstants.dart';
+import 'package:shop_order/utils/GSWidgets.dart';
+import 'package:shop_order/utils/GSColors.dart';
+// import 'package:shop_order/main.dart';
+
+// Redirection
+import 'package:shop_order/screens/GSRegisterScreen.dart';
+import 'package:shop_order/screens/GSMainScreen.dart';
 
 // import 'package:shop_order/screens/GSForgotPasswordScreen.dart';
 
@@ -132,9 +135,6 @@ class GSLoginScreenState extends State<GSLoginScreen> {
                 'Đăng Nhập',
                 () {
                   loginClicked();
-                  // if (formKey.currentState!.validate()) {}
-                  // finish(context);
-                  // GSMainScreen().launch(context);
                 },
               ),
               // 16.height,
@@ -166,8 +166,8 @@ class GSLoginScreenState extends State<GSLoginScreen> {
   }
 
   Future loginUser(String username, String password) async {
-    var uri = Uri.parse(
-        'https://cloneshoporder.local/api/login/${username}/${password}');
+    // ignore: unnecessary_brace_in_string_interps
+    var uri = Uri.parse('$baseUrl/login/${username}/${password}');
     var response =
         await http.get(uri, headers: {'Content-Type': 'application/json'});
     var data = json.decode(utf8.decode(response.bodyBytes));
@@ -183,7 +183,7 @@ class GSLoginScreenState extends State<GSLoginScreen> {
 
   void goMainScreen() => {
         finish(context),
-        GSMainScreen().launch(context),
+        const GSMainScreen().launch(context),
       };
 
   void loginClicked() {

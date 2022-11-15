@@ -39,6 +39,7 @@ class GSRecommendedModel {
   String? description;
   int? qty;
   int? total;
+  int? ranking;
 
   GSRecommendedModel(
       {this.offer,
@@ -49,7 +50,29 @@ class GSRecommendedModel {
       this.quantity,
       this.description,
       this.qty,
-      this.total});
+      this.total,
+      this.ranking});
+}
+
+class TopProductModel {
+  int? id;
+  String? name;
+  String? description;
+  double? price;
+  int? ranking;
+  String? image;
+  int? discount;
+  int? quantity;
+
+  TopProductModel(
+      {this.id,
+      this.name,
+      this.description,
+      this.price,
+      this.ranking,
+      this.image,
+      this.discount,
+      this.quantity});
 }
 
 /*class GSCategoryListDetailsModel {

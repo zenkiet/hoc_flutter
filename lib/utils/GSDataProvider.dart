@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:nb_utils/nb_utils.dart';
 import 'package:shop_order/model/GSModel.dart';
 import 'package:shop_order/utils/GSConstants.dart';
 import 'package:shop_order/utils/GSImages.dart';
+
+import 'package:http/http.dart' as http;
 
 List<SliderModel> getSliderList() {
   List<SliderModel> list = [];
@@ -20,6 +25,134 @@ List<CategoryModel> getCategoryList() {
     list.add(CategoryModel(image: imageCate, catgoryName: nameCate));
   }
   return list;
+}
+
+Future getTopDiscount(int amount) async {
+  List<GSRecommendedModel> list = [];
+  var uri = Uri.parse('$baseUrl/top_discount/$amount');
+  var response = await http.get(uri);
+  var data = json.decode(utf8.decode(response.bodyBytes));
+  if (data['status'] == 'success') {
+    var listData = data['data'];
+    int countListData = listData.length;
+    for (int i = 0; i < countListData; i++) {
+      var value = listData[i];
+      // int id = value['id_product'];
+      String name = value['name'];
+      String description = value['description'];
+      double price = double.parse(value['price']);
+      int ranking = value['ranking'];
+      String image = imageSource + value['image'];
+      double discount = double.parse(value['discount']);
+      int quantity = value['quantity'];
+      // int id_category = value['id_category'];
+
+      double salePrice = price - (price * discount / 100);
+
+      list.add(GSRecommendedModel(
+        offer: discount.round().toString(),
+        image: image,
+        price: price,
+        salePrice: salePrice,
+        title: name,
+        description: description,
+        quantity: 'Còn $quantity sản phẩm',
+        qty: quantity,
+        total: 0,
+        ranking: ranking,
+      ));
+    }
+    return list;
+  } else {}
+}
+
+Future getTopRanking(int amount) async {
+  List<GSRecommendedModel> list = [];
+  var uri = Uri.parse('$baseUrl/top_ranking/$amount');
+  var response = await http.get(uri);
+  var data = json.decode(utf8.decode(response.bodyBytes));
+  if (data['status'] == 'success') {
+    var listData = data['data'];
+    int countListData = listData.length;
+    for (int i = 0; i < countListData; i++) {
+      var value = listData[i];
+      // int id = value['id_product'];
+      String name = value['name'];
+      String description = value['description'];
+      double price = double.parse(value['price']);
+      int ranking = value['ranking'];
+      String image = imageSource + value['image'];
+      double discount = double.parse(value['discount']);
+      int quantity = value['quantity'];
+      // int id_category = value['id_category'];
+
+      double salePrice = price - (price * discount / 100);
+
+      list.add(GSRecommendedModel(
+        offer: discount.round().toString(),
+        image: image,
+        price: price,
+        salePrice: salePrice,
+        title: name,
+        description: description,
+        quantity: 'Còn $quantity sản phẩm',
+        qty: quantity,
+        total: 0,
+        ranking: ranking,
+      ));
+    }
+    return list;
+  } else {}
+}
+
+Future getCategoryProduct(String category) async {
+  if (category == 'Bánh') {
+    category = 'cake';
+  } else if (category == 'Kẹo') {
+    category = 'candy';
+  } else if (category == 'Đồ Chiên') {
+    category = 'fastfood';
+  } else if (category == 'Trái Cây') {
+    category = 'fruit';
+  } else if (category == 'Kem') {
+    category = 'icecream';
+  }
+
+  var uri = Uri.parse('$baseUrl/category_product/$category');
+  var response = await http.get(uri);
+  var data = json.decode(utf8.decode(response.bodyBytes));
+  if (data['status'] == 'success') {
+    var listData = data['data'];
+    int countListData = listData.length;
+    List<GSRecommendedModel> list = [];
+    for (int i = 0; i < countListData; i++) {
+      var value = listData[i];
+      // int id = value['id_product'];
+      String name = value['name'];
+      String description = value['description'];
+      double price = double.parse(value['price']);
+      int ranking = value['ranking'];
+      String image = imageSource + value['image'];
+      double discount = double.parse(value['discount']);
+      int quantity = value['quantity'];
+      // int id_category = value['id_category'];
+
+      double salePrice = price - (price * discount / 100);
+
+      list.add(
+        GSRecommendedModel(
+          image: image,
+          price: price,
+          salePrice: salePrice,
+          description: description,
+          title: name,
+          quantity: 'Còn $quantity sản phẩm',
+          ranking: ranking,
+        ),
+      );
+    }
+    return list;
+  } else {}
 }
 
 List<GSRecommendedModel> getRecommendedList() {

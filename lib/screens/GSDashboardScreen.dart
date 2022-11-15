@@ -21,10 +21,21 @@ class GSDashboardScreen extends StatefulWidget {
   GSDashboardScreenState createState() => GSDashboardScreenState();
 }
 
+getProducDiscount() async {
+  var result = await getTopDiscount(10);
+  return result;
+}
+
+getProdcutDiscount() async {
+  var result = await getTopRanking(10);
+  return result;
+}
+
 class GSDashboardScreenState extends State<GSDashboardScreen> {
   List<SliderModel> sliderList = getSliderList();
   List<CategoryModel> categoryList = getCategoryList();
-  List<GSRecommendedModel> recommendedList = getRecommendedList();
+  List<GSRecommendedModel> listTopDiscount = [];
+  List<GSRecommendedModel> listTopRanking = [];
 
   int currentIndexPage = 0;
   PageController pageController =
@@ -37,7 +48,9 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
   }
 
   init() async {
-    //
+    listTopDiscount = await getProducDiscount();
+    listTopRanking = await getProdcutDiscount();
+    setState(() {});
   }
 
   @override
@@ -168,13 +181,13 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                   ],
                 ).paddingOnly(left: 16, right: 16, top: 16),
                 8.height,
-                GSRecommendedListComponent(recommendedList),
+                GSRecommendedListComponent(listTopDiscount),
                 8.height,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("Đánh Giá Cao", style: boldTextStyle(size: 18)),
-                    Text("Xêm Thêm",
+                    Text("Xem Thêm",
                             style: boldTextStyle(
                                 color: gs_primary_color, size: 16))
                         .onTap(() {
@@ -183,7 +196,7 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                   ],
                 ).paddingOnly(left: 16, right: 16),
                 8.height,
-                GSRecommendedListComponent(recommendedList),
+                GSRecommendedListComponent(listTopRanking),
               ],
             ).paddingBottom(16),
           ],

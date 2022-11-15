@@ -13,23 +13,33 @@ class GSCategoryListDetailsScreen extends StatefulWidget {
   static String tag = '/GSCategoryListDetailsScreen';
   String? categoryName;
 
-  GSCategoryListDetailsScreen({this.categoryName});
+  GSCategoryListDetailsScreen({super.key, this.categoryName});
 
   @override
-  GSCategoryListDetailsScreenState createState() => GSCategoryListDetailsScreenState();
+  GSCategoryListDetailsScreenState createState() =>
+      GSCategoryListDetailsScreenState();
 }
 
-class GSCategoryListDetailsScreenState extends State<GSCategoryListDetailsScreen> {
-  List<GSRecommendedModel> categoryDetailsList = getCategoryListDetailsList();
+categoryProduct(String category) async {
+  var result = await getCategoryProduct(category);
+  return result;
+}
+
+class GSCategoryListDetailsScreenState
+    extends State<GSCategoryListDetailsScreen> {
+  List<GSRecommendedModel> categoryDetailsList = [];
 
   List<Map<String, String>> filterList = [
-    {'title': "Brand"},
-    {'title': "Quality"},
+    {'title': "Giá thành"},
+    {'title': "Loại sản phẩm"},
+    {'title': "Sản phẩm mới"},
   ];
   List<Map<String, String>> sortList = [
-    {'title': "Popularity"},
-    {'title': "Lowest Price"},
-    {'title': "Highest Price"},
+    {'title': "Mặc định"},
+    {'title': "Bán Chạy"},
+    {'title': "Giá tăng dần"},
+    {'title': "Giá giảm dần"},
+    {'title': "Giảm giá nhiều"},
   ];
 
   @override
@@ -39,7 +49,8 @@ class GSCategoryListDetailsScreenState extends State<GSCategoryListDetailsScreen
   }
 
   init() async {
-    //
+    categoryDetailsList = await categoryProduct(widget.categoryName!);
+    setState(() {});
   }
 
   @override
@@ -50,9 +61,11 @@ class GSCategoryListDetailsScreenState extends State<GSCategoryListDetailsScreen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
+      backgroundColor:
+          appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
       appBar: AppBar(
-        backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+        backgroundColor:
+            appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
         elevation: 1,
         centerTitle: false,
         automaticallyImplyLeading: false,
@@ -62,15 +75,17 @@ class GSCategoryListDetailsScreenState extends State<GSCategoryListDetailsScreen
             IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: appStore.isDarkModeOn ? iconSecondaryColor : Colors.black,
+                color:
+                    appStore.isDarkModeOn ? iconSecondaryColor : Colors.black,
               ),
               onPressed: () {
                 finish(context);
               },
             ),
             8.width,
-            Text(widget.categoryName.validate(), style: boldTextStyle()).expand(),
-            IconButton(icon: Icon(Icons.share), onPressed: () {})
+            Text(widget.categoryName.validate(), style: boldTextStyle())
+                .expand(),
+            IconButton(icon: const Icon(Icons.share), onPressed: () {})
           ],
         ),
       ),
@@ -79,32 +94,35 @@ class GSCategoryListDetailsScreenState extends State<GSCategoryListDetailsScreen
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.only(top: 6, bottom: 6),
+              padding: const EdgeInsets.only(top: 6, bottom: 6),
               decoration: boxDecorationWithRoundedCorners(
-                borderRadius: radius(0),
+                borderRadius: radius(10),
                 boxShadow: defaultBoxShadow(),
-                backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+                backgroundColor: appStore.isDarkModeOn
+                    ? scaffoldSecondaryDark
+                    : Colors.white,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.filter_alt, color: Colors.grey),
+                      const Icon(Icons.filter_alt, color: Colors.grey),
                       8.width,
-                      Text("Filter", style: secondaryTextStyle(size: 16)),
+                      Text("Bộ Lọc", style: secondaryTextStyle(size: 16)),
                     ],
                   ).onTap(() {
-                    bottomFilterDialog(context, "Filter", filterList);
+                    bottomFilterDialog(
+                        context, "Bộ lọc thông minh", filterList);
                   }),
                   Row(
                     children: [
-                      Icon(Icons.sort, color: Colors.grey),
+                      const Icon(Icons.sort, color: Colors.grey),
                       8.width,
-                      Text("Sort", style: secondaryTextStyle(size: 16)),
+                      Text("Sắp Xếp", style: secondaryTextStyle(size: 16)),
                     ],
                   ).onTap(() {
-                    bottomFilterDialog(context, "Sort", sortList);
+                    bottomFilterDialog(context, "Sắp Xếp", sortList);
                   })
                 ],
               ),

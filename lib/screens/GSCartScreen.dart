@@ -14,11 +14,20 @@ import 'GSCheckOutScreen.dart';
 class GSCartScreen extends StatefulWidget {
   static String tag = '/GSCartScreen';
 
+  const GSCartScreen({super.key});
+
   @override
   GSCartScreenState createState() => GSCartScreenState();
 }
 
+Future getUserCart() async {
+  var result = await getTopDiscount(10);
+  return result;
+}
+
 class GSCartScreenState extends State<GSCartScreen> {
+  String url = 'not';
+  String result = '';
   List<GSRecommendedModel> recommendedList = getRecommendedList();
   int totalCount = 0;
   int totalAmount = 0;
@@ -30,16 +39,18 @@ class GSCartScreenState extends State<GSCartScreen> {
   }
 
   init() async {
+    result = await getUserCart();
     calculate();
   }
 
   calculate() async {
     totalAmount = 0;
-    recommendedList.forEach((element) {
+    for (var element in recommendedList) {
       setState(() {
-        totalAmount += ((element.salePrice.validate()) * (element.qty.validate())).toInt();
+        totalAmount +=
+            ((element.salePrice.validate()) * (element.qty.validate())).toInt();
       });
-    });
+    }
   }
 
   @override
@@ -51,23 +62,24 @@ class GSCartScreenState extends State<GSCartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+        backgroundColor:
+            appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
         elevation: 1,
         centerTitle: false,
         automaticallyImplyLeading: false,
-        title: Text("Cart", style: boldTextStyle()),
+        title: Text("$result", style: boldTextStyle()),
       ),
       body: Column(
         children: [
           SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             child: ListView.separated(
-              separatorBuilder: (_, i) => Divider(),
+              separatorBuilder: (_, i) => const Divider(),
               shrinkWrap: true,
               reverse: true,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemCount: recommendedList.length,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               itemBuilder: (_, index) {
                 GSRecommendedModel mData = recommendedList[index];
                 return Column(
@@ -77,27 +89,33 @@ class GSCartScreenState extends State<GSCartScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(mData.image.validate(), fit: BoxFit.cover, height: 80, width: 80),
+                        Image.asset(mData.image.validate(),
+                            fit: BoxFit.cover, height: 80, width: 80),
                         30.width,
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(mData.title.validate(), style: boldTextStyle(), maxLines: 1),
+                            Text(mData.title.validate(),
+                                style: boldTextStyle(), maxLines: 1),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  "\u0024${mData.price.validate()}",
-                                  style: secondaryTextStyle(decoration: TextDecoration.lineThrough),
+                                  "${mData.price.validate()} đ",
+                                  style: secondaryTextStyle(
+                                      decoration: TextDecoration.lineThrough),
                                 ),
                                 8.width,
-                                Text("\u0024${mData.salePrice.validate()}", style: primaryTextStyle()),
+                                Text("${mData.salePrice.validate()} đ",
+                                    style: boldTextStyle(color: redColor)),
                               ],
                             ),
                             10.height,
                             Row(
                               children: [
-                                commonCacheImageWidget(gs_minus_icon, 20, width: 20).onTap(() {
+                                commonCacheImageWidget(gs_minus_icon, 20,
+                                        width: 20)
+                                    .onTap(() {
                                   setState(() {
                                     var gtyData = mData.qty.validate();
                                     if (gtyData <= 1) return;
@@ -109,11 +127,14 @@ class GSCartScreenState extends State<GSCartScreen> {
                                 16.width,
                                 Row(
                                   children: [
-                                    Text(mData.qty.toString(), style: boldTextStyle()),
+                                    Text(mData.qty.toString(),
+                                        style: boldTextStyle()),
                                   ],
                                 ),
                                 16.width,
-                                commonCacheImageWidget(gs_add_icon, 20, width: 20).onTap(() {
+                                commonCacheImageWidget(gs_add_icon, 20,
+                                        width: 20)
+                                    .onTap(() {
                                   setState(() {
                                     totalCount = mData.qty! + 1;
                                     mData.qty = totalCount;
@@ -128,36 +149,43 @@ class GSCartScreenState extends State<GSCartScreen> {
                     )
                   ],
                 ).onTap(() {
-                  GSRecommendationDetailsScreen(recommendedDetails: mData).launch(context);
+                  GSRecommendationDetailsScreen(recommendedDetails: mData)
+                      .launch(context);
                 });
               },
             ),
           ).expand(),
           AppButton(
             width: context.width(),
+            color: gs_primary_color,
+            shapeBorder: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(5))),
+            onTap: () {
+              GSCheckOutScreen().launch(context);
+            },
             child: Row(
               children: [
-                Text("Proceed to checkout", style: secondaryTextStyle(color: Colors.white)).expand(),
+                Text("Thanh Toán",
+                        style: boldTextStyle(color: Colors.white, size: 18))
+                    .expand(),
                 Row(
                   children: [
                     Row(
                       children: [
-                        Text("Total:", style: boldTextStyle(color: Colors.white)),
+                        Text("Tổng Tiền:",
+                            style: boldTextStyle(color: Colors.white)),
                         8.width,
-                        Text("\u0024$totalAmount", style: boldTextStyle(color: Colors.white)),
+                        Text("$totalAmount đ",
+                            style: boldTextStyle(color: Colors.white)),
                       ],
                     ),
                     8.width,
-                    Image.asset(gs_next_icon, width: 20, height: 20, color: Colors.white),
+                    Image.asset(gs_next_icon,
+                        width: 20, height: 20, color: Colors.white),
                   ],
                 )
               ],
             ),
-            color: gs_primary_color,
-            shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
-            onTap: () {
-              GSCheckOutScreen().launch(context);
-            },
           ),
         ],
       ),

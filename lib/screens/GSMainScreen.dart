@@ -77,7 +77,7 @@ class GSMainScreenState extends State<GSMainScreen> {
           BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.bagShopping), label: "Đơn Hàng"),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.userCheck), label: "Tài Khoản"),
+              icon: FaIcon(FontAwesomeIcons.users), label: "Tài Khoản"),
         ],
       ),
     );

@@ -8,7 +8,7 @@ import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/main/utils/AppWidget.dart';
 import 'package:nb_utils/nb_utils.dart';
-
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 import '../../../main.dart';
 
 // ignore: must_be_immutable
@@ -16,7 +16,7 @@ class GSRecommendationDetailsScreen extends StatefulWidget {
   static String tag = '/GSRecommendationDetailsScreen';
   GSRecommendedModel? recommendedDetails;
 
-  GSRecommendationDetailsScreen({this.recommendedDetails});
+  GSRecommendationDetailsScreen({super.key, this.recommendedDetails});
 
   @override
   GSRecommendationDetailsScreenState createState() =>
@@ -27,6 +27,7 @@ class GSRecommendationDetailsScreenState
     extends State<GSRecommendationDetailsScreen> {
   int ratingNum = 0;
   int counter = 1;
+  int totalAmount = 0;
 
   @override
   void initState() {
@@ -34,11 +35,18 @@ class GSRecommendationDetailsScreenState
     init();
   }
 
-  init() async {}
+  init() async {
+    caculator();
+  }
 
   @override
   void setState(fn) {
     if (mounted) super.setState(fn);
+  }
+
+  caculator() async {
+    totalAmount =
+        counter * widget.recommendedDetails!.salePrice.validate().toInt();
   }
 
   @override
@@ -52,12 +60,12 @@ class GSRecommendationDetailsScreenState
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SingleChildScrollView(
-                  physics: ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.asset(widget.recommendedDetails!.image!,
-                              fit: BoxFit.cover, height: 180, width: 180)
+                              fit: BoxFit.cover, height: 200, width: 200)
                           .center(),
                       16.height,
                       Row(
@@ -71,14 +79,22 @@ class GSRecommendationDetailsScreenState
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "\u0024${widget.recommendedDetails!.price.validate()}${"/kg"}",
+                                    widget.recommendedDetails!.price
+                                        .validate()
+                                        .round()
+                                        .toVND(),
                                     style: secondaryTextStyle(
+                                        color: grey,
                                         decoration: TextDecoration.lineThrough),
                                   ),
                                   8.width,
                                   Text(
-                                      "\u0024${widget.recommendedDetails!.price.validate()}${"/kg"}",
-                                      style: primaryTextStyle())
+                                      widget.recommendedDetails!.salePrice
+                                          .validate()
+                                          .round()
+                                          .toVND(),
+                                      style: boldTextStyle(
+                                          size: 18, color: redColor))
                                 ],
                               ),
                             ],
@@ -86,7 +102,7 @@ class GSRecommendationDetailsScreenState
                         ],
                       ),
                       8.height,
-                      Divider(),
+                      const Divider(),
                       8.height,
                       Text(widget.recommendedDetails!.description.validate(),
                           style: primaryTextStyle(size: 14)),
@@ -96,32 +112,38 @@ class GSRecommendationDetailsScreenState
                       Row(
                         children: [
                           RatingBar.builder(
-                              initialRating: 5,
+                              initialRating: widget.recommendedDetails!.ranking
+                                      .validate()
+                                      .toDouble() /
+                                  2,
                               minRating: 1,
                               itemCount: 5,
                               glow: false,
+                              allowHalfRating: true,
                               maxRating: 5,
                               itemSize: 20,
                               ignoreGestures: true,
                               itemBuilder: (context, _) =>
-                                  Icon(Icons.star, color: Colors.amber),
+                                  const Icon(Icons.star, color: Colors.amber),
                               onRatingUpdate: (rating) {
                                 ratingNum = rating.toInt();
                                 setState(() {});
                               }),
                           8.width,
-                          Text("5.0 from 1.942 users",
+                          Text("(Tính năng đăng phát triển)",
                                   style: secondaryTextStyle(size: 12))
                               .expand(),
                           Image.asset(gs_next_icon,
-                              width: 20, height: 20, color: Colors.grey),
+                              width: 20,
+                              height: 20,
+                              color: const Color.fromARGB(255, 219, 210, 210)),
                         ],
                       ).onTap(() {}),
                     ],
                   ).paddingAll(16))
               .expand(),
           Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             alignment: Alignment.bottomCenter,
             width: context.width(),
             decoration: boxDecorationWithRoundedCorners(
@@ -135,10 +157,15 @@ class GSRecommendationDetailsScreenState
               children: [
                 Row(
                   children: [
-                    Text("Total", style: boldTextStyle(size: 20)),
+                    Text("Tỗng Tiền: ",
+                        style: boldTextStyle(
+                            size: 20,
+                            color: const Color.fromARGB(255, 229, 158, 5))),
                     8.width,
-                    Text("\u0024${widget.recommendedDetails!.salePrice.validate()}",
-                            style: boldTextStyle(size: 20))
+                    Text(totalAmount.round().toVND(),
+                            style: boldTextStyle(
+                                size: 20,
+                                color: const Color.fromARGB(255, 101, 97, 86)))
                         .expand(),
                     Row(
                       children: [
@@ -148,6 +175,7 @@ class GSRecommendationDetailsScreenState
                                 .onTap(() {
                                 setState(() {
                                   counter--;
+                                  caculator();
                                 });
                               })
                             : Container(),
@@ -158,6 +186,7 @@ class GSRecommendationDetailsScreenState
                             .onTap(() {
                           setState(() {
                             counter++;
+                            caculator();
                           });
                         }),
                       ],
@@ -165,15 +194,15 @@ class GSRecommendationDetailsScreenState
                   ],
                 ),
                 20.height,
-                Text(
-                  widget.recommendedDetails!.description.validate(),
-                  style: secondaryTextStyle(),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                ),
+                // Text(
+                //   widget.recommendedDetails!.description.validate(),
+                //   style: secondaryTextStyle(),
+                //   overflow: TextOverflow.ellipsis,
+                //   maxLines: 2,
+                // ),
                 30.height,
-                gsAppButton(context, "Checkout", () {
-                  GSCheckOutScreen().launch(context);
+                gsAppButton(context, "Thêm Vào Giỏ Hàng", () {
+                  // GSCheckOutScreen().launch(context);
                 }),
               ],
             ),

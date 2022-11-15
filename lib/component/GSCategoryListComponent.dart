@@ -54,7 +54,7 @@ class GSCategoryListComponentState extends State<GSCategoryListComponent> {
               Image.asset(e.image!, fit: BoxFit.cover, height: 80, width: 80),
               8.height,
               Text(e.catgoryName!,
-                  style: primaryTextStyle(size: 12),
+                  style: primaryTextStyle(size: 15),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis),
