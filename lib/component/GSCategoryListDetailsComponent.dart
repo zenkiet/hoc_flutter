@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_order/model/GSModel.dart';
-import 'package:shop_order/screens/GSCategoryDetailsScreen.dart';
+import 'package:shop_order/temp/screens/GSCategoryDetailsScreen.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:nb_utils/nb_utils.dart';

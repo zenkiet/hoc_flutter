@@ -1,14 +1,17 @@
 // ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
-import 'package:shop_order/screens/GSCartScreen.dart';
-import 'package:shop_order/screens/GSDashboardScreen.dart';
-import 'package:shop_order/screens/GSMyOrderScreen.dart';
-import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/main.dart';
-import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+//Source
+import 'package:shop_order/utils/GSColors.dart';
+import 'package:shop_order/main/utils/AppColors.dart';
+import 'package:shop_order/main.dart';
+
+//Redicrect
+import 'GSCartScreen.dart';
+import 'GSDashboardScreen.dart';
+import 'GSMyOrderScreen.dart';
 import 'GSAccountScreen.dart';
 
 class GSMainScreen extends StatefulWidget {
@@ -25,7 +28,7 @@ class GSMainScreenState extends State<GSMainScreen> {
   int currentIndex = 0;
   final List<Widget> pages = [
     const GSDashboardScreen(),
-    GSCartScreen(),
+    const GSCartScreen(),
     GSMyOrderScreen(),
     GSAccountScreen(),
   ];

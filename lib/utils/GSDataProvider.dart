@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shop_order/model/GSModel.dart';
 import 'package:shop_order/utils/GSConstants.dart';
@@ -39,7 +38,7 @@ Future getTopDiscount(int amount) async {
     int countListData = listData.length;
     for (int i = 0; i < countListData; i++) {
       var value = listData[i];
-      // int id = value['id_product'];
+      int id = value['id_product'];
       String name = value['name'];
       String description = value['description'];
       double price = double.parse(value['price']);
@@ -52,6 +51,7 @@ Future getTopDiscount(int amount) async {
       double salePrice = price - (price * discount / 100);
 
       list.add(GSRecommendedModel(
+        id: id,
         offer: discount.round().toString(),
         image: image,
         price: price,
@@ -78,7 +78,7 @@ Future getTopRanking(int amount) async {
     int countListData = listData.length;
     for (int i = 0; i < countListData; i++) {
       var value = listData[i];
-      // int id = value['id_product'];
+      int id = value['id_product'];
       String name = value['name'];
       String description = value['description'];
       double price = double.parse(value['price']);
@@ -91,6 +91,7 @@ Future getTopRanking(int amount) async {
       double salePrice = price - (price * discount / 100);
 
       list.add(GSRecommendedModel(
+        id: id,
         offer: discount.round().toString(),
         image: image,
         price: price,
@@ -129,7 +130,7 @@ Future getCategoryProduct(String category) async {
     List<GSRecommendedModel> list = [];
     for (int i = 0; i < countListData; i++) {
       var value = listData[i];
-      // int id = value['id_product'];
+      int id = value['id_product'];
       String name = value['name'];
       String description = value['description'];
       double price = double.parse(value['price']);
@@ -143,6 +144,7 @@ Future getCategoryProduct(String category) async {
 
       list.add(
         GSRecommendedModel(
+          id: id,
           image: image,
           price: price,
           salePrice: salePrice,
@@ -167,7 +169,7 @@ Future getUserCart(String username) async {
     List<GSRecommendedModel> list = [];
     for (int i = 0; i < countListData; i++) {
       var value = listData[i];
-      // int id = value['id_product'];
+      int id = value['id_product'];
       String name = value['name'];
       String description = value['description'];
       double price = double.parse(value['price']);
@@ -182,6 +184,7 @@ Future getUserCart(String username) async {
 
       list.add(
         GSRecommendedModel(
+          id: id,
           image: image,
           price: price,
           salePrice: salePrice,

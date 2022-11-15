@@ -96,7 +96,7 @@ class GSCategoryListDetailsScreenState
             Container(
               padding: const EdgeInsets.only(top: 6, bottom: 6),
               decoration: boxDecorationWithRoundedCorners(
-                borderRadius: radius(10),
+                borderRadius: radius(0),
                 boxShadow: defaultBoxShadow(),
                 backgroundColor: appStore.isDarkModeOn
                     ? scaffoldSecondaryDark

@@ -1,18 +1,17 @@
-// import 'dart:html';
-
 import 'package:http/http.dart' as http;
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import 'package:shop_order/screens/GSLoginScreen.dart';
-import 'package:shop_order/screens/GSVerificationScreen.dart';
+// Source
 import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
-import 'package:shop_order/main/utils/AppWidget.dart';
+import 'package:shop_order/utils/widget/register.dart';
 // import 'package:shop_order/utils/GSImages.dart';
+
+// Redicrect
+import 'GSLoginScreen.dart';
 
 class GSRegisterScreen extends StatefulWidget {
   static String tag = '/GSRegisterScreen';
@@ -271,7 +270,7 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                     () {
                       // validate
 
-                      GSLoginScreen().launch(context);
+                      const GSLoginScreen().launch(context);
                     },
                   ),
                 ],

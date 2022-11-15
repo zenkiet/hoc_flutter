@@ -1,17 +1,18 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import 'package:shop_order/screens/GSLoginScreen.dart';
-import 'package:shop_order/screens/GSRegisterScreen.dart';
-import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/utils/GSImages.dart';
+// Source
+import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
-// import 'package:shop_order/utils/GSWidgets.dart';
-// import 'package:shop_order/utils/GSConstants.dart';
-// import 'package:shop_order/main/utils/AppWidget.dart';
+import 'package:shop_order/utils/GSImages.dart';
+import 'package:shop_order/utils/GSColors.dart';
+import 'package:shop_order/utils/widget/welcome.dart';
 
-import '../utils/widget/welcome.dart';
-import '../../../main.dart';
+// Redicrect
+import 'GSRegisterScreen.dart';
+import 'GSLoginScreen.dart';
 
 class GSWelcomeScreen extends StatefulWidget {
   static String tag = '/GSWelcomeScreen';
@@ -96,7 +97,7 @@ class GSWelcomeScreenState extends State<GSWelcomeScreen> {
                     16.height,
                     gsAppButton(context, "Đăng Nhập", () {
                       finish(context);
-                      GSLoginScreen().launch(context);
+                      const GSLoginScreen().launch(context);
                     }),
                     16.height,
                     // AppButton(

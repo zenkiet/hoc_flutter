@@ -1,11 +1,13 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: file_names, deprecated_member_use, duplicate_ignore
 import 'package:flutter/material.dart';
-import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/utils/GSImages.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../utils/widget/walk_through.dart';
+// Source
+import 'package:shop_order/utils/GSColors.dart';
+import 'package:shop_order/utils/GSImages.dart';
+import 'package:shop_order/utils/widget/walk_through.dart';
 
+// Redicrect
 import 'GSWelcomeScreen.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -93,7 +95,7 @@ class GSWalkThroughScreenState extends State<GSWalkThroughScreen>
                 style: primaryTextStyle(size: 16, color: gs_primary_color),
                 textAlign: TextAlign.end,
               ).onTap(() {
-                GSWelcomeScreen().launch(context);
+                const GSWelcomeScreen().launch(context);
               }),
             ).paddingOnly(right: 30, top: 30),
             Positioned(
@@ -120,7 +122,7 @@ class GSWalkThroughScreenState extends State<GSWalkThroughScreen>
                 () {
                   if (currentPage == pages.length - 1) {
                     finish(context);
-                    GSWelcomeScreen().launch(context);
+                    const GSWelcomeScreen().launch(context);
                   } else {
                     pageController.nextPage(
                         duration: _kDuration, curve: _kCurve);

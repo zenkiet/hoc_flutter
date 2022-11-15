@@ -1,16 +1,25 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:shop_order/component/GSCategoryListComponent.dart';
-import 'package:shop_order/component/GSRecommendedListComponent.dart';
-import 'package:shop_order/model/GSModel.dart';
-import 'package:shop_order/screens/GSCategoryListDetailsScreen.dart';
-import 'package:shop_order/screens/GSNotificationScreen.dart';
+import 'package:nb_utils/nb_utils.dart';
+
+// Source
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/GSConstants.dart';
 import 'package:shop_order/utils/GSDataProvider.dart';
 import 'package:shop_order/utils/GSImages.dart';
+
 import 'package:shop_order/main.dart';
+
 import 'package:shop_order/main/utils/AppColors.dart';
-import 'package:nb_utils/nb_utils.dart';
+
+import 'package:shop_order/model/GSModel.dart';
+
+import 'package:shop_order/component/GSRecommendedListComponent.dart';
+import 'package:shop_order/component/GSCategoryListComponent.dart';
+
+// Redicrect
+import 'GSCategoryListDetailsScreen.dart';
+import 'GSNotificationScreen.dart';
 
 class GSDashboardScreen extends StatefulWidget {
   static String tag = '/GSDashboardScreen';

@@ -1,15 +1,25 @@
+// ignore_for_file: file_names
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+// Source
+import '../../../main.dart';
 import 'package:shop_order/model/GSModel.dart';
-import 'package:shop_order/screens/GSCheckOutScreen.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/GSImages.dart';
+import 'package:shop_order/utils/AppConstants.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/main/utils/AppWidget.dart';
-import 'package:nb_utils/nb_utils.dart';
-import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
-import '../../../main.dart';
+
+// Redicrect
 
 // ignore: must_be_immutable
 class GSRecommendationDetailsScreen extends StatefulWidget {
@@ -201,7 +211,8 @@ class GSRecommendationDetailsScreenState
                 // ),
                 30.height,
                 gsAppButton(context, "Thêm Vào Giỏ Hàng", () {
-                  // GSCheckOutScreen().launch(context);
+                  addProductCart(
+                      widget.recommendedDetails!.id.validate(), counter);
                 }),
               ],
             ),
@@ -209,5 +220,43 @@ class GSRecommendationDetailsScreenState
         ],
       ),
     );
+  }
+}
+
+addProductCart(int id, int qty) async {
+  final prefs = await SharedPreferences.getInstance();
+  String username = prefs.getString('username') ?? '';
+  var uri = Uri.parse('$BaseUrl/add_product_cart/$username/$id/$qty');
+  var response = await http.get(uri);
+  if (response.statusCode == 200) {
+    var data = json.decode(response.body);
+    if (data['status'] == 'update' || data['status'] == 'insert') {
+      await Fluttertoast.showToast(
+          msg: "Thêm vào giỏ hàng thành công",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else if (data['status'] == 'soldout') {
+      await Fluttertoast.showToast(
+          msg: "Sản phẩm đã hết hàng",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.blueAccent,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      await Fluttertoast.showToast(
+          msg: "Thêm vào giỏ hàng thất bại",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 }

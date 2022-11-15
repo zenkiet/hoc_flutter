@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:shop_order/component/GSCancelOrderComponent.dart';
-import 'package:shop_order/component/GSOnProgressComponent.dart';
-import 'package:shop_order/component/GSOrderCompletedComponent.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:shop_order/component/GSCancelOrderComponent.dart';
+import 'package:shop_order/component/GSOnProgressComponent.dart';
+import 'package:shop_order/component/GSOrderCompletedComponent.dart';
 
 class GSMyOrderScreen extends StatefulWidget {
   static String tag = '/GSMyOrderScreen';
+
+  const GSMyOrderScreen({super.key});
 
   @override
   GSMyOrderScreenState createState() => GSMyOrderScreenState();
 }
 
-class GSMyOrderScreenState extends State<GSMyOrderScreen> with SingleTickerProviderStateMixin {
+class GSMyOrderScreenState extends State<GSMyOrderScreen>
+    with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -33,31 +36,36 @@ class GSMyOrderScreenState extends State<GSMyOrderScreen> with SingleTickerProvi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
+      backgroundColor:
+          appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
       appBar: AppBar(
-        backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+        backgroundColor:
+            appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
         elevation: 0,
         centerTitle: false,
         automaticallyImplyLeading: false,
-        title: Text("My Order", style: boldTextStyle()),
+        title: Text("Đơn Hàng", style: boldTextStyle(size: 20)),
       ),
       body: DefaultTabController(
         initialIndex: 0,
-        length: 3,
+        length: 4,
         child: Column(
           children: <Widget>[
             Container(
-              constraints: BoxConstraints.expand(height: 50),
+              constraints: const BoxConstraints.expand(height: 50),
               child: Material(
-                color: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
-                child: TabBar(
+                color: appStore.isDarkModeOn
+                    ? scaffoldSecondaryDark
+                    : Colors.white,
+                child: const TabBar(
                   indicatorColor: gs_primary_color,
                   unselectedLabelColor: Colors.grey,
                   labelColor: gs_primary_color,
                   tabs: [
-                    Tab(text: "Completed"),
-                    Tab(text: "Delivering"),
-                    Tab(text: "Canceled"),
+                    Tab(text: "Pending"),
+                    Tab(text: "Shipping"),
+                    Tab(text: "Delivered"),
+                    Tab(text: "Cancelled"),
                   ],
                 ),
               ),
@@ -65,9 +73,10 @@ class GSMyOrderScreenState extends State<GSMyOrderScreen> with SingleTickerProvi
             Container(
               child: TabBarView(
                 children: [
-                  Container(child: GSOrderCompletedComponent()),
-                  Container(child: GSOnProgressComponent()),
-                  Container(child: GSCancelOrderComponent()),
+                  Container(child: const GSOrderCompletedComponent()),
+                  Container(child: const GSOrderCompletedComponent()),
+                  Container(child: const GSOnProgressComponent()),
+                  Container(child: const GSCancelOrderComponent()),
                 ],
               ),
             ).expand()

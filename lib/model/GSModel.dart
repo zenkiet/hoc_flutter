@@ -30,6 +30,7 @@ class CategoryModel {
 }
 
 class GSRecommendedModel {
+  int? id;
   String? offer;
   String? image;
   double? salePrice;
@@ -42,7 +43,8 @@ class GSRecommendedModel {
   int? ranking;
 
   GSRecommendedModel(
-      {this.offer,
+      {this.id,
+      this.offer,
       this.image,
       this.salePrice,
       this.price,
