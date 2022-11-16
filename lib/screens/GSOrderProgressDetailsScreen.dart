@@ -32,6 +32,7 @@ class GSOrderProgressDetailsScreen extends StatefulWidget {
 class GSOrderProgressDetailsScreenState
     extends State<GSOrderProgressDetailsScreen> {
   List<GSRecommendedModel> orderProductList = [];
+  int totalMoney = 0;
   @override
   void initState() {
     super.initState();
@@ -46,6 +47,17 @@ class GSOrderProgressDetailsScreenState
     setState(() {
       orderProductList = data;
     });
+    calculate();
+  }
+
+  calculate() async {
+    totalMoney = 0;
+    for (var element in orderProductList) {
+      setState(() {
+        totalMoney +=
+            ((element.salePrice.validate()) * (element.qty.validate())).toInt();
+      });
+    }
   }
 
   Widget orderStatusWidget(OrderStatusWidget orderStatusWidget) {
@@ -204,7 +216,7 @@ class GSOrderProgressDetailsScreenState
               children: [
                 Text("Tổng tiền: ", style: boldTextStyle(size: 20))
                     .paddingOnly(left: 16, right: 16),
-                Text("4.02",
+                Text(totalMoney.round().toVND(),
                         style: boldTextStyle(size: 20, color: primaryColor))
                     .paddingOnly(left: 16, right: 16),
               ],

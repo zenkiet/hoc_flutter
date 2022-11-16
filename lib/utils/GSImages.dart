@@ -34,6 +34,8 @@ const addImage = 'assets/add_icon.png';
 const minusImage = 'assets/minus_icon.png';
 const imageSource = 'assets/products/';
 const emptyCartImage = 'assets/app/empty_cart.png';
+const mapImage = 'assets/app/map.png';
+const successFullImage = 'assets/app/success.png';
 
 const gs_slider_image1 = 'images/groceryApp/slider_image1.png';
 const gs_slider_image2 = 'images/groceryApp/slider_image2.png';
@@ -44,7 +46,7 @@ const gs_cauliflower_img = 'images/groceryApp/cauliflower.png';
 const gs_pineappple_img = 'images/groceryApp/pineapple.png';
 const gs_assian_pear = 'images/groceryApp/assian_pear.png';
 const gs_next_icon = 'images/groceryApp/next_icon.png';
-const gs_map_img = 'images/groceryApp/map_img.png';
+
 const gs_coupon = 'images/groceryApp/coupon.png';
 const gs_successful_img = 'images/groceryApp/successfully.png';
 const gs_cash_icon = 'images/groceryApp/cash_icon.png';
@@ -57,3 +59,4 @@ const gs_headphone = 'images/groceryApp/headphones.png';
 // const gs_app_logo_white
 // const gs_apple_icon
 // const gs_google_icon
+// const gs_map_img

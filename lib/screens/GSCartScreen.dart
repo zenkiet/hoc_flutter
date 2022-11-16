@@ -76,7 +76,7 @@ class GSCartScreenState extends State<GSCartScreen> {
         elevation: 1,
         centerTitle: false,
         automaticallyImplyLeading: false,
-        title: Text("Giỏ Hàng", style: boldTextStyle()),
+        title: Center(child: Text("Giỏ Hàng", style: boldTextStyle(size: 20))),
       ),
       body: Column(
         children: [
@@ -111,8 +111,6 @@ class GSCartScreenState extends State<GSCartScreen> {
                             height: 80,
                           ),
                         ),
-                        // Image.asset(mData.image.validate(),
-                        //     fit: BoxFit.cover, height: 80, width: 80),
                         30.width,
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,7 +183,11 @@ class GSCartScreenState extends State<GSCartScreen> {
             shapeBorder: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             onTap: () {
-              GSCheckOutScreen().launch(context);
+              if (totalAmount == 0) {
+                toast("Giỏ hàng trống");
+                return;
+              }
+              const GSCheckOutScreen().launch(context);
             },
             child: Row(
               children: [

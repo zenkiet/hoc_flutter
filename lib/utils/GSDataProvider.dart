@@ -28,6 +28,35 @@ List<CategoryModel> getCategoryList() {
   return list;
 }
 
+Future getTotalMoney($user) async {
+  var url = Uri.parse('$baseUrl/getTotalMoney.php');
+  var response = await http.post(url, body: {'user': $user});
+  var data = jsonDecode(response.body);
+  return data;
+}
+
+Future getUserInfo(String user) async {
+  var url = Uri.parse('$baseUrl/get_user_info/$user');
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var data = json.decode(utf8.decode(response.bodyBytes));
+    if (data['status'] == 'success') {
+      List<User> list = [];
+      var value = data['data'];
+      String fullname = value['fullname'];
+      String email = value['email'];
+      String phone = value['phone'];
+      String address = value['address'];
+
+      list.add(User(
+          fullname: fullname, email: email, phone: phone, address: address));
+      return list;
+    } else {
+      return [];
+    }
+  }
+}
+
 Future getTopDiscount(int amount) async {
   List<GSRecommendedModel> list = [];
   var uri = Uri.parse('$baseUrl/top_discount/$amount');

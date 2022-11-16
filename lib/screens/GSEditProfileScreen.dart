@@ -1,9 +1,22 @@
+// ignore_for_file: file_names
+
+import 'dart:convert';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
+// Source
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
-import 'package:nb_utils/nb_utils.dart';
+import 'package:shop_order/utils/GSDataProvider.dart';
+import 'package:shop_order/utils/AppConstants.dart';
+
+// Redirect
+import 'package:shop_order/screens/GSAccountScreen.dart';
 
 class GSEditProfileScreen extends StatefulWidget {
   static String tag = '/GSEditProfileScreen';
@@ -20,15 +33,17 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController dateOfBirthController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  // TextEditingController dateOfBirthController = TextEditingController();
 
   FocusNode nameNode = FocusNode();
   FocusNode emailNode = FocusNode();
-  FocusNode dateOfBirthNode = FocusNode();
   FocusNode phoneNode = FocusNode();
+  FocusNode addressNode = FocusNode();
+  // FocusNode dateOfBirthNode = FocusNode();
 
-  DateTime? _date;
+  // DateTime? _date;
   String value = '';
 
   @override
@@ -37,19 +52,29 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
     init();
   }
 
-  init() async {}
-
-  Future<void> selectDate(BuildContext context) async {
-    DateTime? _datePicker = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1947),
-      lastDate: DateTime(2030),
-    );
-    if (_datePicker != null && _datePicker != _date) {
-      _date = _datePicker;
-    }
+  init() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString('username')!;
+    var data = await getUserInfo(username);
+    setState(() {
+      nameController.text = data[0].fullname;
+      emailController.text = data[0].email;
+      phoneController.text = data[0].phone;
+      addressController.text = data[0].address;
+    });
   }
+
+  // Future<void> selectDate(BuildContext context) async {
+  //   DateTime? _datePicker = await showDatePicker(
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime(1947),
+  //     lastDate: DateTime(2030),
+  //   );
+  //   if (_datePicker != null && _datePicker != _date) {
+  //     _date = _datePicker;
+  //   }
+  // }
 
   @override
   void setState(fn) {
@@ -60,7 +85,7 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: gsStatusBarWithTitle(context, "Personal Info")
+      appBar: gsStatusBarWithTitle(context, "Thông Tin Cá Nhân")
           as PreferredSizeWidget?,
       body: Stack(
         children: [
@@ -72,7 +97,7 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      gs_user,
+                      avatarLogo,
                       width: 110,
                       height: 110,
                       fit: BoxFit.fill,
@@ -82,7 +107,7 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
                       autoFocus: false,
                       controller: nameController,
                       textFieldType: TextFieldType.NAME,
-                      decoration: inputDecoration(label: "Name"),
+                      decoration: inputDecoration(label: "Họ Và Tên"),
                       focus: nameNode,
                       nextFocus: emailNode,
                       keyboardType: TextInputType.text,
@@ -92,40 +117,51 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
                       autoFocus: false,
                       controller: emailController,
                       textFieldType: TextFieldType.EMAIL,
-                      decoration: inputDecoration(label: "Email Address"),
+                      decoration: inputDecoration(label: "Địa Chỉ Email"),
                       focus: emailNode,
                       keyboardType: TextInputType.text,
                     ),
                     16.height,
-                    TextFormField(
-                      textAlign: TextAlign.start,
-                      controller: dateOfBirthController,
-                      autofocus: false,
-                      showCursor: false,
-                      keyboardType: TextInputType.number,
-                      decoration: inputDecoration(label: "Date of Birth"),
-                      onTap: () async {
-                        hideKeyboard(context);
-                        await selectDate(context);
-                        dateOfBirthController.text = _date!.day.toString();
-                        dateOfBirthController.text = _date!.month.toString();
-                        dateOfBirthController.text = _date!.year.toString();
-                        value = dateOfBirthController.text =
-                            _date!.day.toString() +
-                                "/" +
-                                _date!.month.toString() +
-                                "/" +
-                                _date!.year.toString();
-                        setState(() {});
-                      },
+                    AppTextField(
+                      autoFocus: false,
+                      controller: addressController,
+                      textFieldType: TextFieldType.ADDRESS,
+                      decoration: inputDecoration(label: "Địa Chỉ Nhận Hàng"),
+                      focus: addressNode,
+                      keyboardType: TextInputType.text,
                     ),
+                    16.height,
+                    // TextFormField(
+                    //   textAlign: TextAlign.start,
+                    //   controller: dateOfBirthController,
+                    //   autofocus: false,
+                    //   showCursor: false,
+                    //   keyboardType: TextInputType.number,
+                    //   decoration: inputDecoration(label: "Date of Birth"),
+                    //   onTap: () async {
+                    //     hideKeyboard(context);
+                    //     await selectDate(context);
+                    //     dateOfBirthController.text = _date!.day.toString();
+                    //     dateOfBirthController.text = _date!.month.toString();
+                    //     dateOfBirthController.text = _date!.year.toString();
+                    //     value = dateOfBirthController.text =
+                    //         // ignore: prefer_interpolation_to_compose_strings
+                    //         _date!.day.toString() +
+                    //             "/" +
+                    //             _date!.month.toString() +
+                    //             "/" +
+                    //             _date!.year.toString();
+                    //     setState(() {});
+                    //   },
+                    // ),
                     20.height,
                     Row(
                       children: [
                         CountryCodePicker(
                           onChanged: print,
-                          initialSelection: 'IT',
-                          favorite: ['+39', 'FR'],
+                          enabled: false,
+                          initialSelection: 'VN',
+                          favorite: const ['+84', 'VN'],
                           showCountryOnly: false,
                           showOnlyCountryWhenClosed: false,
                           alignLeft: false,
@@ -138,11 +174,11 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
                           textAlign: TextAlign.start,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
+                            enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: grey)),
-                            focusedBorder: UnderlineInputBorder(
+                            focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: primaryColor)),
-                            hintText: "000 0000 0000",
+                            hintText: "Số điện thoại của bạn",
                             hintStyle: secondaryTextStyle(size: 14),
                           ),
                         ).expand()
@@ -161,14 +197,30 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
               context,
               'Save',
               () {
-                if (formKey.currentState!.validate()) {
-                  finish(context);
-                }
+                changeInfo(context, nameController.text, emailController.text,
+                    addressController.text, phoneController.text);
               },
             ),
           ),
         ],
       ).withHeight(context.height()),
     ).paddingOnly(top: 16);
+  }
+}
+
+changeInfo(var context, String fullname, String email, String address,
+    String phone) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  String user = prefs.getString('username')!;
+  var uri = Uri.parse(
+      '$baseUrl/change_user_info/$user/$fullname/$email/$address/$phone');
+  var response = await http.get(uri);
+  if (response.statusCode == 200) {
+    var data = json.decode(response.body);
+    if (data['status'] == 'success') {
+      const GSAccountScreen().launch(context);
+    } else {
+      return false;
+    }
   }
 }

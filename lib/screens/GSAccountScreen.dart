@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Source
 import 'package:shop_order/utils/GSColors.dart';
@@ -11,10 +12,12 @@ import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
+import 'package:shop_order/main/store/AppStore.dart';
 
 // Redirect
-import 'GSAddressScreen.dart';
+// import 'GSAddressScreen.dart';
 import 'GSEditProfileScreen.dart';
+import 'GSLoginScreen.dart';
 // import '../temp/screens/GSHelpScreen.dart';
 // import '../temp/screens/GSPromoScreen.dart';
 
@@ -118,7 +121,7 @@ class GSAccountScreenState extends State<GSAccountScreen> {
                     .cornerRadiusWithClipRRect(60)
                     .center()
                 : Image.asset(
-                    profileImage != null ? profileImage as String : gs_user,
+                    profileImage != null ? profileImage as String : avatarLogo,
                     width: 110,
                     height: 110,
                     fit: BoxFit.fill,
@@ -143,15 +146,18 @@ class GSAccountScreenState extends State<GSAccountScreen> {
               },
             ),
             40.height,
-            profileWidget("Profile Settings", "Change Your Basic Profile")
+            profileWidget(
+                    "Thông tin cá nhân", "Chứa các thông tin cơ bản của bạn")
                 .onTap(() {
               const GSEditProfileScreen().launch(context);
             }),
             // profileWidget("Promos", "Latest Promos from us").onTap(() {
             //   GSPromoScreen().launch(context);
             // }),
-            profileWidget("My Address", "Your Address").onTap(() {
-              GSAddressScreen().launch(context);
+            profileWidget("Địa chỉ giao hàng",
+                    "Tổng hợp các địa chỉ giao hàng của bạn")
+                .onTap(() {
+              // GSAddressScreen().launch(context);
             }),
             // profileWidget(
             //         "Terms, Privacy, & Policy", "Things you may want to know")
@@ -160,13 +166,20 @@ class GSAccountScreenState extends State<GSAccountScreen> {
             //   GSHelpScreen().launch(context);
             // }),
             8.height,
-            Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Logout", style: boldTextStyle()))
-                .paddingLeft(16)
+            profileWidget("Đăng xuất", "Thoát khỏi tài khoản").onTap(() {
+              logout(context);
+            }),
           ],
         ),
       ).paddingBottom(16),
     );
   }
+}
+
+logout(var context) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  AppStore appStore = AppStore();
+  prefs.remove('username');
+  appStore.isLoggedIn = false;
+  const GSLoginScreen().launch(context, isNewTask: true);
 }

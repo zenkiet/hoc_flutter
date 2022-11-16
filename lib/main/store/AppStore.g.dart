@@ -47,42 +47,8 @@ mixin _$AppStore on AppStoreBase, Store {
     return super.cardColor;
   }
 
-  @override
-  set cardColor(Color value) {
-    _$cardColorAtom.reportWrite(value, super.cardColor, () {
-      super.cardColor = value;
-    });
-  }
-
-  final _$favDeviceListAtom = Atom(name: 'AppStoreBase.favDeviceList');
-
-  @override
-  List<HSDeviceModel?> get favDeviceList {
-    _$favDeviceListAtom.reportRead();
-    return super.favDeviceList;
-  }
-
-  @override
-  set favDeviceList(List<HSDeviceModel?> value) {
-    _$favDeviceListAtom.reportWrite(value, super.favDeviceList, () {
-      super.favDeviceList = value;
-    });
-  }
-
-  final _$hsUserProfileListAtom = Atom(name: 'AppStoreBase.hsUserProfileList');
-
-  @override
-  List<HSUserProfileModel> get hsUserProfileList {
-    _$hsUserProfileListAtom.reportRead();
-    return super.hsUserProfileList;
-  }
-
-  @override
-  set hsUserProfileList(List<HSUserProfileModel> value) {
-    _$hsUserProfileListAtom.reportWrite(value, super.hsUserProfileList, () {
-      super.hsUserProfileList = value;
-    });
-  }
+  // final _$favDeviceListAtom = Atom(name: 'AppStoreBase.favDeviceList');
+  // final _$hsUserProfileListAtom = Atom(name: 'AppStoreBase.hsUserProfileList');
 
   final _$toggleDarkModeAsyncAction =
       AsyncAction('AppStoreBase.toggleDarkMode');
@@ -94,39 +60,6 @@ mixin _$AppStore on AppStoreBase, Store {
   }
 
   final _$AppStoreBaseActionController = ActionController(name: 'AppStoreBase');
-
-  @override
-  void addToMyItems(HSDeviceModel? data) {
-    final _$actionInfo = _$AppStoreBaseActionController.startAction(
-        name: 'AppStoreBase.addToMyItems');
-    try {
-      return super.addToMyItems(data);
-    } finally {
-      _$AppStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void removeToMyItems(HSDeviceModel? data) {
-    final _$actionInfo = _$AppStoreBaseActionController.startAction(
-        name: 'AppStoreBase.removeToMyItems');
-    try {
-      return super.removeToMyItems(data);
-    } finally {
-      _$AppStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void hsAddProfileItems(HSUserProfileModel data) {
-    final _$actionInfo = _$AppStoreBaseActionController.startAction(
-        name: 'AppStoreBase.hsAddProfileItems');
-    try {
-      return super.hsAddProfileItems(data);
-    } finally {
-      _$AppStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void setLoggedIn(bool val) {
@@ -145,8 +78,6 @@ mixin _$AppStore on AppStoreBase, Store {
 isDarkModeOn: ${isDarkModeOn},
 isLoggedIn: ${isLoggedIn},
 cardColor: ${cardColor},
-favDeviceList: ${favDeviceList},
-hsUserProfileList: ${hsUserProfileList}
     ''';
   }
 }

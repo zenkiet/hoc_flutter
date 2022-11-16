@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_order/model/HSModel.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/utils/AppConstants.dart';
 import 'package:mobx/mobx.dart';
@@ -21,28 +20,6 @@ abstract class AppStoreBase with Store {
 
   @observable
   Color cardColor = Colors.white;
-
-  @observable
-  List<HSDeviceModel?> favDeviceList = ObservableList<HSDeviceModel?>();
-
-  @observable
-  List<HSUserProfileModel> hsUserProfileList =
-      ObservableList<HSUserProfileModel>();
-
-  @action
-  void addToMyItems(HSDeviceModel? data) {
-    favDeviceList.add(data);
-  }
-
-  @action
-  void removeToMyItems(HSDeviceModel? data) {
-    favDeviceList.remove(data);
-  }
-
-  @action
-  void hsAddProfileItems(HSUserProfileModel data) {
-    hsUserProfileList.add(data);
-  }
 
   @action
   void setLoggedIn(bool val) {

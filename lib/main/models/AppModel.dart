@@ -45,7 +45,7 @@ class AppModel {
   }
 
   Map<String?, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     return {
       data["title"]: title,
       data["description"]: description,
@@ -69,7 +69,8 @@ class SuggestionModel {
   String? id;
   Timestamp? timestamp;
 
-  SuggestionModel({this.name, this.email, this.feedback, this.id, this.timestamp});
+  SuggestionModel(
+      {this.name, this.email, this.feedback, this.id, this.timestamp});
 
   factory SuggestionModel.fromJson(Map<String, dynamic> json) {
     return SuggestionModel(
@@ -82,12 +83,12 @@ class SuggestionModel {
   }
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['feedback'] = this.feedback;
-    data['timestamp'] = this.timestamp;
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['feedback'] = feedback;
+    data['timestamp'] = timestamp;
 
     return data;
   }

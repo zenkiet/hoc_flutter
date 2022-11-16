@@ -1,19 +1,13 @@
+// ignore_for_file: file_names
+
 class User {
   // username, fullname, email, password, phone, address
-  String? username;
   String? fullname;
   String? email;
-  String? password;
   late String phone;
   late String address;
 
-  User(
-      {this.username,
-      this.fullname,
-      this.email,
-      this.password,
-      this.phone = '',
-      this.address = ''});
+  User({this.fullname, this.email, this.phone = '', this.address = ''});
 }
 
 class SliderModel {

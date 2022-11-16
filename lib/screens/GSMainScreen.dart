@@ -29,8 +29,8 @@ class GSMainScreenState extends State<GSMainScreen> {
   final List<Widget> pages = [
     const GSDashboardScreen(),
     const GSCartScreen(),
-    GSMyOrderScreen(),
-    GSAccountScreen(),
+    const GSMyOrderScreen(),
+    const GSAccountScreen(),
   ];
 
   void onTabTapped(int index) {

@@ -1,13 +1,18 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:shop_order/model/GSModel.dart';
-import 'package:shop_order/temp/screens/GSCategoryDetailsScreen.dart';
-import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
-import 'package:shop_order/screens/GSRecommendationDetailsScreen.dart';
 
+// Source
+import 'package:shop_order/model/GSModel.dart';
+import 'package:shop_order/utils/GSColors.dart';
+import 'package:shop_order/main/utils/AppColors.dart';
+
+// Redirect
+import 'package:shop_order/screens/GSRecommendationDetailsScreen.dart';
 import '../../../main.dart';
+// import 'package:shop_order/temp/screens/GSCategoryDetailsScreen.dart';
 
 // ignore: must_be_immutable
 class GSCategoryListDetailsComponent extends StatefulWidget {
