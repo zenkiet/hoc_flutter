@@ -1,46 +1,66 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:shop_order/model/GSModel.dart';
-import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/utils/GSImages.dart';
-import 'package:shop_order/utils/GSWidgets.dart';
-import 'package:shop_order/main.dart';
-import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+// Source
+import 'package:shop_order/utils/GSImages.dart';
+import 'package:shop_order/main/utils/AppColors.dart';
+import 'package:shop_order/model/GSModel.dart';
+import 'package:shop_order/utils/GSColors.dart';
+import 'package:shop_order/utils/GSWidgets.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/utils/GSDataProvider.dart';
+
+// Redirect
+import 'GSRecommendationDetailsScreen.dart';
 
 // ignore: must_be_immutable
 class GSOrderProgressDetailsScreen extends StatefulWidget {
   static String tag = '/GSOrderProgressDetailsScreen';
   GSMyOrderModel? orderProgressList;
 
-  GSOrderProgressDetailsScreen({this.orderProgressList});
+  GSOrderProgressDetailsScreen({super.key, this.orderProgressList});
 
   @override
-  GSOrderProgressDetailsScreenState createState() => GSOrderProgressDetailsScreenState();
+  GSOrderProgressDetailsScreenState createState() =>
+      GSOrderProgressDetailsScreenState();
 }
 
-class GSOrderProgressDetailsScreenState extends State<GSOrderProgressDetailsScreen> {
+class GSOrderProgressDetailsScreenState
+    extends State<GSOrderProgressDetailsScreen> {
+  List<GSRecommendedModel> orderProductList = [];
   @override
   void initState() {
     super.initState();
     init();
   }
 
-  init() async {}
+  init() async {
+    // final prefs = await SharedPreferences.getInstance
+    // String username = prefs.getString('username') ?? '';
+    var data =
+        await getOrderProduct(widget.orderProgressList!.orderId.toString());
+    setState(() {
+      orderProductList = data;
+    });
+  }
 
   Widget orderStatusWidget(OrderStatusWidget orderStatusWidget) {
     return TimelineTile(
       alignment: TimelineAlign.manual,
       lineXY: 0.1,
       isFirst: true,
-      indicatorStyle: IndicatorStyle(
+      indicatorStyle: const IndicatorStyle(
         width: 20,
-        color: gs_primary_color,
+        color: primaryColor,
         padding: EdgeInsets.all(8),
       ),
       endChild: orderStatusWidget,
-      beforeLineStyle: LineStyle(
-        color: gs_primary_color,
+      beforeLineStyle: const LineStyle(
+        color: primaryColor,
       ),
     );
   }
@@ -54,7 +74,8 @@ class GSOrderProgressDetailsScreenState extends State<GSOrderProgressDetailsScre
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+        backgroundColor:
+            appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
         elevation: 1,
         titleSpacing: 0,
         centerTitle: false,
@@ -62,13 +83,14 @@ class GSOrderProgressDetailsScreenState extends State<GSOrderProgressDetailsScre
         title: Row(
           children: [
             IconButton(
-              icon: Icon(Icons.arrow_back, color: gs_primary_color),
+              icon: const Icon(Icons.arrow_back, color: primaryColor),
               onPressed: () {
                 finish(context);
               },
             ),
             8.width,
-            Text(widget.orderProgressList!.orderId.validate(), style: boldTextStyle()),
+            Text('Đơn Hàng ${widget.orderProgressList!.orderId.validate()}',
+                style: boldTextStyle()),
           ],
         ),
       ),
@@ -76,145 +98,120 @@ class GSOrderProgressDetailsScreenState extends State<GSOrderProgressDetailsScre
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.orderProgressList!.date!, style: primaryTextStyle()).paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
-            Divider(),
-            Text("Order Status", style: boldTextStyle()).paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
+            Text('Đặt vào ngày ${widget.orderProgressList!.date!}',
+                    style: primaryTextStyle())
+                .paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
+            const Divider(),
+            Text("Chi Tiết Đơn Hàng", style: boldTextStyle())
+                .paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
             Column(
               children: [
-                TimelineTile(
-                  alignment: TimelineAlign.manual,
-                  lineXY: 0.1,
-                  isFirst: true,
-                  indicatorStyle: IndicatorStyle(
-                      width: 16,
-                      color: (widget.orderProgressList!.orderStatus == 1)
-                          ? gs_primary_color
-                          : (widget.orderProgressList!.orderStatus == 2)
-                              ? Colors.orangeAccent
-                              : (widget.orderProgressList!.orderStatus == 0)
-                                  ? Colors.red
-                                  : Container() as Color),
-                  endChild: OrderStatusWidget(title: 'Preparing order'),
-                  beforeLineStyle: LineStyle(
-                      color: (widget.orderProgressList!.orderStatus == 1)
-                          ? gs_primary_color
-                          : (widget.orderProgressList!.orderStatus == 2)
-                              ? Colors.orangeAccent
-                              : (widget.orderProgressList!.orderStatus == 0)
-                                  ? Colors.red
-                                  : Container() as Color,
-                      thickness: 2),
-                ),
-                TimelineTile(
-                  alignment: TimelineAlign.manual,
-                  lineXY: 0.1,
-                  indicatorStyle: IndicatorStyle(
-                      width: 16,
-                      color: (widget.orderProgressList!.orderStatus == 1)
-                          ? gs_primary_color
-                          : (widget.orderProgressList!.orderStatus == 2)
-                              ? Colors.orangeAccent
-                              : (widget.orderProgressList!.orderStatus == 0)
-                                  ? Colors.red
-                                  : Container() as Color),
-                  endChild: OrderStatusWidget(title: 'Ready to Collect'),
-                  beforeLineStyle: LineStyle(
-                      color: (widget.orderProgressList!.orderStatus == 1)
-                          ? gs_primary_color
-                          : (widget.orderProgressList!.orderStatus == 2)
-                              ? Colors.orangeAccent
-                              : (widget.orderProgressList!.orderStatus == 0)
-                                  ? Colors.red
-                                  : Container() as Color,
-                      thickness: 2),
-                ),
-                TimelineTile(
-                  alignment: TimelineAlign.manual,
-                  lineXY: 0.1,
-                  indicatorStyle: IndicatorStyle(
-                    width: 16,
-                    color: (widget.orderProgressList!.orderStatus == 1)
-                        ? gs_primary_color
-                        : (widget.orderProgressList!.orderStatus == 2)
-                            ? Colors.orangeAccent
-                            : (widget.orderProgressList!.orderStatus == 0)
-                                ? Colors.red
-                                : Container() as Color,
+                SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  child: ListView.separated(
+                    separatorBuilder: (_, i) => const Divider(),
+                    shrinkWrap: true,
+                    reverse: true,
+                    physics: const ClampingScrollPhysics(),
+                    itemCount: orderProductList.length,
+                    padding: const EdgeInsets.all(16),
+                    itemBuilder: (_, index) {
+                      GSRecommendedModel mData = orderProductList[index];
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  GSRecommendationDetailsScreen(
+                                          recommendedDetails: mData)
+                                      .launch(context);
+                                },
+                                child: Ink.image(
+                                  image: AssetImage(mData.image.validate()),
+                                  // fit: BoxFit.cover,
+                                  width: 80,
+                                  height: 80,
+                                ),
+                              ),
+                              30.width,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      '${mData.title.validate()} x ${mData.qty}',
+                                      style: boldTextStyle(size: 17),
+                                      maxLines: 1),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        mData.price.validate().round().toVND(),
+                                        style: secondaryTextStyle(
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            size: 14),
+                                      ),
+                                      8.width,
+                                      Text(
+                                          mData.salePrice
+                                              .validate()
+                                              .round()
+                                              .toVND(),
+                                          style: boldTextStyle(
+                                              color: redColor, size: 16)),
+                                    ],
+                                  ),
+                                  10.height,
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ).onTap(() {});
+                    },
                   ),
-                  endChild: OrderStatusWidget(title: 'Deliver order'),
-                  beforeLineStyle: LineStyle(
-                      color: (widget.orderProgressList!.orderStatus == 1)
-                          ? gs_primary_color
-                          : (widget.orderProgressList!.orderStatus == 2)
-                              ? Colors.orangeAccent
-                              : (widget.orderProgressList!.orderStatus == 0)
-                                  ? Colors.red
-                                  : Container() as Color,
-                      thickness: 2),
-                  afterLineStyle: LineStyle(
-                      color: (widget.orderProgressList!.orderStatus == 1)
-                          ? gs_primary_color
-                          : (widget.orderProgressList!.orderStatus == 2)
-                              ? Colors.orangeAccent
-                              : (widget.orderProgressList!.orderStatus == 0)
-                                  ? Colors.red
-                                  : Container() as Color,
-                      thickness: 2),
-                ),
-                TimelineTile(
-                  alignment: TimelineAlign.manual,
-                  lineXY: 0.1,
-                  isLast: true,
-                  indicatorStyle: IndicatorStyle(
-                    width: 20,
-                    color: (widget.orderProgressList!.orderStatus == 1)
-                        ? gs_primary_color
-                        : (widget.orderProgressList!.orderStatus == 2)
-                            ? Colors.orangeAccent
-                            : (widget.orderProgressList!.orderStatus == 0)
-                                ? Colors.red
-                                : Container() as Color,
-                  ),
-                  endChild: OrderStatusWidget(disabled: true, title: 'Ready to Collect'),
-                  beforeLineStyle: LineStyle(
-                      color: (widget.orderProgressList!.orderStatus == 1)
-                          ? gs_primary_color
-                          : (widget.orderProgressList!.orderStatus == 2)
-                              ? Colors.orangeAccent
-                              : (widget.orderProgressList!.orderStatus == 0)
-                                  ? Colors.red
-                                  : Container() as Color,
-                      thickness: 2),
                 ),
               ],
             ),
-            Divider(),
+            const Divider(),
             8.height,
-            Text("Destination", style: boldTextStyle()).paddingOnly(left: 16, right: 16),
+            Text("Địa Chỉ Giao Hàng", style: boldTextStyle())
+                .paddingOnly(left: 18, right: 16),
             8.height,
-            Text("8618 Hickory Avenue Newington, CT 06111", style: primaryTextStyle(size: 14)).paddingOnly(left: 16, right: 16),
+            Text(widget.orderProgressList!.address.validate(),
+                    style: primaryTextStyle(size: 16))
+                .paddingOnly(left: 16, right: 16),
             8.height,
-            Divider(),
+            const Divider(),
             8.height,
-            Text("Courier", style: boldTextStyle()).paddingOnly(left: 16, right: 16),
-            8.height,
-            Row(
-              children: [
-                Image.asset(gs_app_logo, height: 40, width: 40, fit: BoxFit.cover),
-                8.width,
-                Text("Grocery Courier", style: primaryTextStyle(size: 14)),
-              ],
-            ).paddingOnly(left: 16, right: 16),
+            // Text("Courier", style: boldTextStyle())
+            //     .paddingOnly(left: 16, right: 16),
+            // 8.height,
+            // Row(
+            //   children: [
+            //     Image.asset(appLogo, height: 340, width: 40, fit: BoxFit.cover),
+            //     8.width,
+            //     Text("Grocery Courier", style: primaryTextStyle(size: 14)),
+            //   ],
+            // ).paddingOnly(left: 16, right: 16),
             8.height,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Total Cost", style: boldTextStyle()).paddingOnly(left: 16, right: 16),
-                Text("\u00244.02", style: boldTextStyle(size: 18)).paddingOnly(left: 16, right: 16),
+                Text("Tổng tiền: ", style: boldTextStyle(size: 20))
+                    .paddingOnly(left: 16, right: 16),
+                Text("4.02",
+                        style: boldTextStyle(size: 20, color: primaryColor))
+                    .paddingOnly(left: 16, right: 16),
               ],
             ),
             8.height,
-            Text("You can check your order detail here, Thank you for order.").paddingOnly(left: 16, right: 16, bottom: 16),
+            const Text("Cám ơn bạn đã sử dụng dịch vụ của chúng tôi.")
+                .paddingOnly(left: 16, right: 16, bottom: 16),
           ],
         ),
       ),

@@ -41,7 +41,7 @@
 //         title: Row(
 //           children: [
 //             IconButton(
-//               icon: Icon(Icons.arrow_back, color: gs_primary_color),
+//               icon: Icon(Icons.arrow_back, color: primaryColor),
 //               onPressed: () {
 //                 finish(context);
 //               },

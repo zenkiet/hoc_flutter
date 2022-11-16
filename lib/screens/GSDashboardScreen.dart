@@ -170,7 +170,7 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                     dotSize: 10,
                     pageController: pageController,
                     pages: sliderList,
-                    indicatorColor: gs_primary_color,
+                    indicatorColor: primaryColor,
                     unselectedIndicatorColor: Colors.grey,
                   ),
                 ),
@@ -182,8 +182,7 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                   children: [
                     Text("Giảm Giá Nhiều", style: boldTextStyle(size: 18)),
                     Text("Xem Thêm",
-                            style: boldTextStyle(
-                                color: gs_primary_color, size: 16))
+                            style: boldTextStyle(color: primaryColor, size: 16))
                         .onTap(() {
                       GSCategoryListDetailsScreen().launch(context);
                     })
@@ -197,8 +196,7 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                   children: [
                     Text("Đánh Giá Cao", style: boldTextStyle(size: 18)),
                     Text("Xem Thêm",
-                            style: boldTextStyle(
-                                color: gs_primary_color, size: 16))
+                            style: boldTextStyle(color: primaryColor, size: 16))
                         .onTap(() {
                       GSCategoryListDetailsScreen().launch(context);
                     })

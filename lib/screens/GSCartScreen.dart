@@ -181,7 +181,7 @@ class GSCartScreenState extends State<GSCartScreen> {
           ).expand(),
           AppButton(
             width: context.width(),
-            color: gs_primary_color,
+            color: primaryColor,
             shapeBorder: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             onTap: () {

@@ -141,8 +141,7 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: grey)),
                             focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: gs_primary_color)),
+                                borderSide: BorderSide(color: primaryColor)),
                             hintText: "000 0000 0000",
                             hintStyle: secondaryTextStyle(size: 14),
                           ),

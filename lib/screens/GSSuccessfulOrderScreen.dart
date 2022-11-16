@@ -21,7 +21,7 @@ class GSSuccessfulOrderScreenState extends State<GSSuccessfulOrderScreen> {
   }
 
   init() async {
-    setStatusBarColor(gs_primary_color);
+    setStatusBarColor(primaryColor);
   }
 
   @override
@@ -37,16 +37,17 @@ class GSSuccessfulOrderScreenState extends State<GSSuccessfulOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    setStatusBarColor(gs_primary_color);
+    setStatusBarColor(primaryColor);
     return Scaffold(
-      backgroundColor: gs_primary_color,
+      backgroundColor: primaryColor,
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(gs_successful_img, height: 120, width: 120, fit: BoxFit.cover),
+              Image.asset(gs_successful_img,
+                  height: 120, width: 120, fit: BoxFit.cover),
               30.height,
               Text(
                 "John, your order has been successful",
@@ -55,9 +56,15 @@ class GSSuccessfulOrderScreenState extends State<GSSuccessfulOrderScreen> {
               ),
               20.height,
               createRichText(list: [
-                TextSpan(text: "Check your status in", style: primaryTextStyle(color: Colors.white, size: 18)),
-                TextSpan(text: " My Order\n", style: boldTextStyle(color: Colors.white)),
-                TextSpan(text: "about next steps information.", style: primaryTextStyle(color: Colors.white, size: 18)),
+                TextSpan(
+                    text: "Check your status in",
+                    style: primaryTextStyle(color: Colors.white, size: 18)),
+                TextSpan(
+                    text: " My Order\n",
+                    style: boldTextStyle(color: Colors.white)),
+                TextSpan(
+                    text: "about next steps information.",
+                    style: primaryTextStyle(color: Colors.white, size: 18)),
               ]),
             ],
           ).paddingAll(16).paddingBottom(context.height() * 0.2),
@@ -66,7 +73,8 @@ class GSSuccessfulOrderScreenState extends State<GSSuccessfulOrderScreen> {
             width: context.width(),
             decoration: boxDecorationWithRoundedCorners(
               borderRadius: radiusOnly(topLeft: 16, topRight: 16),
-              backgroundColor: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+              backgroundColor:
+                  appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -74,7 +82,8 @@ class GSSuccessfulOrderScreenState extends State<GSSuccessfulOrderScreen> {
               children: [
                 Text("Preparing your order", style: boldTextStyle()),
                 16.height,
-                Text("Your order will be prepared and will come soon", style: secondaryTextStyle()),
+                Text("Your order will be prepared and will come soon",
+                    style: secondaryTextStyle()),
                 40.height,
                 gsAppButton(context, "Track My Order", () {
                   finish(context);

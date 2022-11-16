@@ -82,6 +82,7 @@ flutter:
     - assets/walk_through/
     - assets/category/
     - assets/slider/
+    - assets/app/
     - images/
     - images/app/
     - images/app/abstract_icons/

@@ -81,12 +81,11 @@ class GSCategoryListDetailsComponentState
                       Container(
                         decoration: boxDecorationWithRoundedCorners(
                           borderRadius: radius(4),
-                          backgroundColor: gs_primary_color.withOpacity(0.20),
+                          backgroundColor: primaryColor.withOpacity(0.20),
                         ),
                         padding: const EdgeInsets.only(left: 14, right: 14),
                         child: Text("Save ${mData.offer.validate()}",
-                                style:
-                                    secondaryTextStyle(color: gs_primary_color))
+                                style: secondaryTextStyle(color: primaryColor))
                             .visible(!mData.offer.isEmptyOrNull),
                       )
                     ],

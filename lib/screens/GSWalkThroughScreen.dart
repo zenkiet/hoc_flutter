@@ -92,7 +92,7 @@ class GSWalkThroughScreenState extends State<GSWalkThroughScreen>
               alignment: Alignment.topRight,
               child: Text(
                 "Bỏ Qua".toUpperCase(),
-                style: primaryTextStyle(size: 16, color: gs_primary_color),
+                style: primaryTextStyle(size: 16, color: primaryColor),
                 textAlign: TextAlign.end,
               ).onTap(() {
                 const GSWelcomeScreen().launch(context);
@@ -106,7 +106,7 @@ class GSWalkThroughScreenState extends State<GSWalkThroughScreen>
               child: DotIndicator(
                 pageController: pageController,
                 pages: pages,
-                indicatorColor: gs_primary_color,
+                indicatorColor: primaryColor,
                 unselectedIndicatorColor: grey,
                 currentDotSize: 25,
                 currentBoxShape: BoxShape.circle,

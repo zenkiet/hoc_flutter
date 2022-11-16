@@ -33,8 +33,7 @@ class GSWelcomeScreenState extends State<GSWelcomeScreen> {
   }
 
   init() async {
-    setStatusBarColor(
-        appStore.isDarkModeOn ? scaffoldColorDark : gs_primary_color,
+    setStatusBarColor(appStore.isDarkModeOn ? scaffoldColorDark : primaryColor,
         statusBarIconBrightness: Brightness.light);
   }
 
@@ -57,7 +56,7 @@ class GSWelcomeScreenState extends State<GSWelcomeScreen> {
         key: scaffoldKey,
         // image
         backgroundColor:
-            appStore.isDarkModeOn ? scaffoldColorDark : backgroundColor,
+            appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
         body: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -146,7 +145,7 @@ class GSWelcomeScreenState extends State<GSWelcomeScreen> {
                         3.width,
                         Text("Đăng Ký",
                             style: secondaryTextStyle(
-                                color: gs_primary_color, size: 17)),
+                                color: primaryColor, size: 17)),
                       ],
                     ).onTap(() {
                       GSRegisterScreen().launch(context);

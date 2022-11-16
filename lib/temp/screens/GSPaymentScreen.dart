@@ -32,7 +32,7 @@
 //         Image.asset(image, height: 40, width: 40, fit: BoxFit.cover),
 //         16.width,
 //         Text(title, style: boldTextStyle()).expand(),
-//         Icon(Icons.navigate_next_outlined, color: gs_primary_color),
+//         Icon(Icons.navigate_next_outlined, color: primaryColor),
 //       ],
 //     );
 //   }
@@ -82,7 +82,7 @@
 //                             commonCacheImageWidget(gs_next, 24, width: 24, fit: BoxFit.cover),
 //                             16.width,
 //                             Text("My Voucher", style: boldTextStyle()).expand(),
-//                             Icon(Icons.navigate_next_outlined, color: gs_primary_color),
+//                             Icon(Icons.navigate_next_outlined, color: primaryColor),
 //                           ],
 //                         ).onTap(() {}),
 //                         32.height,
@@ -91,7 +91,7 @@
 //                             commonCacheImageWidget(gs_next, 24, width: 24, fit: BoxFit.cover),
 //                             16.width,
 //                             Text("Gift Card", style: boldTextStyle()).expand(),
-//                             Icon(Icons.navigate_next_outlined, color: gs_primary_color),
+//                             Icon(Icons.navigate_next_outlined, color: primaryColor),
 //                           ],
 //                         ).onTap(() {}),
 //                       ],

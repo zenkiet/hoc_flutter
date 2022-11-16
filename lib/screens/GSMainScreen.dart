@@ -66,7 +66,7 @@ class GSMainScreenState extends State<GSMainScreen> {
         currentIndex: currentIndex,
         onTap: onTabTapped,
         type: BottomNavigationBarType.fixed,
-        selectedIconTheme: const IconThemeData(color: gs_primary_color),
+        selectedIconTheme: const IconThemeData(color: primaryColor),
         unselectedIconTheme: IconThemeData(color: Colors.grey[300]),
         selectedItemColor:
             appStore.isDarkModeOn ? textSecondaryColorGlobal : Colors.black,

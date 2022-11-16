@@ -4,9 +4,10 @@ import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:nb_utils/nb_utils.dart';
+
 import 'package:shop_order/component/GSCancelOrderComponent.dart';
-import 'package:shop_order/component/GSOnProgressComponent.dart';
-import 'package:shop_order/component/GSOrderCompletedComponent.dart';
+import 'package:shop_order/component/GSOrderShippingComponent.dart';
+import 'package:shop_order/component/GSOrderDeliveredComponent.dart';
 
 class GSMyOrderScreen extends StatefulWidget {
   static String tag = '/GSMyOrderScreen';
@@ -59,9 +60,9 @@ class GSMyOrderScreenState extends State<GSMyOrderScreen>
                     ? scaffoldSecondaryDark
                     : Colors.white,
                 child: const TabBar(
-                  indicatorColor: gs_primary_color,
+                  indicatorColor: primaryColor,
                   unselectedLabelColor: Colors.grey,
-                  labelColor: gs_primary_color,
+                  labelColor: primaryColor,
                   tabs: [
                     Tab(text: "Pending"),
                     Tab(text: "Shipping"),
@@ -74,9 +75,9 @@ class GSMyOrderScreenState extends State<GSMyOrderScreen>
             const TabBarView(
               children: [
                 GSOrderPendingComponent(),
-                GSOrderCompletedComponent(),
-                GSOnProgressComponent(),
-                GSCancelOrderComponent(),
+                GSOrderShippingComponent(),
+                GSOrderDeliveredComponent(),
+                GSOrderCanceledComponent(),
               ],
             ).expand()
           ],

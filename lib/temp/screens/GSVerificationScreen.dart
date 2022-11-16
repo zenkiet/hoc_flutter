@@ -123,7 +123,7 @@
 //             ),
 //             10.height,
 //             counter == 0
-//                 ? Text("Resend", style: boldTextStyle(color: gs_primary_color, size: 14)).onTap(() {
+//                 ? Text("Resend", style: boldTextStyle(color: primaryColor, size: 14)).onTap(() {
 //                     startTimer();
 //                     counter = 60;
 //                     setState(() {});
@@ -132,7 +132,7 @@
 //             16.height,
 //             Text(
 //               "Call me instead",
-//               style: boldTextStyle(color: gs_primary_color, size: 14),
+//               style: boldTextStyle(color: primaryColor, size: 14),
 //             ),
 //             40.height,
 //             gsAppButton(

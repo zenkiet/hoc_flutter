@@ -15,7 +15,7 @@ import 'package:nb_utils/nb_utils.dart';
 Widget gsAppButton(BuildContext context, String title, Function onTap) {
   return AppButton(
     width: context.width(),
-    color: gs_primary_color,
+    color: primaryColor,
     shapeBorder: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10))),
     onTap: onTap,
@@ -27,8 +27,8 @@ InputDecoration inputDecoration({String? label, String? error}) {
   return InputDecoration(
     enabledBorder:
         const UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-    focusedBorder: const UnderlineInputBorder(
-        borderSide: BorderSide(color: gs_primary_color)),
+    focusedBorder:
+        const UnderlineInputBorder(borderSide: BorderSide(color: primaryColor)),
     labelText: label,
     labelStyle: secondaryTextStyle(size: 14),
     errorText: error,
@@ -80,7 +80,7 @@ Widget profileWidget(String title, String description) {
         ],
       ),
       Image.asset(gs_next_icon,
-          height: 20, width: 20, fit: BoxFit.cover, color: gs_primary_color)
+          height: 20, width: 20, fit: BoxFit.cover, color: primaryColor)
     ],
   ).paddingOnly(top: 8, bottom: 8, left: 16, right: 16);
 }
@@ -90,7 +90,7 @@ Widget helpWidget(String title, String image) {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(title, style: boldTextStyle()),
-      Image.asset(image, height: 20, width: 20, color: gs_primary_color),
+      Image.asset(image, height: 20, width: 20, color: primaryColor),
     ],
   ).paddingAll(16);
 }
@@ -157,7 +157,7 @@ bottomFilterDialog(BuildContext context, String title, List list,
                                 tappedIndex == index
                                     ? Image.asset(
                                         gs_next_icon,
-                                        color: gs_primary_color,
+                                        color: primaryColor,
                                         height: 18,
                                         width: 18,
                                       )

@@ -53,8 +53,7 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
 
   @override
   void dispose() {
-    setStatusBarColor(
-        appStore.isDarkModeOn ? scaffoldColorDark : gs_primary_color,
+    setStatusBarColor(appStore.isDarkModeOn ? scaffoldColorDark : primaryColor,
         statusBarIconBrightness: Brightness.dark);
     super.dispose();
   }
@@ -115,7 +114,7 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                       enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey)),
                       focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: gs_primary_color)),
+                          borderSide: BorderSide(color: primaryColor)),
                       labelText: 'Địa chỉ Email',
                       labelStyle: secondaryTextStyle(size: 14),
                     ),
@@ -132,7 +131,7 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                       enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey)),
                       focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: gs_primary_color)),
+                          borderSide: BorderSide(color: primaryColor)),
                       labelText: 'Họ và Tên',
                       labelStyle: secondaryTextStyle(size: 14),
                     ),
@@ -149,7 +148,7 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                       enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey)),
                       focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: gs_primary_color)),
+                          borderSide: BorderSide(color: primaryColor)),
                       labelText: 'Last Name',
                       labelStyle: secondaryTextStyle(size: 14),
                     ),
@@ -180,7 +179,7 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                           enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: grey)),
                           focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: gs_primary_color)),
+                              borderSide: BorderSide(color: primaryColor)),
                           hintText: "Số điện thoại",
                           hintStyle: secondaryTextStyle(size: 14),
                         ),
@@ -207,12 +206,12 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                             showPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: gs_primary_color),
+                            color: primaryColor),
                       ),
                       enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: grey)),
                       focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: gs_primary_color)),
+                          borderSide: BorderSide(color: primaryColor)),
                       labelStyle: secondaryTextStyle(size: 14),
                       labelText: "Mật Khẩu",
                     ),
@@ -243,12 +242,12 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                             showPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: gs_primary_color),
+                            color: primaryColor),
                       ),
                       enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: grey)),
                       focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: gs_primary_color)),
+                          borderSide: BorderSide(color: primaryColor)),
                       labelStyle: secondaryTextStyle(size: 14),
                       labelText: "Confirm Password",
                     ),

@@ -6,7 +6,7 @@ import '../GSColors.dart';
 Widget gsAppButton(BuildContext context, String title, Function onTap) {
   return AppButton(
     width: context.width(),
-    color: gs_primary_color,
+    color: primaryColor,
     shapeBorder: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10))),
     onTap: onTap,

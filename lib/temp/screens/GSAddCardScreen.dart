@@ -44,11 +44,11 @@
 //             /* CreditCardFormField(
 //               decoration: InputDecoration(
 //                 enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-//                 focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+//                 focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: primaryColor)),
 //                 labelStyle: secondaryTextStyle(size: 14),
 //                 hintText: "Card Number",
 //                 hintStyle: secondaryTextStyle(size: 14),
-//                 suffixIcon: Icon(Icons.payment, color: gs_primary_color),
+//                 suffixIcon: Icon(Icons.payment, color: primaryColor),
 //               ),
 //               controller: creditCardController,
 //             ),*/
@@ -58,7 +58,7 @@
 //                 ExpirationFormField(
 //                   decoration: InputDecoration(
 //                     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-//                     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+//                     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: primaryColor)),
 //                     hintText: "Exp Date(MM/YY)",
 //                     hintStyle: secondaryTextStyle(size: 14),
 //                   ),
@@ -69,7 +69,7 @@
 //                 /*   CVVFormField(
 //                   decoration: InputDecoration(
 //                     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-//                     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+//                     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: primaryColor)),
 //                     hintText: "CVV",
 //                     hintStyle: secondaryTextStyle(size: 14),
 //                   ),

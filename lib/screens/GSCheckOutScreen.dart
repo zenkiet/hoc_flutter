@@ -29,10 +29,10 @@ class GSCheckOutScreenState extends State<GSCheckOutScreen> {
   Widget rowWidget(IconData icon, String title) {
     return Row(
       children: [
-        Icon(icon, color: gs_primary_color),
+        Icon(icon, color: primaryColor),
         8.width,
         Text(title, style: primaryTextStyle()).expand(),
-        Icon(Icons.navigate_next_outlined, color: gs_primary_color),
+        Icon(Icons.navigate_next_outlined, color: primaryColor),
       ],
     );
   }
@@ -147,12 +147,11 @@ class GSCheckOutScreenState extends State<GSCheckOutScreen> {
                   child: Row(
                     children: [
                       Image.asset(gs_coupon,
-                          height: 24, width: 24, color: gs_primary_color),
+                          height: 24, width: 24, color: primaryColor),
                       8.width,
                       Text("Add Promo Code", style: primaryTextStyle())
                           .expand(),
-                      Icon(Icons.navigate_next_outlined,
-                          color: gs_primary_color),
+                      Icon(Icons.navigate_next_outlined, color: primaryColor),
                     ],
                   ),
                 ),

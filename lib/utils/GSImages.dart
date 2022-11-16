@@ -3,8 +3,6 @@ import 'package:shop_order/utils/AppConstants.dart';
 const welcomeImage = 'assets/welcome.png';
 
 const gs_app_logo = 'images/groceryApp/logo.png';
-const gs_app_logo_white = 'assets/logo.png';
-const gs_apple_icon = '$baseUrl/groceryApp/apple_icon.png';
 
 const avatarLogo = 'assets/avatar.png';
 const appLogo = 'assets/app_shop.png';
@@ -35,8 +33,8 @@ const List<String> imageSlider = [
 const addImage = 'assets/add_icon.png';
 const minusImage = 'assets/minus_icon.png';
 const imageSource = 'assets/products/';
+const emptyCartImage = 'assets/app/empty_cart.png';
 
-const gs_google_icon = 'images/groceryApp/google_icon.png';
 const gs_slider_image1 = 'images/groceryApp/slider_image1.png';
 const gs_slider_image2 = 'images/groceryApp/slider_image2.png';
 const gs_slider_image3 = 'images/groceryApp/slider_image3.png';
@@ -53,6 +51,9 @@ const gs_cash_icon = 'images/groceryApp/cash_icon.png';
 const gs_paypal_icon = 'images/groceryApp/paypal_icon.png';
 const gs_visa_icon = 'images/groceryApp/visa_icon.png';
 const gs_next = 'assets/navigate_next.png';
-const gs_empty_cart = 'images/groceryApp/empty_cart.png';
 const gs_user = 'images/groceryApp/user.jpeg';
 const gs_headphone = 'images/groceryApp/headphones.png';
+
+// const gs_app_logo_white
+// const gs_apple_icon
+// const gs_google_icon

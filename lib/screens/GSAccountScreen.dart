@@ -55,12 +55,13 @@ class GSAccountScreenState extends State<GSAccountScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Take photo', style: primaryTextStyle(size: 16)).onTap(() {
+              Text('Chụp Ảnh', style: primaryTextStyle(size: 16)).onTap(() {
                 pickFromCamera();
                 finish(context);
               }),
               20.height,
-              Text('Choose photo', style: primaryTextStyle(size: 16)).onTap(() {
+              Text('Chọn ảnh thư viện', style: primaryTextStyle(size: 16))
+                  .onTap(() {
                 pickFromGallery();
                 finish(context);
               }),
@@ -127,13 +128,13 @@ class GSAccountScreenState extends State<GSAccountScreen> {
             Text("John@gmail.com", style: secondaryTextStyle()),
             16.height,
             AppButton(
-              color: gs_primary_color,
+              color: primaryColor,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.edit_outlined, color: Colors.white),
+                  const Icon(Icons.edit_outlined, color: Colors.white),
                   8.width,
-                  Text("Edit Profile",
+                  Text("Thay đổi Avatar",
                       style: boldTextStyle(color: Colors.white, size: 14)),
                 ],
               ).paddingOnly(left: 16, right: 16),

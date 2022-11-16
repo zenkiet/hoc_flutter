@@ -116,12 +116,12 @@ class GSLoginScreenState extends State<GSLoginScreen> {
                               showPassword
                                   ? Icons.visibility
                                   : Icons.visibility_off,
-                              color: gs_primary_color),
+                              color: primaryColor),
                         ),
                         enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: gs_primary_color)),
+                            borderSide: BorderSide(color: primaryColor)),
                         focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: gs_primary_color)),
+                            borderSide: BorderSide(color: primaryColor)),
                         labelStyle: secondaryTextStyle(size: 14),
                         labelText: "Mật Khẩu",
                         errorText: _passInvalid ? _passwordErr : null,
@@ -142,7 +142,7 @@ class GSLoginScreenState extends State<GSLoginScreen> {
               // Align(
               //   alignment: Alignment.centerRight,
               //   child: Text("Quên Mật Khẩu?",
-              //           style: boldTextStyle(color: gs_primary_color, size: 14))
+              //           style: boldTextStyle(color: primaryColor, size: 14))
               //       .onTap(() {
               //     GSForgotPasswordScreen().launch(context);
               //   }),
@@ -154,7 +154,7 @@ class GSLoginScreenState extends State<GSLoginScreen> {
                     style: secondaryTextStyle(size: 16)),
                 TextSpan(
                   text: "Đăng nhập",
-                  style: boldTextStyle(color: gs_primary_color, size: 18),
+                  style: boldTextStyle(color: primaryColor, size: 18),
                 ),
               ]).center().onTap(() {
                 const GSRegisterScreen().launch(context);

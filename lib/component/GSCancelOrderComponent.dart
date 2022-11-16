@@ -1,22 +1,28 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:shop_order/model/GSModel.dart';
-import 'package:shop_order/utils/GSDataProvider.dart';
-import 'package:shop_order/utils/widget/order.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class GSCancelOrderComponent extends StatefulWidget {
-  static String tag = '/GSCancelOrderComponent';
+// Source
+import 'package:shop_order/utils/GSDataProvider.dart';
+import 'package:shop_order/model/GSModel.dart';
+import 'package:shop_order/utils/widget/order.dart';
 
-  const GSCancelOrderComponent({super.key});
+class GSOrderCanceledComponent extends StatefulWidget {
+  static String tag = '/GSOrderCanceledComponent';
+
+  const GSOrderCanceledComponent({super.key});
 
   @override
-  GSCancelOrderComponentState createState() => GSCancelOrderComponentState();
+  GSOrderCanceledComponentState createState() =>
+      GSOrderCanceledComponentState();
 }
 
-class GSCancelOrderComponentState extends State<GSCancelOrderComponent> {
+class GSOrderCanceledComponentState extends State<GSOrderCanceledComponent> {
   int ratingNum = 0;
-  List<GSMyOrderModel> cancelOrderList = getCancelOrderList();
+  List<GSMyOrderModel> shipppingOrderList = [];
 
   @override
   void initState() {
@@ -25,7 +31,12 @@ class GSCancelOrderComponentState extends State<GSCancelOrderComponent> {
   }
 
   init() async {
-    //
+    final pref = await SharedPreferences.getInstance();
+    String username = pref.getString('username')!;
+    var data = await getOrderStatus(username, 'canceled');
+    setState(() {
+      shipppingOrderList = data;
+    });
   }
 
   @override
@@ -40,23 +51,24 @@ class GSCancelOrderComponentState extends State<GSCancelOrderComponent> {
         children: [
           myOrderWidget(
             ratingBar: RatingBar.builder(
-              initialRating: 5,
+              initialRating: 0,
               minRating: 0,
               itemCount: 5,
               glow: false,
               maxRating: 5,
               itemSize: 30,
               itemBuilder: (context, _) =>
-                  Icon(Icons.star, color: Colors.amber),
+                  const Icon(Icons.star, color: Colors.amber),
               onRatingUpdate: (rating) {
                 ratingNum = rating.toInt();
                 setState(() {});
               },
             ),
-            orderList: getCancelOrderList(),
+            orderList: shipppingOrderList,
+            onTap: () {},
           ),
           cartNotFound()
-              .visible(cancelOrderList.isEmpty)
+              .visible(shipppingOrderList.isEmpty)
               .paddingTop(context.height() * 0.3)
         ],
       ),

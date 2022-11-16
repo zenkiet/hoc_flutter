@@ -73,7 +73,7 @@ class GSSplashScreenState extends State<GSSplashScreen>
                     height: 140, width: 180, fit: BoxFit.cover)),
             8.height,
             Text(GSAppName,
-                style: boldTextStyle(size: 18, color: gs_primary_color)),
+                style: boldTextStyle(size: 18, color: primaryColor)),
           ],
         ).center(),
       ),

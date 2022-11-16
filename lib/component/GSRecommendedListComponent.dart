@@ -84,8 +84,7 @@ class GSRecommendedListComponentState
                 Row(
                   children: [
                     Text(mData.price.validate().round().toVND(),
-                        style:
-                            boldTextStyle(color: gs_primary_color, size: 18)),
+                        style: boldTextStyle(color: primaryColor, size: 18)),
                     8.width,
                     Text(mData.salePrice.validate().round().toVND(),
                         style: secondaryTextStyle(

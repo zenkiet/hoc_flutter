@@ -10,18 +10,19 @@ import 'package:shop_order/utils/GSDataProvider.dart';
 import 'package:shop_order/model/GSModel.dart';
 import 'package:shop_order/utils/widget/order.dart';
 
-class GSOrderPendingComponent extends StatefulWidget {
-  static String tag = '/GSOrderPendingComponent';
+class GSOrderShippingComponent extends StatefulWidget {
+  static String tag = '/GSOrderShippingComponent';
 
-  const GSOrderPendingComponent({super.key});
+  const GSOrderShippingComponent({super.key});
 
   @override
-  GSOrderPendingComponentState createState() => GSOrderPendingComponentState();
+  GSOrderShippingComponentState createState() =>
+      GSOrderShippingComponentState();
 }
 
-class GSOrderPendingComponentState extends State<GSOrderPendingComponent> {
+class GSOrderShippingComponentState extends State<GSOrderShippingComponent> {
   int ratingNum = 0;
-  List<GSMyOrderModel> pendingOrderList = [];
+  List<GSMyOrderModel> shipppingOrderList = [];
 
   @override
   void initState() {
@@ -32,9 +33,9 @@ class GSOrderPendingComponentState extends State<GSOrderPendingComponent> {
   init() async {
     final pref = await SharedPreferences.getInstance();
     String username = pref.getString('username')!;
-    var data = await getOrderStatus(username, 'pending');
+    var data = await getOrderStatus(username, 'shipping');
     setState(() {
-      pendingOrderList = data;
+      shipppingOrderList = data;
     });
   }
 
@@ -63,11 +64,11 @@ class GSOrderPendingComponentState extends State<GSOrderPendingComponent> {
                 setState(() {});
               },
             ),
-            orderList: pendingOrderList,
+            orderList: shipppingOrderList,
             onTap: () {},
           ),
           cartNotFound()
-              .visible(pendingOrderList.isEmpty)
+              .visible(shipppingOrderList.isEmpty)
               .paddingTop(context.height() * 0.3)
         ],
       ),

@@ -39,7 +39,8 @@ class GSAddressScreenState extends State<GSAddressScreen> {
     return Scaffold(
       backgroundColor: gs_background,
       appBar: AppBar(
-        backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+        backgroundColor:
+            appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
         elevation: 1,
         centerTitle: false,
         automaticallyImplyLeading: false,
@@ -54,7 +55,7 @@ class GSAddressScreenState extends State<GSAddressScreen> {
             ),
             8.width,
             Text("My Address", style: boldTextStyle()).expand(),
-            Text("Add", style: primaryTextStyle(color: gs_primary_color)).onTap(() {
+            Text("Add", style: primaryTextStyle(color: primaryColor)).onTap(() {
               GSAddAddressScreen().launch(context);
             })
           ],
@@ -73,10 +74,11 @@ class GSAddressScreenState extends State<GSAddressScreen> {
                 dismissible: DismissiblePane(onDismissed: () {}),
                 children: const [
                   SlidableAction(
-                    backgroundColor:  Colors.green,
+                    backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
                     icon: Icons.edit,
-                    label: 'Edit', onPressed: doNothing,
+                    label: 'Edit',
+                    onPressed: doNothing,
                   ),
                   SlidableAction(
                     onPressed: doNothing,
@@ -89,7 +91,9 @@ class GSAddressScreenState extends State<GSAddressScreen> {
               child: Container(
                 decoration: boxDecorationWithRoundedCorners(
                   borderRadius: radius(8),
-                  border: tappedIndex == index ? Border.all(color: gs_primary_color) : Border.all(color: Colors.white),
+                  border: tappedIndex == index
+                      ? Border.all(color: primaryColor)
+                      : Border.all(color: Colors.white),
                 ),
                 padding: EdgeInsets.all(16),
                 child: Column(
@@ -113,4 +117,5 @@ class GSAddressScreenState extends State<GSAddressScreen> {
     );
   }
 }
+
 void doNothing(BuildContext context) {}

@@ -200,6 +200,47 @@ Future getUserCart(String username) async {
   } else {}
 }
 
+Future getOrderProduct(String idOrder) async {
+  var uri = Uri.parse('$baseUrl/get_order_product/$idOrder');
+  var response = await http.get(uri);
+  var data = json.decode(utf8.decode(response.bodyBytes));
+  if (data['status'] == 'success') {
+    var listData = data['data'];
+    int countListData = listData.length;
+    List<GSRecommendedModel> list = [];
+    for (int i = 0; i < countListData; i++) {
+      var value = listData[i];
+      int id = value['id_product'];
+      String name = value['name'];
+      String description = value['description'];
+      double price = double.parse(value['price']);
+      int ranking = value['ranking'];
+      String image = imageSource + value['image'];
+      double discount = double.parse(value['discount']);
+      int quantity = value['quantity'];
+      int amount = value['amount'];
+      // int id_category = value['id_category'];
+
+      double salePrice = price - (price * discount / 100);
+
+      list.add(
+        GSRecommendedModel(
+          id: id,
+          image: image,
+          price: price,
+          salePrice: salePrice,
+          description: description,
+          title: name,
+          qty: amount,
+          quantity: 'Còn $quantity sản phẩm',
+          ranking: ranking,
+        ),
+      );
+    }
+    return list;
+  } else {}
+}
+
 Future getOrderStatus(String user, String status) async {
   var uri = Uri.parse('$baseUrl/get_order_status/$user/$status');
   var response = await http.get(uri);
@@ -217,11 +258,23 @@ Future getOrderStatus(String user, String status) async {
         String totalMoney = value['total_money'].toString();
         String date = value['order_date'].toString();
         String image = value['image'].toString();
+        String status = value['status'].toString();
+
+        int orderStatus = 0;
+        if (status == 'pending') {
+          orderStatus = pedingOrder;
+        } else if (status == 'shipping') {
+          orderStatus = shippedOrder;
+        } else if (status == 'delivered') {
+          orderStatus = deliveredOrder;
+        } else if (status == 'canceled') {
+          orderStatus = cancelledOrder;
+        }
 
         list.add(GSMyOrderModel(
-            title: "Cauliflower",
+            title: '#$idOrder',
             date: date,
-            orderStatus: GSCompleted,
+            orderStatus: orderStatus,
             image: imageSource + image,
             cost: totalMoney,
             address: address,
@@ -232,101 +285,6 @@ Future getOrderStatus(String user, String status) async {
       return [];
     }
   }
-}
-
-List<GSMyOrderModel> getOnCompletedList() {
-  List<GSMyOrderModel> list = [];
-  list.add(GSMyOrderModel(
-      title: "Cauliflower",
-      date: "Jan 05, 11:30AM",
-      orderStatus: GSCompleted,
-      image: gs_cauliflower_img,
-      cost: "0.12",
-      address: "8618 Hickory Avenue Newington, CT 06111",
-      orderId: "GS1223THG"));
-  list.add(GSMyOrderModel(
-      title: "Cauliflower",
-      date: "Jan 05, 11:30AM",
-      orderStatus: GSCompleted,
-      image: gs_cauliflower_img,
-      cost: "0.12",
-      address: "8618 Hickory Avenue Newington, CT 06111",
-      orderId: "GS1223THG"));
-  list.add(GSMyOrderModel(
-      title: "Cauliflower",
-      date: "Jan 05, 11:30AM",
-      orderStatus: GSCompleted,
-      image: gs_cauliflower_img,
-      cost: "0.12",
-      address: "8618 Hickory Avenue Newington, CT 06111",
-      orderId: "GS1223THG"));
-  list.add(GSMyOrderModel(
-      title: "Cauliflower",
-      date: "Jan 05, 11:30AM",
-      orderStatus: GSCompleted,
-      image: gs_cauliflower_img,
-      cost: "0.12",
-      address: "8618 Hickory Avenue Newington, CT 06111",
-      orderId: "GS1223THG"));
-  return list;
-}
-
-List<GSMyOrderModel> getOnProgressList() {
-  List<GSMyOrderModel> list = [];
-  list.add(GSMyOrderModel(
-      title: "Carrot",
-      date: "Jan 30, 11:30AM",
-      orderStatus: GSOnProgress,
-      image: gs_carrot_img,
-      orderId: "GSJS655"));
-  list.add(GSMyOrderModel(
-      title: "Carrot",
-      date: "Jan 30, 11:30AM",
-      orderStatus: GSOnProgress,
-      image: gs_carrot_img,
-      orderId: "GSJS655"));
-  list.add(GSMyOrderModel(
-      title: "Carrot",
-      date: "Jan 30, 11:30AM",
-      orderStatus: GSOnProgress,
-      image: gs_carrot_img,
-      orderId: "GSJS655"));
-  list.add(GSMyOrderModel(
-      title: "Carrot",
-      date: "Jan 30, 11:30AM",
-      orderStatus: GSOnProgress,
-      image: gs_carrot_img,
-      orderId: "GSJS655"));
-  return list;
-}
-
-List<GSMyOrderModel> getCancelOrderList() {
-  List<GSMyOrderModel> list = [];
-  list.add(GSMyOrderModel(
-      title: "Pineapple",
-      date: "Jan 1, 2:00PM",
-      orderStatus: GSCancel,
-      image: gs_pineappple_img,
-      orderId: "GSOLN892"));
-  list.add(GSMyOrderModel(
-      title: "Pineapple",
-      date: "Jan 1, 2:00PM",
-      orderStatus: GSCancel,
-      image: gs_pineappple_img,
-      orderId: "GSOLN892"));
-  list.add(GSMyOrderModel(
-      title: "Pineapple",
-      date: "Jan 1, 2:00PM",
-      orderStatus: GSCancel,
-      image: gs_pineappple_img,
-      orderId: "GSOLN892"));
-  list.add(GSMyOrderModel(
-      title: "Pineapple",
-      date: "Jan 1, 2:00PM",
-      orderStatus: GSCancel,
-      image: gs_pineappple_img,
-      orderId: "GSOLN892"));
-  return list;
 }
 
 List<GSAddressModel> getAddressList() {
