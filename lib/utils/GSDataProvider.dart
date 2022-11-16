@@ -30,7 +30,7 @@ List<CategoryModel> getCategoryList() {
 
 Future getTopDiscount(int amount) async {
   List<GSRecommendedModel> list = [];
-  var uri = Uri.parse('$BaseUrl/top_discount/$amount');
+  var uri = Uri.parse('$baseUrl/top_discount/$amount');
   var response = await http.get(uri);
   var data = json.decode(utf8.decode(response.bodyBytes));
   if (data['status'] == 'success') {
@@ -70,7 +70,7 @@ Future getTopDiscount(int amount) async {
 
 Future getTopRanking(int amount) async {
   List<GSRecommendedModel> list = [];
-  var uri = Uri.parse('$BaseUrl/top_ranking/$amount');
+  var uri = Uri.parse('$baseUrl/top_ranking/$amount');
   var response = await http.get(uri);
   var data = json.decode(utf8.decode(response.bodyBytes));
   if (data['status'] == 'success') {
@@ -121,7 +121,7 @@ Future getCategoryProduct(String category) async {
     category = 'icecream';
   }
 
-  var uri = Uri.parse('$BaseUrl/category_product/$category');
+  var uri = Uri.parse('$baseUrl/category_product/$category');
   var response = await http.get(uri);
   var data = json.decode(utf8.decode(response.bodyBytes));
   if (data['status'] == 'success') {
@@ -160,7 +160,7 @@ Future getCategoryProduct(String category) async {
 }
 
 Future getUserCart(String username) async {
-  var uri = Uri.parse('$BaseUrl/get_cart_product/$username');
+  var uri = Uri.parse('$baseUrl/get_cart_product/$username');
   var response = await http.get(uri);
   var data = json.decode(utf8.decode(response.bodyBytes));
   if (data['status'] == 'success') {
@@ -198,6 +198,40 @@ Future getUserCart(String username) async {
     }
     return list;
   } else {}
+}
+
+Future getOrderStatus(String user, String status) async {
+  var uri = Uri.parse('$baseUrl/get_order_status/$user/$status');
+  var response = await http.get(uri);
+  if (response.statusCode == 200) {
+    var data = json.decode(utf8.decode(response.bodyBytes));
+    if (data['status'] == 'success' && data['data'][0] != false) {
+      var listData = data['data'];
+      int countListData = listData.length;
+      List<GSMyOrderModel> list = [];
+      for (int i = 0; i < countListData; i++) {
+        var value = listData[i];
+
+        String idOrder = value['id_order'].toString();
+        String address = value['address_customer'].toString();
+        String totalMoney = value['total_money'].toString();
+        String date = value['order_date'].toString();
+        String image = value['image'].toString();
+
+        list.add(GSMyOrderModel(
+            title: "Cauliflower",
+            date: date,
+            orderStatus: GSCompleted,
+            image: imageSource + image,
+            cost: totalMoney,
+            address: address,
+            orderId: idOrder));
+      }
+      return list;
+    } else {
+      return [];
+    }
+  }
 }
 
 List<GSMyOrderModel> getOnCompletedList() {

@@ -15,24 +15,20 @@ Widget gsAppButton(BuildContext context, String title, Function onTap) {
 }
 
 Widget WalkThroughWidget(String image, String title, String subTitle) {
-  return Container(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(image.validate(),
-            height: 320, width: 320, fit: BoxFit.cover),
-        60.height,
-        Column(
-          children: [
-            Text(title.validate(),
-                style: boldTextStyle(size: 20), textAlign: TextAlign.center),
-            16.height,
-            Text(subTitle.validate(),
-                style: secondaryTextStyle(size: 16),
-                textAlign: TextAlign.center),
-          ],
-        ),
-      ],
-    ),
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Image.asset(image.validate(), height: 320, width: 320, fit: BoxFit.cover),
+      60.height,
+      Column(
+        children: [
+          Text(title.validate(),
+              style: boldTextStyle(size: 20), textAlign: TextAlign.center),
+          16.height,
+          Text(subTitle.validate(),
+              style: secondaryTextStyle(size: 16), textAlign: TextAlign.center),
+        ],
+      ),
+    ],
   );
 }

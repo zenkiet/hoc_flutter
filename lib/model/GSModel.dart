@@ -56,39 +56,6 @@ class GSRecommendedModel {
       this.ranking});
 }
 
-class TopProductModel {
-  int? id;
-  String? name;
-  String? description;
-  double? price;
-  int? ranking;
-  String? image;
-  int? discount;
-  int? quantity;
-
-  TopProductModel(
-      {this.id,
-      this.name,
-      this.description,
-      this.price,
-      this.ranking,
-      this.image,
-      this.discount,
-      this.quantity});
-}
-
-/*class GSCategoryListDetailsModel {
-  String offer;
-  String image;
-  String salePrice;
-  String price;
-  String description;
-  String quantity;
-  String title;
-
-  GSCategoryListDetailsModel({this.offer, this.image, this.salePrice, this.price, this.description, this.quantity, this.title});
-}*/
-
 class GSMyOrderModel {
   String? title;
   String? date;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shop_order/screens/GSPaymentScreen.dart';
+// import 'package:shop_order/temp/screens/GSPaymentScreen.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
@@ -45,7 +45,8 @@ class GSCheckOutScreenState extends State<GSCheckOutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
+      backgroundColor:
+          appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
       appBar: gsStatusBarWithTitle(context, "Checkout") as PreferredSizeWidget?,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,42 +56,63 @@ class GSCheckOutScreenState extends State<GSCheckOutScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Destination", style: secondaryTextStyle(size: 16)).paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
+                Text("Destination", style: secondaryTextStyle(size: 16))
+                    .paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
                 Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(16),
-                  color: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+                  color: appStore.isDarkModeOn
+                      ? scaffoldSecondaryDark
+                      : Colors.white,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(gs_map_img, fit: BoxFit.cover, height: 90, width: 90),
+                      Image.asset(gs_map_img,
+                          fit: BoxFit.cover, height: 90, width: 90),
                       16.width,
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("8618 Hickory Avenue Newington, CT 06111", style: primaryTextStyle(size: 14)),
+                          Text("8618 Hickory Avenue Newington, CT 06111",
+                              style: primaryTextStyle(size: 14)),
                           4.height,
-                          Text("(254)544545645", style: primaryTextStyle(size: 14)),
+                          Text("(254)544545645",
+                              style: primaryTextStyle(size: 14)),
                         ],
                       ).expand()
                     ],
                   ),
                 ),
                 8.height,
-                Text("Pick up time", style: secondaryTextStyle(size: 16)).paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
+                Text("Pick up time", style: secondaryTextStyle(size: 16))
+                    .paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
                 8.height,
                 Container(
-                  color: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+                  color: appStore.isDarkModeOn
+                      ? scaffoldSecondaryDark
+                      : Colors.white,
                   padding: EdgeInsets.all(16),
                   child: Column(
-                    children: [rowWidget(Icons.schedule, DateFormat('EEE, d MMM yyyy - kk:mm').format(DateTime.now())).onTap(() {}), 30.height, rowWidget(Icons.watch, "Pick Up Time 30-40 Min").onTap(() {})],
+                    children: [
+                      rowWidget(
+                              Icons.schedule,
+                              DateFormat('EEE, d MMM yyyy - kk:mm')
+                                  .format(DateTime.now()))
+                          .onTap(() {}),
+                      30.height,
+                      rowWidget(Icons.watch, "Pick Up Time 30-40 Min")
+                          .onTap(() {})
+                    ],
                   ),
                 ),
                 8.height,
-                Text("Total", style: secondaryTextStyle(size: 16)).paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
+                Text("Total", style: secondaryTextStyle(size: 16))
+                    .paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
                 8.height,
                 Container(
-                  color: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+                  color: appStore.isDarkModeOn
+                      ? scaffoldSecondaryDark
+                      : Colors.white,
                   padding: EdgeInsets.all(16),
                   child: Row(
                     children: [
@@ -100,27 +122,37 @@ class GSCheckOutScreenState extends State<GSCheckOutScreen> {
                   ),
                 ),
                 8.height,
-                Text("Payment Method", style: secondaryTextStyle(size: 16)).paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
+                Text("Payment Method", style: secondaryTextStyle(size: 16))
+                    .paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
                 8.height,
                 Container(
-                  color: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+                  color: appStore.isDarkModeOn
+                      ? scaffoldSecondaryDark
+                      : Colors.white,
                   padding: EdgeInsets.all(16),
-                  child: rowWidget(Icons.payment, "Add Payment Method").onTap(() {
-                    GSPaymentScreen().launch(context);
+                  child:
+                      rowWidget(Icons.payment, "Add Payment Method").onTap(() {
+                    // GSPaymentScreen().launch(context);
                   }),
                 ),
                 8.height,
-                Text("Promo Code", style: secondaryTextStyle(size: 16)).paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
+                Text("Promo Code", style: secondaryTextStyle(size: 16))
+                    .paddingOnly(left: 16, right: 16, top: 8, bottom: 8),
                 8.height,
                 Container(
                   padding: EdgeInsets.all(16),
-                  color: appStore.isDarkModeOn ? scaffoldSecondaryDark : Colors.white,
+                  color: appStore.isDarkModeOn
+                      ? scaffoldSecondaryDark
+                      : Colors.white,
                   child: Row(
                     children: [
-                      Image.asset(gs_coupon, height: 24, width: 24, color: gs_primary_color),
+                      Image.asset(gs_coupon,
+                          height: 24, width: 24, color: gs_primary_color),
                       8.width,
-                      Text("Add Promo Code", style: primaryTextStyle()).expand(),
-                      Icon(Icons.navigate_next_outlined, color: gs_primary_color),
+                      Text("Add Promo Code", style: primaryTextStyle())
+                          .expand(),
+                      Icon(Icons.navigate_next_outlined,
+                          color: gs_primary_color),
                     ],
                   ),
                 ),

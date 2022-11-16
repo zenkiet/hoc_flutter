@@ -226,7 +226,7 @@ class GSRecommendationDetailsScreenState
 addProductCart(int id, int qty) async {
   final prefs = await SharedPreferences.getInstance();
   String username = prefs.getString('username') ?? '';
-  var uri = Uri.parse('$BaseUrl/add_product_cart/$username/$id/$qty');
+  var uri = Uri.parse('$baseUrl/add_product_cart/$username/$id/$qty');
   var response = await http.get(uri);
   if (response.statusCode == 200) {
     var data = json.decode(response.body);

@@ -1,16 +1,17 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:nb_utils/nb_utils.dart';
+// import 'package:onesignal_flutter/onesignal_flutter.dart';
 // import 'package:flutter_mobx/flutter_mobx.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
+// Source
 import 'package:shop_order/main/store/AppStore.dart';
-// import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/utils/AppConstants.dart';
-import 'package:nb_utils/nb_utils.dart';
-// import 'package:onesignal_flutter/onesignal_flutter.dart';
+// import 'package:shop_order/main/utils/AppColors.dart';
 
+// Redirect
 import 'package:shop_order/screens/GSWalkThroughScreen.dart';
 
 AppStore appStore = AppStore();

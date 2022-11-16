@@ -168,7 +168,7 @@ class GSLoginScreenState extends State<GSLoginScreen> {
 
   Future loginUser(String username, String password) async {
     // ignore: unnecessary_brace_in_string_interps
-    var uri = Uri.parse('$BaseUrl/login/${username}/${password}');
+    var uri = Uri.parse('$baseUrl/login/${username}/${password}');
     var response =
         await http.get(uri, headers: {'Content-Type': 'application/json'});
     var data = json.decode(utf8.decode(response.bodyBytes));

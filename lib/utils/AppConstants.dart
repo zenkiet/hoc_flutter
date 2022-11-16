@@ -1,11 +1,11 @@
 const MainAppName = 'Zen Shop Order';
-const BaseUrl = 'https://cloneshoporder.local/api';
+const baseUrl = 'https://cloneshoporder.local/api';
 
 //region Constants
-const ThemeTypeFullApp = 'ThemeTypeFullApp';
-const ThemeTypeWidget = 'ThemeTypeWidget';
-const ThemeTypeCodeSnippet = 'ThemeTypeCodeSnippet';
-const ThemeTypeComingSoon = 'ThemeTypeComingSoon';
+// const ThemeTypeFullApp = 'ThemeTypeFullApp';
+// const ThemeTypeWidget = 'ThemeTypeWidget';
+// const ThemeTypeCodeSnippet = 'ThemeTypeCodeSnippet';
+// const ThemeTypeComingSoon = 'ThemeTypeComingSoon';
 //endregion
 
 //region SharedPreference Keys

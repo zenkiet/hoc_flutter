@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_order/component/GSOrderPendingComponent.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
@@ -70,15 +71,13 @@ class GSMyOrderScreenState extends State<GSMyOrderScreen>
                 ),
               ),
             ),
-            Container(
-              child: TabBarView(
-                children: [
-                  Container(child: const GSOrderCompletedComponent()),
-                  Container(child: const GSOrderCompletedComponent()),
-                  Container(child: const GSOnProgressComponent()),
-                  Container(child: const GSCancelOrderComponent()),
-                ],
-              ),
+            const TabBarView(
+              children: [
+                GSOrderPendingComponent(),
+                GSOrderCompletedComponent(),
+                GSOnProgressComponent(),
+                GSCancelOrderComponent(),
+              ],
             ).expand()
           ],
         ),

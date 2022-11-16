@@ -10,11 +10,14 @@ import 'package:nb_utils/nb_utils.dart';
 class GSSplashScreen extends StatefulWidget {
   static String tag = '/GSSplashScreen';
 
+  const GSSplashScreen({super.key});
+
   @override
   GSSplashScreenState createState() => GSSplashScreenState();
 }
 
-class GSSplashScreenState extends State<GSSplashScreen> with SingleTickerProviderStateMixin {
+class GSSplashScreenState extends State<GSSplashScreen>
+    with SingleTickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   late AnimationController animationController;
@@ -27,8 +30,10 @@ class GSSplashScreenState extends State<GSSplashScreen> with SingleTickerProvide
   }
 
   init() async {
-    animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
-    animation = CurvedAnimation(parent: animationController, curve: Curves.easeInCubic);
+    animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
+    animation =
+        CurvedAnimation(parent: animationController, curve: Curves.easeInCubic);
 
     animationController.forward();
 
@@ -62,9 +67,13 @@ class GSSplashScreenState extends State<GSSplashScreen> with SingleTickerProvide
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ScaleTransition(scale: animation, child: Image.asset(gs_app_logo, height: 140, width: 180, fit: BoxFit.cover)),
+            ScaleTransition(
+                scale: animation,
+                child: Image.asset(gs_app_logo,
+                    height: 140, width: 180, fit: BoxFit.cover)),
             8.height,
-            Text(GSAppName, style: boldTextStyle(size: 18, color: gs_primary_color)),
+            Text(GSAppName,
+                style: boldTextStyle(size: 18, color: gs_primary_color)),
           ],
         ).center(),
       ),

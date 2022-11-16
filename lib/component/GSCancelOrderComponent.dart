@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shop_order/model/GSModel.dart';
 import 'package:shop_order/utils/GSDataProvider.dart';
-import 'package:shop_order/utils/GSWidgets.dart';
+import 'package:shop_order/utils/widget/order.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class GSCancelOrderComponent extends StatefulWidget {

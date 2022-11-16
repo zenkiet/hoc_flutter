@@ -1,8 +1,12 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+
+// Source
 import 'package:shop_order/model/GSModel.dart';
 import 'package:shop_order/utils/GSDataProvider.dart';
-import 'package:shop_order/utils/GSWidgets.dart';
-import 'package:nb_utils/nb_utils.dart';
+import 'package:shop_order/utils/widget/order.dart';
 
 class GSOnProgressComponent extends StatefulWidget {
   static String tag = '/GSOnProgressComponent';

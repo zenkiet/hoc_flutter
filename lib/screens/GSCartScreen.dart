@@ -220,7 +220,7 @@ class GSCartScreenState extends State<GSCartScreen> {
 addProductCart(int id, int qty) async {
   final prefs = await SharedPreferences.getInstance();
   String user = prefs.getString('username') ?? '';
-  var uri = Uri.parse('$BaseUrl/add_product_cart/$user/$id/$qty');
+  var uri = Uri.parse('$baseUrl/add_product_cart/$user/$id/$qty');
   var response = await http.get(uri);
   if (response.statusCode == 200) {
     var data = json.decode(response.body);
@@ -244,7 +244,7 @@ addProductCart(int id, int qty) async {
 deleteProductCart(int id, int qty) async {
   final prefs = await SharedPreferences.getInstance();
   String user = prefs.getString('username') ?? '';
-  var uri = Uri.parse('$BaseUrl/delete_product_cart/$user/$id/$qty');
+  var uri = Uri.parse('$baseUrl/delete_product_cart/$user/$id/$qty');
   var response = await http.get(uri);
   var data = json.decode(response.body);
 

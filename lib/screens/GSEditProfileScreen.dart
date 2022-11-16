@@ -8,6 +8,8 @@ import 'package:nb_utils/nb_utils.dart';
 class GSEditProfileScreen extends StatefulWidget {
   static String tag = '/GSEditProfileScreen';
 
+  const GSEditProfileScreen({super.key});
+
   @override
   GSEditProfileScreenState createState() => GSEditProfileScreenState();
 }
@@ -58,7 +60,8 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: gsStatusBarWithTitle(context, "Personal Info") as PreferredSizeWidget?,
+      appBar: gsStatusBarWithTitle(context, "Personal Info")
+          as PreferredSizeWidget?,
       body: Stack(
         children: [
           ListView(
@@ -107,7 +110,12 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
                         dateOfBirthController.text = _date!.day.toString();
                         dateOfBirthController.text = _date!.month.toString();
                         dateOfBirthController.text = _date!.year.toString();
-                        value = dateOfBirthController.text = _date!.day.toString() + "/" + _date!.month.toString() + "/" + _date!.year.toString();
+                        value = dateOfBirthController.text =
+                            _date!.day.toString() +
+                                "/" +
+                                _date!.month.toString() +
+                                "/" +
+                                _date!.year.toString();
                         setState(() {});
                       },
                     ),
@@ -130,8 +138,11 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
                           textAlign: TextAlign.start,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: grey)),
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: gs_primary_color)),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: grey)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: gs_primary_color)),
                             hintText: "000 0000 0000",
                             hintStyle: secondaryTextStyle(size: 14),
                           ),

@@ -4,7 +4,7 @@ const welcomeImage = 'assets/welcome.png';
 
 const gs_app_logo = 'images/groceryApp/logo.png';
 const gs_app_logo_white = 'assets/logo.png';
-const gs_apple_icon = '$BaseUrl/groceryApp/apple_icon.png';
+const gs_apple_icon = '$baseUrl/groceryApp/apple_icon.png';
 
 const avatarLogo = 'assets/avatar.png';
 const appLogo = 'assets/app_shop.png';
