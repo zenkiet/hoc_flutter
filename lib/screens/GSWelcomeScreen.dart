@@ -103,7 +103,6 @@ class GSWelcomeScreenState extends State<GSWelcomeScreen> {
                     //   width: context.width(),
                     //   child: Row(
                     //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
                     //       commonCacheImageWidget(gs_apple_icon, 24, width: 24),
                     //       8.width,
                     //       Text("Sign in with Apple",
@@ -148,7 +147,7 @@ class GSWelcomeScreenState extends State<GSWelcomeScreen> {
                                 color: primaryColor, size: 17)),
                       ],
                     ).onTap(() {
-                      GSRegisterScreen().launch(context);
+                      const GSRegisterScreen().launch(context);
                     })
                   ],
                 ),

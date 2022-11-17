@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -30,11 +32,24 @@ class GSOrderPendingComponentState extends State<GSOrderPendingComponent> {
   }
 
   init() async {
-    final pref = await SharedPreferences.getInstance();
-    String username = pref.getString('username')!;
-    var data = await getOrderStatus(username, 'pending');
+    final prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString('username')!;
+    String password = prefs.getString('password')!;
+    if (prefs.containsKey('order_pending')) {
+      try {
+        String orderPending = prefs.getString('order_pending')!;
+        List data = jsonDecode(orderPending);
+        pendingOrderList
+            .addAll(data.map((e) => GSMyOrderModel.fromJson(e)).toList());
+      } catch (e) {
+        pendingOrderList = await getOrderStatus(username, password, 'pending');
+      }
+    } else {
+      pendingOrderList = await getOrderStatus(username, password, 'pending');
+    }
+
     setState(() {
-      pendingOrderList = data;
+      pendingOrderList = pendingOrderList;
     });
   }
 

@@ -30,8 +30,7 @@ Widget commonCacheImageWidget(String? url, double? height,
 Function(BuildContext, String) placeholderWidgetFn() =>
     (_, s) => placeholderWidget();
 
-Widget placeholderWidget() =>
-    Image.asset('images/LikeButton/image/grey.jpg', fit: BoxFit.cover);
+Widget placeholderWidget() => Image.asset('assets/grey.jpg', fit: BoxFit.cover);
 
 InputDecoration inputDecoration({String? label, String? prefixText}) {
   return InputDecoration(

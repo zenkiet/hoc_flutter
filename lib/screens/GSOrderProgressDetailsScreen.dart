@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -40,12 +42,24 @@ class GSOrderProgressDetailsScreenState
   }
 
   init() async {
-    // final prefs = await SharedPreferences.getInstance
-    // String username = prefs.getString('username') ?? '';
-    var data =
-        await getOrderProduct(widget.orderProgressList!.orderId.toString());
+    final prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString('username')!;
+    String password = prefs.getString('password')!;
+    String idOrder = widget.orderProgressList!.orderId.toString();
+    if (prefs.containsKey('product_order_$idOrder')) {
+      String productOrder = prefs.getString('product_order_$idOrder')!;
+      try {
+        List data = jsonDecode(productOrder);
+        orderProductList
+            .addAll(data.map((e) => GSRecommendedModel.fromJson(e)).toList());
+      } catch (e) {
+        orderProductList = await getOrderProduct(username, password, idOrder);
+      }
+    } else {
+      orderProductList = await getOrderProduct(username, password, idOrder);
+    }
     setState(() {
-      orderProductList = data;
+      orderProductList = orderProductList;
     });
     calculate();
   }

@@ -1,12 +1,16 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:shop_order/main.dart';
+
+// Source
 import 'package:shop_order/model/GSModel.dart';
 import 'package:shop_order/utils/GSConstants.dart';
 import 'package:shop_order/utils/GSImages.dart';
-
 import 'package:shop_order/utils/AppConstants.dart';
-
-import 'package:http/http.dart' as http;
 
 List<SliderModel> getSliderList() {
   List<SliderModel> list = [];
@@ -35,9 +39,10 @@ Future getTotalMoney($user) async {
   return data;
 }
 
-Future getUserInfo(String user) async {
-  var url = Uri.parse('$baseUrl/get_user_info/$user');
-  var response = await http.get(url);
+Future getUserInfo(String username, String password) async {
+  var url = Uri.parse('$baseUrl/get_user_info');
+  var response =
+      await http.post(url, body: {'username': username, 'password': password});
   if (response.statusCode == 200) {
     var data = json.decode(utf8.decode(response.bodyBytes));
     if (data['status'] == 'success') {
@@ -59,42 +64,47 @@ Future getUserInfo(String user) async {
 
 Future getTopDiscount(int amount) async {
   List<GSRecommendedModel> list = [];
+
   var uri = Uri.parse('$baseUrl/top_discount/$amount');
   var response = await http.get(uri);
-  var data = json.decode(utf8.decode(response.bodyBytes));
-  if (data['status'] == 'success') {
-    var listData = data['data'];
-    int countListData = listData.length;
-    for (int i = 0; i < countListData; i++) {
-      var value = listData[i];
-      int id = value['id_product'];
-      String name = value['name'];
-      String description = value['description'];
-      double price = double.parse(value['price']);
-      int ranking = value['ranking'];
-      String image = imageSource + value['image'];
-      double discount = double.parse(value['discount']);
-      int quantity = value['quantity'];
-      // int id_category = value['id_category'];
+  if (response.statusCode == 200) {
+    var data = json.decode(utf8.decode(response.bodyBytes));
+    if (data['status'] == 'success') {
+      var listData = data['data'];
+      int countListData = listData.length;
+      for (int i = 0; i < countListData; i++) {
+        var value = listData[i];
+        int id = int.parse(value['id_product']);
+        String name = value['name'];
+        String description = value['description'];
+        double price = double.parse(value['price']);
+        int ranking = int.parse(value['ranking']);
+        String image = imageSource + value['image'];
+        double discount = double.parse(value['discount']);
+        int quantity = int.parse(value['quantity']);
+        // int id_category = value['id_category'];
 
-      double salePrice = price - (price * discount / 100);
+        double salePrice = price - (price * discount / 100);
 
-      list.add(GSRecommendedModel(
-        id: id,
-        offer: discount.round().toString(),
-        image: image,
-        price: price,
-        salePrice: salePrice,
-        title: name,
-        description: description,
-        quantity: 'Còn $quantity sản phẩm',
-        qty: quantity,
-        total: 0,
-        ranking: ranking,
-      ));
+        list.add(GSRecommendedModel(
+          id: id,
+          offer: discount.round().toString(),
+          image: image,
+          price: price,
+          salePrice: salePrice,
+          title: name,
+          description: description,
+          quantity: 'Còn $quantity sản phẩm',
+          qty: quantity,
+          total: 0,
+          ranking: ranking,
+        ));
+      }
     }
-    return list;
-  } else {}
+  }
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString('top_discount', jsonEncode(list));
+  return list;
 }
 
 Future getTopRanking(int amount) async {
@@ -107,14 +117,14 @@ Future getTopRanking(int amount) async {
     int countListData = listData.length;
     for (int i = 0; i < countListData; i++) {
       var value = listData[i];
-      int id = value['id_product'];
+      int id = int.parse(value['id_product']);
       String name = value['name'];
       String description = value['description'];
       double price = double.parse(value['price']);
-      int ranking = value['ranking'];
+      int ranking = int.parse(value['ranking']);
       String image = imageSource + value['image'];
       double discount = double.parse(value['discount']);
-      int quantity = value['quantity'];
+      int quantity = int.parse(value['quantity']);
       // int id_category = value['id_category'];
 
       double salePrice = price - (price * discount / 100);
@@ -133,23 +143,13 @@ Future getTopRanking(int amount) async {
         ranking: ranking,
       ));
     }
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('top_ranking', jsonEncode(list));
     return list;
   } else {}
 }
 
 Future getCategoryProduct(String category) async {
-  if (category == 'Bánh') {
-    category = 'cake';
-  } else if (category == 'Kẹo') {
-    category = 'candy';
-  } else if (category == 'Đồ Chiên') {
-    category = 'fastfood';
-  } else if (category == 'Trái Cây') {
-    category = 'fruit';
-  } else if (category == 'Kem') {
-    category = 'icecream';
-  }
-
   var uri = Uri.parse('$baseUrl/category_product/$category');
   var response = await http.get(uri);
   var data = json.decode(utf8.decode(response.bodyBytes));
@@ -159,14 +159,14 @@ Future getCategoryProduct(String category) async {
     List<GSRecommendedModel> list = [];
     for (int i = 0; i < countListData; i++) {
       var value = listData[i];
-      int id = value['id_product'];
+      int id = int.parse(value['id_product']);
       String name = value['name'];
       String description = value['description'];
       double price = double.parse(value['price']);
-      int ranking = value['ranking'];
+      int ranking = int.parse(value['ranking']);
       String image = imageSource + value['image'];
       double discount = double.parse(value['discount']);
-      int quantity = value['quantity'];
+      int quantity = int.parse(value['quantity']);
       // int id_category = value['id_category'];
 
       double salePrice = price - (price * discount / 100);
@@ -184,13 +184,18 @@ Future getCategoryProduct(String category) async {
         ),
       );
     }
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('${category}_product', jsonEncode(list));
     return list;
   } else {}
 }
 
-Future getUserCart(String username) async {
-  var uri = Uri.parse('$baseUrl/get_cart_product/$username');
-  var response = await http.get(uri);
+Future getUserCart(String username, String password) async {
+  var uri = Uri.parse('$baseUrl/get_cart_product');
+  var response = await http.post(uri, body: {
+    'username': username,
+    'password': password,
+  });
   var data = json.decode(utf8.decode(response.bodyBytes));
   if (data['status'] == 'success') {
     var listData = data['data'];
@@ -198,15 +203,15 @@ Future getUserCart(String username) async {
     List<GSRecommendedModel> list = [];
     for (int i = 0; i < countListData; i++) {
       var value = listData[i];
-      int id = value['id_product'];
+      int id = int.parse(value['id_product']);
       String name = value['name'];
       String description = value['description'];
       double price = double.parse(value['price']);
-      int ranking = value['ranking'];
+      int ranking = int.parse(value['ranking']);
       String image = imageSource + value['image'];
       double discount = double.parse(value['discount']);
-      int quantity = value['quantity'];
-      int amount = value['amount'];
+      int quantity = int.parse(value['quantity']);
+      int amount = int.parse(value['amount']);
       // int id_category = value['id_category'];
 
       double salePrice = price - (price * discount / 100);
@@ -225,13 +230,19 @@ Future getUserCart(String username) async {
         ),
       );
     }
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('user_cart', jsonEncode(list));
     return list;
   } else {}
 }
 
-Future getOrderProduct(String idOrder) async {
-  var uri = Uri.parse('$baseUrl/get_order_product/$idOrder');
-  var response = await http.get(uri);
+Future getOrderProduct(String username, String password, String idOrder) async {
+  var uri = Uri.parse('$baseUrl/get_order_product');
+  var response = await http.post(uri, body: {
+    'username': username,
+    'password': password,
+    'id_order': idOrder,
+  });
   var data = json.decode(utf8.decode(response.bodyBytes));
   if (data['status'] == 'success') {
     var listData = data['data'];
@@ -239,15 +250,15 @@ Future getOrderProduct(String idOrder) async {
     List<GSRecommendedModel> list = [];
     for (int i = 0; i < countListData; i++) {
       var value = listData[i];
-      int id = value['id_product'];
+      int id = int.parse(value['id_product']);
       String name = value['name'];
       String description = value['description'];
       double price = double.parse(value['price']);
-      int ranking = value['ranking'];
+      int ranking = int.parse(value['ranking']);
       String image = imageSource + value['image'];
       double discount = double.parse(value['discount']);
-      int quantity = value['quantity'];
-      int amount = value['amount'];
+      int quantity = int.parse(value['quantity']);
+      int amount = int.parse(value['amount']);
       // int id_category = value['id_category'];
 
       double salePrice = price - (price * discount / 100);
@@ -266,13 +277,19 @@ Future getOrderProduct(String idOrder) async {
         ),
       );
     }
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('product_order_$idOrder', jsonEncode(list));
     return list;
   } else {}
 }
 
-Future getOrderStatus(String user, String status) async {
-  var uri = Uri.parse('$baseUrl/get_order_status/$user/$status');
-  var response = await http.get(uri);
+Future getOrderStatus(String username, String password, String status) async {
+  var uri = Uri.parse('$baseUrl/get_order_status');
+  var response = await http.post(uri, body: {
+    'username': username,
+    'password': password,
+    'status': status,
+  });
   if (response.statusCode == 200) {
     var data = json.decode(utf8.decode(response.bodyBytes));
     if (data['status'] == 'success' && data['data'][0] != false) {
@@ -309,6 +326,8 @@ Future getOrderStatus(String user, String status) async {
             address: address,
             orderId: idOrder));
       }
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('order_$status', jsonEncode(list));
       return list;
     } else {
       return [];
@@ -316,33 +335,33 @@ Future getOrderStatus(String user, String status) async {
   }
 }
 
-List<GSAddressModel> getAddressList() {
-  List<GSAddressModel> list = [];
-  list.add(GSAddressModel(
-      address: "1980  Cicero Street",
-      city: "Malden",
-      state: "MO",
-      pinCode: "63863"));
-  list.add(GSAddressModel(
-      address: "122 Bessida St, Bloomfield, NJ, 07003",
-      city: "Cicero",
-      state: "IL",
-      pinCode: "60650"));
-  return list;
-}
+// List<GSAddressModel> getAddressList() {
+//   List<GSAddressModel> list = [];
+//   list.add(GSAddressModel(
+//       address: "1980  Cicero Street",
+//       city: "Malden",
+//       state: "MO",
+//       pinCode: "63863"));
+//   list.add(GSAddressModel(
+//       address: "122 Bessida St, Bloomfield, NJ, 07003",
+//       city: "Cicero",
+//       state: "IL",
+//       pinCode: "60650"));
+//   return list;
+// }
 
-List<GSPromoModel> getPromoList() {
-  List<GSPromoModel> list = [];
-  list.add(GSPromoModel(
-      promoImage: gs_slider_image1,
-      offer: "Fruits 30% Off Promos",
-      offerDate: "Available until 20 Feb 2020"));
-  list.add(GSPromoModel(
-      promoImage: gs_slider_image2,
-      offer: "Grocery 30% Off Promos",
-      offerDate: "Available until 25 Feb 2020"));
-  return list;
-}
+// List<GSPromoModel> getPromoList() {
+//   List<GSPromoModel> list = [];
+//   list.add(GSPromoModel(
+//       promoImage: gs_slider_image1,
+//       offer: "Fruits 30% Off Promos",
+//       offerDate: "Available until 20 Feb 2020"));
+//   list.add(GSPromoModel(
+//       promoImage: gs_slider_image2,
+//       offer: "Grocery 30% Off Promos",
+//       offerDate: "Available until 25 Feb 2020"));
+//   return list;
+// }
 
 List<GSNotificationModel> getNotificationList() {
   List<GSNotificationModel> list = [];

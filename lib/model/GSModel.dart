@@ -48,6 +48,38 @@ class GSRecommendedModel {
       this.qty,
       this.total,
       this.ranking});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'offer': offer,
+      'image': image,
+      'salePrice': salePrice,
+      'price': price,
+      'title': title,
+      'quantity': quantity,
+      'description': description,
+      'qty': qty,
+      'total': total,
+      'ranking': ranking,
+    };
+  }
+
+  factory GSRecommendedModel.fromJson(Map<String, dynamic> json) {
+    return GSRecommendedModel(
+      id: json['id'],
+      offer: json['offer'],
+      image: json['image'],
+      salePrice: json['salePrice'],
+      price: json['price'],
+      title: json['title'],
+      quantity: json['quantity'],
+      description: json['description'],
+      qty: json['qty'],
+      total: json['total'],
+      ranking: json['ranking'],
+    );
+  }
 }
 
 class GSMyOrderModel {
@@ -67,6 +99,30 @@ class GSMyOrderModel {
       this.address,
       this.cost,
       this.orderId});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'date': date,
+      'orderStatus': orderStatus,
+      'image': image,
+      'address': address,
+      'cost': cost,
+      'orderId': orderId,
+    };
+  }
+
+  factory GSMyOrderModel.fromJson(Map<String, dynamic> json) {
+    return GSMyOrderModel(
+      title: json['title'],
+      date: json['date'],
+      orderStatus: json['orderStatus'],
+      image: json['image'],
+      address: json['address'],
+      cost: json['cost'],
+      orderId: json['orderId'],
+    );
+  }
 }
 
 class GSAddressModel {

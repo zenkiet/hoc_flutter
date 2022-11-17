@@ -69,7 +69,7 @@ class GSSplashScreenState extends State<GSSplashScreen>
           children: [
             ScaleTransition(
                 scale: animation,
-                child: Image.asset(gs_app_logo,
+                child: Image.asset(appLogo,
                     height: 140, width: 180, fit: BoxFit.cover)),
             8.height,
             Text(GSAppName,

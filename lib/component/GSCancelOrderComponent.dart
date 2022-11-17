@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -31,11 +33,25 @@ class GSOrderCanceledComponentState extends State<GSOrderCanceledComponent> {
   }
 
   init() async {
-    final pref = await SharedPreferences.getInstance();
-    String username = pref.getString('username')!;
-    var data = await getOrderStatus(username, 'canceled');
+    final prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString('username')!;
+    String password = prefs.getString('password')!;
+    if (prefs.containsKey('order_canceled')) {
+      String orderCanceled = prefs.getString('order_canceled')!;
+      try {
+        List data = jsonDecode(orderCanceled);
+        shipppingOrderList
+            .addAll(data.map((e) => GSMyOrderModel.fromJson(e)).toList());
+      } catch (e) {
+        shipppingOrderList =
+            await getOrderStatus(username, password, 'canceled');
+      }
+    } else {
+      shipppingOrderList = await getOrderStatus(username, password, 'canceled');
+    }
+
     setState(() {
-      shipppingOrderList = data;
+      shipppingOrderList = shipppingOrderList;
     });
   }
 

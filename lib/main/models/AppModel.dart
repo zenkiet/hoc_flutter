@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AppModel {
@@ -62,34 +62,34 @@ class AppModel {
   }
 }
 
-class SuggestionModel {
-  String? name;
-  String? email;
-  String? feedback;
-  String? id;
-  Timestamp? timestamp;
+// class SuggestionModel {
+//   String? name;
+//   String? email;
+//   String? feedback;
+//   String? id;
+//   Timestamp? timestamp;
 
-  SuggestionModel(
-      {this.name, this.email, this.feedback, this.id, this.timestamp});
+//   SuggestionModel(
+//       {this.name, this.email, this.feedback, this.id, this.timestamp});
 
-  factory SuggestionModel.fromJson(Map<String, dynamic> json) {
-    return SuggestionModel(
-      name: json['name'],
-      email: json['email'],
-      feedback: json['feedback'],
-      id: json['id'],
-      timestamp: json['timestamp'],
-    );
-  }
+//   factory SuggestionModel.fromJson(Map<String, dynamic> json) {
+//     return SuggestionModel(
+//       name: json['name'],
+//       email: json['email'],
+//       feedback: json['feedback'],
+//       id: json['id'],
+//       timestamp: json['timestamp'],
+//     );
+//   }
 
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['email'] = email;
-    data['feedback'] = feedback;
-    data['timestamp'] = timestamp;
+//   Map<String, dynamic> toJson() {
+//     Map<String, dynamic> data = <String, dynamic>{};
+//     data['id'] = id;
+//     data['name'] = name;
+//     data['email'] = email;
+//     data['feedback'] = feedback;
+//     data['timestamp'] = timestamp;
 
-    return data;
-  }
-}
+//     return data;
+//   }
+// }

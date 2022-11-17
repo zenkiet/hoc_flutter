@@ -13,6 +13,7 @@ import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/main/store/AppStore.dart';
+import 'package:shop_order/utils/GSDataProvider.dart';
 
 // Redirect
 // import 'GSAddressScreen.dart';
@@ -32,6 +33,8 @@ class GSAccountScreen extends StatefulWidget {
 
 class GSAccountScreenState extends State<GSAccountScreen> {
   File? profileImage;
+  String fullname = '';
+  String email = '';
 
   @override
   void initState() {
@@ -40,7 +43,14 @@ class GSAccountScreenState extends State<GSAccountScreen> {
   }
 
   init() async {
-    //
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString('username')!;
+    String password = prefs.getString('password')!;
+    var data = await getUserInfo(username, password);
+    setState(() {
+      fullname = data[0].fullname;
+      email = data[0].email;
+    });
   }
 
   dialogWidget(dialogContext) {
@@ -127,8 +137,8 @@ class GSAccountScreenState extends State<GSAccountScreen> {
                     fit: BoxFit.fill,
                   ).cornerRadiusWithClipRRect(60).center().paddingTop(16),
             8.height,
-            Text("John", style: boldTextStyle(size: 18)),
-            Text("John@gmail.com", style: secondaryTextStyle()),
+            Text(fullname, style: boldTextStyle(size: 18)),
+            Text(email, style: secondaryTextStyle()),
             16.height,
             AppButton(
               color: primaryColor,
@@ -180,6 +190,7 @@ logout(var context) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   AppStore appStore = AppStore();
   prefs.remove('username');
+  prefs.remove('password');
   appStore.isLoggedIn = false;
   const GSLoginScreen().launch(context, isNewTask: true);
 }

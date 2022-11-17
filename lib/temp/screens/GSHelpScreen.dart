@@ -55,9 +55,9 @@
 //         children: [
 //           helpWidget("Grocery Care", gs_headphone),
 //           Divider(),
-//           helpWidget("Terms and condition", gs_next_icon),
+//           helpWidget("Terms and condition", nextImage),
 //           Divider(),
-//           helpWidget("Privacy", gs_next_icon),
+//           helpWidget("Privacy", nextImage),
 //         ],
 //       ),
 //     );

@@ -55,7 +55,8 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
   init() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String username = prefs.getString('username')!;
-    var data = await getUserInfo(username);
+    String password = prefs.getString('password')!;
+    var data = await getUserInfo(username, password);
     setState(() {
       nameController.text = data[0].fullname;
       emailController.text = data[0].email;

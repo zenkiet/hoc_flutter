@@ -51,8 +51,9 @@ class GSCheckOutScreenState extends State<GSCheckOutScreen> {
   init() async {
     final prefs = await SharedPreferences.getInstance();
     String username = prefs.getString('username') ?? '';
-    var data = await getUserInfo(username);
-    var dataProduct = await getUserCart(username);
+    String password = prefs.getString('password') ?? '';
+    var data = await getUserInfo(username, password);
+    var dataProduct = await getUserCart(username, password);
     setState(() {
       userInfo = data;
       fullname = userInfo[0].fullname!;

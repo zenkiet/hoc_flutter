@@ -1,9 +1,6 @@
-import 'package:shop_order/utils/AppConstants.dart';
+// ignore_for_file: file_names
 
 const welcomeImage = 'assets/welcome.png';
-
-const gs_app_logo = 'images/groceryApp/logo.png';
-
 const avatarLogo = 'assets/avatar.png';
 const appLogo = 'assets/app_shop.png';
 
@@ -30,33 +27,33 @@ const List<String> imageSlider = [
   'assets/slider/2.png',
   'assets/slider/3.png',
 ];
+
 const addImage = 'assets/add_icon.png';
 const minusImage = 'assets/minus_icon.png';
 const imageSource = 'assets/products/';
 const emptyCartImage = 'assets/app/empty_cart.png';
 const mapImage = 'assets/app/map.png';
 const successFullImage = 'assets/app/success.png';
+const nextImage = 'assets/app/next_icon.png';
+const nagivateNextImage = 'assets/app/navigate_next.png';
 
-const gs_slider_image1 = 'images/groceryApp/slider_image1.png';
-const gs_slider_image2 = 'images/groceryApp/slider_image2.png';
-const gs_slider_image3 = 'images/groceryApp/slider_image3.png';
-
-const gs_carrot_img = 'images/groceryApp/carrot.png';
-const gs_cauliflower_img = 'images/groceryApp/cauliflower.png';
-const gs_pineappple_img = 'images/groceryApp/pineapple.png';
-const gs_assian_pear = 'images/groceryApp/assian_pear.png';
-const gs_next_icon = 'images/groceryApp/next_icon.png';
-
-const gs_coupon = 'images/groceryApp/coupon.png';
-const gs_successful_img = 'images/groceryApp/successfully.png';
-const gs_cash_icon = 'images/groceryApp/cash_icon.png';
-const gs_paypal_icon = 'images/groceryApp/paypal_icon.png';
-const gs_visa_icon = 'images/groceryApp/visa_icon.png';
-const gs_next = 'assets/navigate_next.png';
-const gs_user = 'images/groceryApp/user.jpeg';
-const gs_headphone = 'images/groceryApp/headphones.png';
 
 // const gs_app_logo_white
 // const gs_apple_icon
 // const gs_google_icon
 // const gs_map_img
+// const gs_coupon 
+// const gs_successful_img 
+// const gs_cash_icon 
+// const gs_paypal_icon 
+// const gs_visa_icon
+// const gs_carrot_img
+// const gs_cauliflower_img
+// const gs_pineappple_img
+// const gs_assian_pear
+// const gs_user 
+// const gs_headphone 
+
+// const gs_slider_image1
+// const gs_slider_image2
+// const gs_slider_image3

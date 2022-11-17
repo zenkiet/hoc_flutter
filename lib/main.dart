@@ -1,10 +1,11 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:onesignal_flutter/onesignal_flutter.dart';
-// import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 // Source
 import 'package:shop_order/main/store/AppStore.dart';
@@ -23,10 +24,12 @@ void main() async {
   await initialize();
   appStore.toggleDarkMode(value: getBoolAsync(DarkModePref));
   appStore.setLoggedIn(getBoolAsync(IsLoggedInSocialLogin));
+
   // runApp(DevicePreview(
   //   enabled: !kReleaseMode,
   //   builder: (context) => const MyApp(), // Wrap your app
-  // ));
+  // )); //! Debug
+
   runApp(const MyApp());
 }
 
@@ -43,6 +46,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.white,
           brightness: Brightness.light,
           fontFamily: GoogleFonts.poppins().fontFamily,
+          accentColor: appPrimaryColor,
           indicatorColor: appPrimaryColor,
           scaffoldBackgroundColor: Colors.white,
           iconTheme: const IconThemeData(color: scaffoldSecondaryDark),
@@ -50,8 +54,6 @@ class MyApp extends StatelessWidget {
           dialogTheme: const DialogTheme(backgroundColor: Colors.white),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: Colors.white),
-          colorScheme:
-              ColorScheme.fromSwatch().copyWith(secondary: appPrimaryColor),
         ).copyWith(
           pageTransitionsTheme: const PageTransitionsTheme(
             builders: <TargetPlatform, PageTransitionsBuilder>{
@@ -64,6 +66,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.white,
           brightness: Brightness.dark,
           fontFamily: GoogleFonts.poppins().fontFamily,
+          accentColor: appPrimaryColor,
           indicatorColor: appPrimaryColor,
           scaffoldBackgroundColor: scaffoldColorDark,
           iconTheme: const IconThemeData(color: Colors.white),
@@ -71,8 +74,6 @@ class MyApp extends StatelessWidget {
           dialogTheme: const DialogTheme(backgroundColor: scaffoldColorDark),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: scaffoldSecondaryDark),
-          colorScheme:
-              ColorScheme.fromSwatch().copyWith(secondary: appPrimaryColor),
         ).copyWith(
           pageTransitionsTheme: const PageTransitionsTheme(
             builders: <TargetPlatform, PageTransitionsBuilder>{
@@ -90,8 +91,8 @@ class MyApp extends StatelessWidget {
     // return MaterialApp(
     //   title: 'Zen Shop Order',
     //   useInheritedMediaQuery: true,
-    //   // locale: DevicePreview.locale(context),
-    //   // builder: DevicePreview.appBuilder,
+    //   locale: DevicePreview.locale(context),
+    //   builder: DevicePreview.appBuilder,
     //   theme: ThemeData.light(),
     //   darkTheme: ThemeData.dark(),
     //   debugShowCheckedModeBanner: false, //? xoá logo Debug

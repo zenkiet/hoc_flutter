@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shop_order/component/GSCategoryListDetailsComponent.dart';
 import 'package:shop_order/model/GSModel.dart';
@@ -20,9 +22,18 @@ class GSCategoryListDetailsScreen extends StatefulWidget {
       GSCategoryListDetailsScreenState();
 }
 
-categoryProduct(String category) async {
-  var result = await getCategoryProduct(category);
-  return result;
+getCategoryCode(category) {
+  if (category == 'Bánh') {
+    return 'cake';
+  } else if (category == 'Kẹo') {
+    return 'candy';
+  } else if (category == 'Đồ Chiên') {
+    return 'fastfood';
+  } else if (category == 'Trái Cây') {
+    return 'fruit';
+  } else if (category == 'Kem') {
+    return 'icecream';
+  }
 }
 
 class GSCategoryListDetailsScreenState
@@ -49,7 +60,22 @@ class GSCategoryListDetailsScreenState
   }
 
   init() async {
-    categoryDetailsList = await categoryProduct(widget.categoryName!);
+    String category = widget.categoryName!;
+    category = getCategoryCode(category);
+
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("${category}_product")) {
+      String categoryDetails = prefs.getString("${category}_product")!;
+      try {
+        List data = jsonDecode(categoryDetails);
+        categoryDetailsList
+            .addAll(data.map((e) => GSRecommendedModel.fromJson(e)).toList());
+      } catch (e) {
+        categoryDetailsList = await getCategoryProduct(category);
+      }
+    } else {
+      categoryDetailsList = await getCategoryProduct(category);
+    }
     setState(() {});
   }
 

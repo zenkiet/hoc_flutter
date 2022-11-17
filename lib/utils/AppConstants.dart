@@ -1,5 +1,6 @@
 const MainAppName = 'Zen Shop Order';
-const baseUrl = 'https://cloneshoporder.local/api';
+// const baseUrl = 'https://cloneshoporder.local/api'; //! Debug Local
+const baseUrl = 'https://shop.zenfection.com/api';
 
 //region Constants
 // const ThemeTypeFullApp = 'ThemeTypeFullApp';

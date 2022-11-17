@@ -1,8 +1,14 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:shop_order/main/utils/AppColors.dart';
-import 'package:shop_order/utils/AppConstants.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+// Source
+import 'package:shop_order/main/models/AppModel.dart';
+import 'package:shop_order/main/utils/AppColors.dart';
+import 'package:shop_order/model/GSModel.dart';
+import 'package:shop_order/utils/AppConstants.dart';
 
 part 'AppStore.g.dart';
 
@@ -18,12 +24,19 @@ abstract class AppStoreBase with Store {
   @observable
   bool isLoggedIn = false;
 
+  List<GSRecommendedModel> listTopDiscount = [];
+
   @observable
   Color cardColor = Colors.white;
 
   @action
   void setLoggedIn(bool val) {
     isLoggedIn = val;
+  }
+
+  @action
+  List<GSRecommendedModel> getListDiscount() {
+    return listTopDiscount;
   }
 
   @action

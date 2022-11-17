@@ -117,7 +117,7 @@
 //                             style: secondaryTextStyle(size: 12))
 //                         .expand(),
 //                     Image.asset(
-//                       gs_next_icon,
+//                       nextImage,
 //                       width: 20,
 //                       height: 20,
 //                       color: Colors.grey,

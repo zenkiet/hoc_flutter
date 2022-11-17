@@ -34,7 +34,8 @@ class GSSuccessfulOrderScreenState extends State<GSSuccessfulOrderScreen> {
     setStatusBarColor(primaryColor);
     final prefs = await SharedPreferences.getInstance();
     String username = prefs.getString('username') ?? '';
-    var data = await getUserInfo(username);
+    String password = prefs.getString('password') ?? '';
+    var data = await getUserInfo(username, password);
     setState(() {
       fullname = data[0].fullname;
     });

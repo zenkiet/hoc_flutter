@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:crypto/crypto.dart';
 
 // Source
 import 'package:shop_order/main/store/AppStore.dart';
@@ -168,18 +169,29 @@ class GSLoginScreenState extends State<GSLoginScreen> {
 
   Future loginUser(String username, String password) async {
     // ignore: unnecessary_brace_in_string_interps
-    var uri = Uri.parse('$baseUrl/login/${username}/${password}');
-    var response =
-        await http.get(uri, headers: {'Content-Type': 'application/json'});
-    var data = json.decode(utf8.decode(response.bodyBytes));
+    //*  http post
+    String md5password = md5.convert(utf8.encode(password)).toString();
+    // String baseUrl = 'http://localhost:7316/api';
+    var uri = Uri.parse('$baseUrl/login');
+    var response = await http.post(uri,
+        body: (<String, String>{
+          'username': username,
+          'password': md5password,
+        }));
 
-    if (data['status'] == 'failed') {
-      return Future.value(false);
-    } else {
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('username', username);
-      appStore.isLoggedIn = true;
-      goMainScreen();
+    if (response.statusCode == 200) {
+      var data = json.decode(utf8.decode(response.bodyBytes));
+      if (data['status'] == 'success') {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('username', username);
+        prefs.setString('password', md5password);
+        appStore.isLoggedIn = true;
+        goMainScreen();
+      } else if (data['status'] == 'error') {
+        log(data['message']);
+      } else if (data['status'] == 'failed') {
+        log(data['message']);
+      }
     }
   }
 

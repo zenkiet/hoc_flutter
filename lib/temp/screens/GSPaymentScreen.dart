@@ -79,7 +79,7 @@
 //                       children: [
 //                         Row(
 //                           children: [
-//                             commonCacheImageWidget(gs_next, 24, width: 24, fit: BoxFit.cover),
+//                             commonCacheImageWidget(nagivateNextImage, 24, width: 24, fit: BoxFit.cover),
 //                             16.width,
 //                             Text("My Voucher", style: boldTextStyle()).expand(),
 //                             Icon(Icons.navigate_next_outlined, color: primaryColor),
@@ -88,7 +88,7 @@
 //                         32.height,
 //                         Row(
 //                           children: [
-//                             commonCacheImageWidget(gs_next, 24, width: 24, fit: BoxFit.cover),
+//                             commonCacheImageWidget(nagivateNextImage, 24, width: 24, fit: BoxFit.cover),
 //                             16.width,
 //                             Text("Gift Card", style: boldTextStyle()).expand(),
 //                             Icon(Icons.navigate_next_outlined, color: primaryColor),

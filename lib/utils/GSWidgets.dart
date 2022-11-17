@@ -79,7 +79,7 @@ Widget profileWidget(String title, String description) {
           Text(description, style: secondaryTextStyle()),
         ],
       ),
-      Image.asset(gs_next_icon,
+      Image.asset(nextImage,
           height: 20, width: 20, fit: BoxFit.cover, color: primaryColor)
     ],
   ).paddingOnly(top: 8, bottom: 8, left: 16, right: 16);
@@ -156,7 +156,7 @@ bottomFilterDialog(BuildContext context, String title, List list,
                                 ).expand(),
                                 tappedIndex == index
                                     ? Image.asset(
-                                        gs_next_icon,
+                                        nextImage,
                                         color: primaryColor,
                                         height: 18,
                                         width: 18,

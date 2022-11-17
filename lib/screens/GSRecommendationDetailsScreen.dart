@@ -143,7 +143,7 @@ class GSRecommendationDetailsScreenState
                           Text("(Tính năng đăng phát triển)",
                                   style: secondaryTextStyle(size: 12))
                               .expand(),
-                          Image.asset(gs_next_icon,
+                          Image.asset(nextImage,
                               width: 20,
                               height: 20,
                               color: const Color.fromARGB(255, 219, 210, 210)),

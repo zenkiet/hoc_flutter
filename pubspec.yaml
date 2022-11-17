@@ -42,18 +42,19 @@ dependencies:
   image_picker: ^0.8.6
   country_code_picker: ^2.0.2
   cached_network_image: ^3.2.2
-  cloud_firestore: ^4.0.4
   flutter_mobx: ^2.0.6+4
   google_fonts: ^3.0.1
-  onesignal_flutter: ^3.4.2
   flutter_slidable: ^2.0.0
   timeline_tile: ^2.0.0
-  pin_code_fields: ^7.4.0
   dots_indicator: ^2.1.0
   font_awesome_flutter: ^10.2.1
   flutter_format_money_vietnam: ^0.0.2
   shared_preferences: ^2.0.15
   fluttertoast: ^8.1.1
+  
+  # cloud_firestore: ^4.0.4
+  # onesignal_flutter: ^3.4.2
+  # pin_code_fields: ^7.4.0
   
 dev_dependencies:
   flutter_test:
@@ -83,41 +84,6 @@ flutter:
     - assets/category/
     - assets/slider/
     - assets/app/
-    - images/
-    - images/app/
-    - images/app/abstract_icons/
-    - images/eGarden/
-    - images/handyman/
-    - images/smartHome/
-    - images/VPNApp/
-    - images/widgets/materialWidgets/
-    - images/widgets/materialWidgets/mwAppStructureWidgets/BottomNavigation/
-    - images/widgets/materialWidgets/mwAppStructureWidgets/TabBar/
-    - images/widgets/materialWidgets/mwDialogAlertPanelWidgets/
-    - images/widgets/materialWidgets/mwInputSelectionWidgets/Checkbox/
-    - images/widgets/materialWidgets/mwInputSelectionWidgets/switch/
-    - images/widgets/materialWidgets/mwInformationDisplayWidgets/cards/
-    - images/widgets/materialWidgets/mwInformationDisplayWidgets/category/
-    - images/widgets/materialWidgets/mwInformationDisplayWidgets/gridview/
-    - images/widgets/materialWidgets/mwInformationDisplayWidgets/listView/
-    - images/widgets/cupertinoWidgets/
-    - images/widgets/paintingandeffectWidget/
-    - images/LikeButton/image/
-    - images/snippet/
-    - images/Meela/
-    - images/rentHouse/
-    - images/groceryApp/
-    - images/foodDelivery/
-    - images/finance/
-    - images/storyView/
-    - images/yoga/
-    - images/newsblog/
-    - images/iiumiaCrypto/
-    - images/toDoList/
-    - images/eStudy/
-    - images/nft/
-    - images/meditationApp/
-    - images/Travel/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

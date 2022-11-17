@@ -1,4 +1,6 @@
 // ignore_for_file: file_names
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -7,12 +9,10 @@ import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/GSConstants.dart';
 import 'package:shop_order/utils/GSDataProvider.dart';
 import 'package:shop_order/utils/GSImages.dart';
-
-import 'package:shop_order/main.dart';
-
 import 'package:shop_order/main/utils/AppColors.dart';
-
 import 'package:shop_order/model/GSModel.dart';
+import 'package:shop_order/main/store/AppStore.dart';
+// import 'package:shop_order/main.dart';
 
 import 'package:shop_order/component/GSRecommendedListComponent.dart';
 import 'package:shop_order/component/GSCategoryListComponent.dart';
@@ -30,17 +30,8 @@ class GSDashboardScreen extends StatefulWidget {
   GSDashboardScreenState createState() => GSDashboardScreenState();
 }
 
-getProducDiscount() async {
-  var result = await getTopDiscount(10);
-  return result;
-}
-
-getProdcutDiscount() async {
-  var result = await getTopRanking(10);
-  return result;
-}
-
 class GSDashboardScreenState extends State<GSDashboardScreen> {
+  AppStore appStore = AppStore();
   List<SliderModel> sliderList = getSliderList();
   List<CategoryModel> categoryList = getCategoryList();
   List<GSRecommendedModel> listTopDiscount = [];
@@ -52,14 +43,41 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
 
   @override
   void initState() {
-    super.initState();
     init();
+    super.initState();
   }
 
   init() async {
-    listTopDiscount = await getProducDiscount();
-    listTopRanking = await getProdcutDiscount();
-    setState(() {});
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('top_discount')) {
+      String topDiscount = prefs.getString('top_discount')!;
+      try {
+        List data = jsonDecode(topDiscount);
+        listTopDiscount
+            .addAll(data.map((e) => GSRecommendedModel.fromJson(e)).toList());
+      } catch (e) {
+        listTopDiscount = await getTopDiscount(10);
+      }
+    } else {
+      listTopDiscount = await getTopDiscount(10);
+    }
+
+    if (prefs.containsKey('top_ranking')) {
+      String topRanking = prefs.getString('top_ranking')!;
+      try {
+        List data = jsonDecode(topRanking);
+        listTopRanking
+            .addAll(data.map((e) => GSRecommendedModel.fromJson(e)).toList());
+      } catch (e) {
+        listTopRanking = await getTopRanking(10);
+      }
+    } else {
+      listTopRanking = await getTopRanking(10);
+    }
+    setState(() {
+      listTopDiscount = listTopDiscount;
+      listTopRanking = listTopRanking;
+    });
   }
 
   @override
@@ -102,7 +120,7 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                         : Colors.black),
                 onPressed: () {
                   hideKeyboard(context);
-                  GSNotificationScreen().launch(context);
+                  const GSNotificationScreen().launch(context);
                 },
               ),
             ],
